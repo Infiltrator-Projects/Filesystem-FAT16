@@ -1,5 +1,7 @@
 # Filesystem-FAT16
 
+**Final design:** [FAT16.so is the sole distributed filesystem driver](docs/ONE_MODULE_END_STATE.md). BOOT, the kernel and applications will consume the same module using generic adapters. Linux `.ko` and UEFI `.efi` code in this repository is transitional, not three permanent FAT16 products. This is a target, not a claim that universal loading is already implemented.
+
 Independent InfiltratorOS FAT16 filesystem repository. One repository is authoritative for exactly one installed shared-object module: `/System/Filesystems/FAT16.so`.
 
 ## Actual status
@@ -13,7 +15,7 @@ The full source was copied from Infiltrator-Projects/Filesystems, pinned to comm
 - This repository: fat16 interpretation, read/write/file APIs, formatting, allocation, fat16 relocation, journal/recovery, format-specific kernel and EFI source and tests.
 - Filesystems: discovery, selection and management; it must not silently overwrite or install a second copy of this module after package ownership transfers.
 - Defragmenter: the worker and UI; it dynamically loads the installed `FAT16.so` and calls `infiltrator_filesystem_defrag_v1` via the existing versioned host ABI.
-- Linux: module `fat16.ko` is experimental and requires a compatible host FAT core. Firmware `FAT16.efi` uses a pinned EDK2 framework. Those two formats are NOT included in the initial `.so` package; independent qualification and separate installer policy are required first.
+- Linux/UEFI transition: existing `fat16.ko` and `FAT16.efi` implementation and tests remain useful for compatibility and qualification. BOOT and the future kernel must instead consume the **same `FAT16.so`** through generic loaders when the universal interface passes runtime tests. This is not yet implemented.
 
 ## Filesystem qualification scope
 
