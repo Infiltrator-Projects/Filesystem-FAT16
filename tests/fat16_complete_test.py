@@ -63,6 +63,24 @@ class V5(C.Structure):
                     "metadata", "set_times", "get_label", "set_label", "set_codepage", "flush")]
 
 
+class BootIo(C.Structure):
+    _fields_ = [("context", C.c_void_p), ("media_bytes", C.c_uint64),
+                ("block_bytes", C.c_uint32), ("structure_bytes", C.c_uint32),
+                ("read_at", READ)]
+
+
+class BootV1(C.Structure):
+    _fields_ = [("version", C.c_uint32), ("size", C.c_uint32),
+                ("format", C.c_char * 16), ("context_bytes", C.c_uint32),
+                ("reserved", C.c_uint32)] + [(n, C.c_void_p) for n in (
+                    "mount", "unmount", "open", "close", "read", "directory_entry", "volume_label")]
+
+
+class BootInfo(C.Structure):
+    _fields_ = [("bytes", C.c_uint64), ("attributes", C.c_uint32),
+                ("reserved", C.c_uint32), ("name", C.c_char * 768)]
+
+
 def date(y, m, d):
     return ((y - 1980) << 9) | (m << 5) | d
 
@@ -422,6 +440,39 @@ def maximum_file_test(api, work):
     h.close()
 
 
+def boot_geometry_test(api, work):
+    api.lib.infiltrator_filesystem_boot_v1.restype = C.POINTER(BootV1)
+    b = api.lib.infiltrator_filesystem_boot_v1().contents
+    assert b.version == 1 and b.size == C.sizeof(BootV1)
+    mount = C.CFUNCTYPE(C.c_int, C.POINTER(BootIo))(b.mount)
+    unmount = C.CFUNCTYPE(C.c_int)(b.unmount)
+    open_file = C.CFUNCTYPE(C.c_int, C.c_char_p, C.c_void_p, C.POINTER(BootInfo))(b.open)
+    close_file = C.CFUNCTYPE(C.c_int, C.c_void_p)(b.close)
+    read_file = C.CFUNCTYPE(C.c_int, C.c_void_p, C.c_uint64, C.c_void_p, C.c_uint32, C.POINTER(C.c_uint32))(b.read)
+    for sector in (512, 1024, 2048, 4096):
+        p = work / 'boot-sector.img'
+        fixture(p, clusters=4087, bps=sector)
+        h = Host(p, sector)
+        assert api.mount(C.byref(h.io)) == 0
+        assert api.create(b'0:/KERNEL.BIN') == 0
+        assert api.write(b'0:/KERNEL.BIN', 0, b'boot geometry', 13) == 0
+        assert api.unmount() == 0
+        writes = h.writes
+        before = hashlib.sha256(p.read_bytes()).digest()
+        for block in (512, 4096):
+            io = BootIo(None, h.io.partition_bytes, block, C.sizeof(BootIo), h.callbacks[0])
+            assert mount(C.byref(io)) == 0, (sector, block)
+            context = (C.c_uint64 * ((b.context_bytes + 7) // 8))()
+            info, got, out = BootInfo(), C.c_uint32(), C.create_string_buffer(13)
+            assert open_file(b'/KERNEL.BIN', context, C.byref(info)) == 0
+            assert info.bytes == 13
+            assert read_file(context, 0, out, 13, C.byref(got)) == 0
+            assert got.value == 13 and out.raw == b'boot geometry'
+            assert close_file(context) == 0 and unmount() == 0
+        assert h.writes == writes and hashlib.sha256(p.read_bytes()).digest() == before
+        h.close()
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--module', type=Path, required=True)
@@ -433,6 +484,7 @@ def main():
         geometry_test(api, work)
         codepage_test(api, work)
         maximum_file_test(api, work)
+        boot_geometry_test(api, work)
     print('FAT16-V5-METADATA-LABEL-CODEPAGE-GEOMETRY-MAXFILE-PASS')
 
 

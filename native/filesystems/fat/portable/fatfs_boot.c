@@ -49,10 +49,19 @@ static int result(FRESULT status) {
     return IFS_BOOT_INVALID;
 }
 static int IFS_BOOT_CALL boot_mount(const IfsBootIo *io) {
-    if (!io || io->structure_bytes != sizeof(*io) || !io->read_at || boot_mounted)
+    uint8_t bpb[512];
+    if (!io || io->structure_bytes != sizeof(*io) || !io->read_at || boot_mounted ||
+        io->media_bytes < sizeof(bpb))
         return IFS_BOOT_INVALID;
+    if (io->read_at(io->context, 0, bpb, sizeof(bpb)) != 0)
+        return IFS_BOOT_IO_ERROR;
+    /* BlockIo describes device blocks; FAT's BPB describes filesystem
+     * sectors. The generic host already supplies arbitrary bounded bytes. */
+    uint32_t sector_bytes = (uint32_t)bpb[11] | (uint32_t)bpb[12] << 8;
+    if (sector_bytes < 512u || sector_bytes > 4096u ||
+        (sector_bytes & (sector_bytes - 1u))) return IFS_BOOT_INVALID;
     boot_io = *io;
-    IfsFatfsIo device = {0, io->media_bytes, io->block_bytes,
+    IfsFatfsIo device = {0, io->media_bytes, sector_bytes,
                          read_at, deny_write, no_flush, no_time};
     if (ifs_fatfs_boot_attach(&device) != 0)
         return IFS_BOOT_INVALID;
