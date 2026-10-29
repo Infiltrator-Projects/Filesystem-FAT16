@@ -21,7 +21,7 @@ before=$(sha256sum "$work/foreign.img")
 fsck.fat -n "$work/own.img"
 "$work/v3" "$module" "$work/own.img" "$work/foreign.img" cleanup
 test "$(sha256sum "$work/foreign.img")" = "$before"
-for sector in 512 4096; do
+for sector in 512 1024 2048 4096; do
     truncate -s 32M "$work/format-$sector.img"
     "$work/v4" "$module" "$work/format-$sector.img" "$sector" 4096
     fsck.fat -n "$work/format-$sector.img"

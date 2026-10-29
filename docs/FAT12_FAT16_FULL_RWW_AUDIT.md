@@ -31,9 +31,12 @@ Linux `.ko`, and UEFI `.efi`. This development work is not release approval.
   formatting with a write-free FAT-width preflight, attributes, modified-time
   updates and free-space reporting. Formatting remains a destructive operation
   and is not atomic if media writes or flushing fail.
-- FatFs and the Linux/EDK2 implementations classify a 4,085-cluster volume
-  differently. The portable modules reject this ambiguous boundary for both
-  FAT12 and FAT16 instead of modifying a volume with an inconsistent identity.
+- In this FAT16 repository, the portable engine now follows Microsoft's exact
+  4,085–65,524 cluster classification. Its preview formatter, legacy reader
+  and Defragmenter engine agree, including valid high-cluster links. V5 adds
+  complete creation/access metadata, label operations and OEM page selection;
+  see [FAT16 completion](FAT16_COMPLETION.md). The copied FAT12 sources do not
+  constitute a separately published FAT12 release from this repository.
 - Directory moves are checked by on-media ancestry, including case and short
   aliases, to avoid moving a directory inside itself. A failed full-volume
   seek is not reported as a completed write or truncate. On an I/O error or
@@ -61,10 +64,11 @@ verifying results with independent tools. **Adding these tests is not proof
 that they pass; consult the workflow results for the exact commit.** No physical
 firmware, disk or installed system is touched by these tests.
 
-Outstanding work includes successful runtime qualification on supported Linux
-kernels and UEFI firmware, corrupted and interrupted-media handling, broader
-geometry and fault-injection coverage, broader metadata semantics,
-and package/install integration. V3 does **not** yet expose the block relocation
-and recovery operations required to move Defragmenter's FAT engine into the
-shared libraries. Do not remove that engine, mark this target complete, or
-publish these drivers as fully qualified on build evidence alone.
+Current FAT16 release qualification includes the unchanged Defragmenter
+consumer through `infiltrator_filesystem_defrag_v1`, journal/device-write
+interruption recovery, metadata/geometry tests, package/native installer
+checks, Linux 6.12.107 runtime tests and actual Linux boot through the SO in
+OVMF. Consult CI for the exact release commit. Physical hardware and power
+loss, additional kernels, and the generic kernel-side SO bridge remain
+separate qualification work. V3 itself remains unchanged; relocation and
+recovery are supplied through the separate existing Defragmenter ABI.

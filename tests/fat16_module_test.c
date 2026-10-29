@@ -108,6 +108,11 @@ int main(void)
             return failure("noncontiguous chain was read incorrectly");
     if (api->read_file(&io, &vol, &file, 2999u, data, 2u) == 0)
         return failure("out-of-bounds file read accepted");
+    for (unsigned status=0;status<4u;status++) {
+        fat(1,0x3fffu | (status<<14));
+        if (api->probe(&io,&vol)!=0)
+            return failure("clean/error status bits changed FAT16 identity");
+    }
 
     fat(5, 0xffffu);
     if (api->root_file_fragments(&io, &vol, &file, &fragments) == 0)

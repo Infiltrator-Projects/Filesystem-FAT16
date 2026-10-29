@@ -69,4 +69,43 @@ typedef struct {
     int (*space)(uint64_t *total_bytes, uint64_t *free_bytes);
 } IfsFatfsModuleV4;
 const IfsFatfsModuleV4 *infiltrator_filesystem_module_v4(void);
+
+/* V5 is additive: V1/V3/V4, the Boot ABI and Defragmenter retain their exact
+ * layouts. Packed dates/times are local FAT values. Creation fractions count
+ * 10 ms units across the two-second creation-time interval (0..199). */
+#define IFS_FATFS_MODULE_ABI_V5 5u
+#define IFS_FATFS_CAP_FULL_METADATA UINT64_C(2048)
+#define IFS_FATFS_CAP_LABEL UINT64_C(4096)
+#define IFS_FATFS_CAP_CODEPAGE UINT64_C(8192)
+#define IFS_FATFS_TIME_CREATED 1u
+#define IFS_FATFS_TIME_MODIFIED 2u
+#define IFS_FATFS_TIME_ACCESSED 4u
+typedef struct {
+    uint32_t structure_bytes;
+    uint16_t created_date, created_time;
+    uint16_t modified_date, modified_time;
+    uint16_t accessed_date;
+    uint8_t created_10ms, reserved;
+} IfsFatfsTimesV5;
+typedef struct {
+    uint32_t structure_bytes, bytes;
+    uint8_t attributes, reserved[3];
+    IfsFatfsTimesV5 times;
+    char name[768], short_name[37];
+} IfsFatfsMetadataV5;
+typedef struct {
+    uint32_t abi_version, structure_bytes;
+    const char *format_id;
+    uint64_t capabilities;
+    const IfsFatfsModuleV4 *v4;
+    int (*metadata)(const char *, IfsFatfsMetadataV5 *);
+    int (*set_times)(const char *, const IfsFatfsTimesV5 *, uint32_t mask);
+    int (*get_label)(char *, uint32_t buffer_bytes, uint32_t *serial);
+    int (*set_label)(const char *);
+    /* Select an OEM short-name code page while unmounted. UTF-8 long names
+     * remain UTF-8. One image owns its selection; default is CP437. */
+    int (*set_codepage)(uint16_t);
+    int (*flush)(void);
+} IfsFatfsModuleV5;
+const IfsFatfsModuleV5 *infiltrator_filesystem_module_v5(void);
 #endif

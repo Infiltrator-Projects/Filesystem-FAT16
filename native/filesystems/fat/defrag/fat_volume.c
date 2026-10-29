@@ -57,9 +57,11 @@ uint32_t fat_bad_value(const Fat32 *fs) {
 }
 
 uint32_t fat_reserved_min(const Fat32 *fs) {
-    return fs->fat_type == FAT_TYPE_12 ? UINT32_C(0x0FF0) :
-           fs->fat_type == FAT_TYPE_16 ? UINT32_C(0xFFF0) :
-           UINT32_C(0x0FFFFFF0);
+    /* Microsoft FAT section 4 reserves values beyond this volume's MAX,
+     * not every value whose low bits resemble the historical FFF0 cutoff.
+     * A maximal FAT16 volume legitimately links clusters FFF0..FFF5. */
+    return fs->fat_type == FAT_TYPE_12 || fs->fat_type == FAT_TYPE_16
+        ? fs->max_cluster + 1u : UINT32_C(0x0FFFFFF0);
 }
 
 uint32_t fat_eoc_value(const Fat32 *fs) {
@@ -198,11 +200,8 @@ bool fat_geometry_parse(
     if (clusters == 0 || clusters > UINT32_MAX - 1u) {
         return geometry_error(error, error_size, "FAT cluster count is outside the supported range");
     }
-    /* FatFs treats exactly 4085 clusters as FAT12; Linux and UEFI treat it as
-     * FAT16. Do not let the defrag path write a volume with ambiguous width. */
-    if (clusters == 4085u) {
-        return geometry_error(error, error_size, "ambiguous FAT12/FAT16 cluster boundary");
-    }
+    /* Microsoft FAT section 3.5: 4085..65524 data clusters are FAT16.
+     * The portable reader/formatter uses these same strict boundaries. */
     geometry->cluster_count = (uint32_t)clusters;
     geometry->fat_type = geometry->cluster_count < 4085 ? FAT_TYPE_12 :
                          geometry->cluster_count < 65525 ? FAT_TYPE_16 : FAT_TYPE_32;

@@ -37,8 +37,8 @@
 /* Limits and boundaries */
 #define MAX_DIR		0x200000		/* Max size of FAT directory (byte) */
 #define MAX_DIR_EX	0x10000000		/* Max size of exFAT directory (byte) */
-#define MAX_FAT12	0xFF5			/* Max FAT12 clusters (differs from specs, but right for real DOS/Windows behavior) */
-#define MAX_FAT16	0xFFF5			/* Max FAT16 clusters (differs from specs, but right for real DOS/Windows behavior) */
+#define MAX_FAT12	0xFF4			/* Microsoft FAT section 3.5: FAT12 has fewer than 4085 clusters. */
+#define MAX_FAT16	0xFFF4			/* Microsoft FAT section 3.5: FAT16 has fewer than 65525 clusters. */
 #define MAX_FAT32	0x0FFFFFF5		/* Max FAT32 clusters (not defined in specs, practical limit) */
 #define MAX_EXFAT	0x7FFFFFFD		/* Max exFAT clusters (differs from specs, implementation limit) */
 #define MIN_EXFAT	0x00000100		/* Min exFAT clusters (Not defined in specs, implementation limit) */
@@ -51,7 +51,7 @@
 #define IsLower(c)		((c) >= 'a' && (c) <= 'z')
 #define IsDigit(c)		((c) >= '0' && (c) <= '9')
 #define IsSeparator(c)	((c) == '/' || (c) == '\\')
-#define IsTerminator(c)	((UINT)(c) < (FF_USE_LFN ? ' ' : '!'))
+#define IsTerminator(c)	(FF_USE_LFN ? ((UINT)(c) == 0) : ((UINT)(c) < '!'))
 #define IsSurrogate(c)	((c) >= 0xD800 && (c) <= 0xDFFF)
 #define IsSurrogateH(c)	((c) >= 0xD800 && (c) <= 0xDBFF)
 #define IsSurrogateL(c)	((c) >= 0xDC00 && (c) <= 0xDFFF)
@@ -2792,6 +2792,10 @@ static void get_fileinfo (
 #if FF_FS_CRTIME
 	fno->crtime = ld_16(dp->dir + DIR_CrtTime + 0);	/* Created time */
 	fno->crdate = ld_16(dp->dir + DIR_CrtTime + 2);	/* Created date */
+#if FF_IFS_FULL_METADATA
+	fno->adate = ld_16(dp->dir + DIR_LstAccDate);
+	fno->crtime10 = dp->dir[DIR_CrtTime10];
+#endif
 #endif
 }
 
@@ -2913,6 +2917,7 @@ static FRESULT create_name (	/* FR_OK: successful, FR_INVALID_NAME: could not cr
 		if (uc == 0xFFFFFFFF) return FR_INVALID_NAME;		/* Invalid code or UTF decode error */
 		if (uc >= 0x10000) lfn[di++] = (WCHAR)(uc >> 16);	/* Store high surrogate if needed */
 		wc = (WCHAR)uc;
+		if (wc && wc < ' ') return FR_INVALID_NAME; /* Controls cannot truncate a caller's path. */
 		if (wc < ' ' || IsSeparator(wc)) break;	/* Break if end of the path or a separator is found */
 		if (wc < 0x80 && strchr("*:<>|\"\?\x7F", (int)wc)) return FR_INVALID_NAME;	/* Reject illegal characters for LFN */
 		if (di >= FF_MAX_LFN) return FR_INVALID_NAME;	/* Reject too long name */
@@ -2976,8 +2981,15 @@ static FRESULT create_name (	/* FR_OK: successful, FR_INVALID_NAME: could not cr
 			cf |= NS_LFN;	/* LFN entry needs to be created */
 #if FF_CODE_PAGE == 0
 			if (ExCvt) {	/* In SBCS cfg */
-				wc = ff_uni2oem(wc, CODEPAGE);			/* Unicode ==> ANSI/OEM code */
-				if (wc & 0x80) wc = ExCvt[wc & 0x7F];	/* Convert extended character to upper (SBCS) */
+				WCHAR upper = ff_uni2oem(ff_wtoupper(wc), CODEPAGE);
+				/* Preserve representable OEM capitals (e.g. CP850 O-slash).
+				 * Legacy transliteration would make foreign SFNs inaccessible. */
+				if (upper) {
+					wc = upper;
+				} else {
+					wc = ff_uni2oem(wc, CODEPAGE);
+					if (wc & 0x80) wc = ExCvt[wc & 0x7F];
+				}
 			} else {		/* In DBCS cfg */
 				wc = ff_uni2oem(ff_wtoupper(wc), CODEPAGE);	/* Unicode ==> Up-convert ==> ANSI/OEM code */
 			}
@@ -3143,6 +3155,7 @@ static FRESULT follow_path (	/* FR_OK(0): successful, !=0: error code */
 #endif
 
 	if ((UINT)*path < ' ') {				/* Null path name is the origin directory itself */
+		if (*path) return FR_INVALID_NAME;
 		dp->fn[NSFLAG] = NS_NONAME;
 		res = dir_sdi(dp, 0);
 
@@ -3879,6 +3892,7 @@ FRESULT f_open (
 					/* Set FAT directory entry initial state */
 					st_32(dj.dir + DIR_CrtTime, tm);	/* Set created time */
 					st_32(dj.dir + DIR_ModTime, tm);	/* Set modified time (tmp setting) */
+					st_16(dj.dir + DIR_LstAccDate, (WORD)(tm >> 16));
 					cl = ld_clust(fs, dj.dir);			/* Get current cluster chain */
 					dj.dir[DIR_Attr] = AM_ARC;			/* Reset attribute */
 					st_clust(fs, dj.dir, 0);			/* Reset file allocation info */
@@ -4275,12 +4289,13 @@ FRESULT f_sync (
 				res = move_window(fs, fp->dir_sect);
 				if (res == FR_OK) {
 					BYTE *dir = fp->dir_ptr;
+					DWORD tm = GET_FATTIME();
 
 					dir[DIR_Attr] |= AM_ARC;					/* Set archive attribute to indicate that the file has been changed */
 					st_clust(fp->obj.fs, dir, fp->obj.sclust);	/* Update file allocation information  */
 					st_32(dir + DIR_FileSize, (DWORD)fp->obj.objsize);	/* Update file size */
-					st_32(dir + DIR_ModTime, GET_FATTIME());	/* Update modified time */
-					st_16(dir + DIR_LstAccDate, 0);				/* Invalidate last access date */
+					st_32(dir + DIR_ModTime, tm);	/* Update modified time */
+					st_16(dir + DIR_LstAccDate, (WORD)(tm >> 16)); /* Access date follows a write. */
 					fs->wflag = 1;
 					res = sync_fs(fs);							/* Restore it to the directory */
 					fp->flag &= (BYTE)~FA_MODIFIED;
@@ -5310,6 +5325,7 @@ FRESULT f_mkdir (
 				{
 					st_32(dj.dir + DIR_CrtTime, tm);	/* Created time */
 					st_32(dj.dir + DIR_ModTime, tm);
+					st_16(dj.dir + DIR_LstAccDate, (WORD)(tm >> 16));
 					st_clust(fs, dj.dir, dcl);			/* Table start cluster */
 					dj.dir[DIR_Attr] = AM_DIR;			/* Attribute */
 					fs->wflag = 1;
@@ -5507,9 +5523,10 @@ FRESULT f_chmod (
 /* API: Change Timestamp                                                 */
 /*-----------------------------------------------------------------------*/
 
-FRESULT f_utime (
+FRESULT f_ifs_utime (
 	const TCHAR* path,	/* Pointer to the file/directory name */
-	const FILINFO* fno	/* Timestamp to be set */
+	const FILINFO* fno,	/* Timestamp to be set */
+	BYTE mask			/* Created=1, modified=2, accessed=4 */
 )
 {
 	FRESULT res;
@@ -5517,6 +5534,8 @@ FRESULT f_utime (
 	DIR dj;
 	DEF_NAMEBUFF
 
+
+	if (!fno || !mask || (mask & ~7)) return FR_INVALID_PARAMETER;
 
 	/* Get logical drive and mount the volume if needed */
 	res = mount_volume(&path, &fs, FA_WRITE);
@@ -5529,13 +5548,13 @@ FRESULT f_utime (
 		if (res == FR_OK) {
 #if FF_FS_EXFAT
 			if (fs->fs_type == FS_EXFAT) {	/* On the exFAT volume */
-				if (fno->fdate) {	/* Change last modified time if needed */
+				if (mask & 2) {	/* Change last modified time if needed */
 					st_32(fs->dirbuf + XDIR_ModTime, (DWORD)fno->fdate << 16 | fno->ftime);
 					fs->dirbuf[XDIR_ModTime10] = 0;
 					fs->dirbuf[XDIR_ModTZ] = 0;
 				}
 #if FF_FS_CRTIME
-				if (fno->crdate) {	/* Change created time if needed */
+				if (mask & 1) {	/* Change created time if needed */
 					st_32(fs->dirbuf + XDIR_CrtTime, (DWORD)fno->crdate << 16 | fno->crtime);
 					fs->dirbuf[XDIR_CrtTime10] = 0;
 					fs->dirbuf[XDIR_CrtTZ] = 0;
@@ -5545,15 +5564,16 @@ FRESULT f_utime (
 			} else
 #endif
 			{	/* On the FAT volume */
-				if (fno->fdate) {	/* Change last modified time if needed */
+				if (mask & 2) {	/* Change last modified time if needed */
 					st_32(dj.dir + DIR_ModTime, (DWORD)fno->fdate << 16 | fno->ftime);
 				}
 #if FF_FS_CRTIME
-				if (fno->crdate) {	/* Change created time if needed */
+				if (mask & 1) {	/* Change created time if needed */
 					st_32(dj.dir + DIR_CrtTime, (DWORD)fno->crdate << 16 | fno->crtime);
-					dj.dir[DIR_CrtTime10] = 0;
+					dj.dir[DIR_CrtTime10] = fno->crtime10;
 				}
 #endif
+				if (mask & 4) st_16(dj.dir + DIR_LstAccDate, fno->adate);
 				fs->wflag = 1;
 			}
 			if (res == FR_OK) {
@@ -5564,6 +5584,17 @@ FRESULT f_utime (
 	}
 
 	LEAVE_FF(fs, res);
+}
+
+FRESULT f_utime (const TCHAR* path, const FILINFO* fno)
+{
+	BYTE mask;
+	if (!fno) return FR_INVALID_PARAMETER;
+	mask = fno->fdate ? 2 : 0;
+#if FF_FS_CRTIME
+	if (fno->crdate) mask |= 1;
+#endif
+	return mask ? f_ifs_utime(path, fno, mask) : FR_OK;
 }
 
 #endif	/* FF_USE_CHMOD && !FF_FS_READONLY */
@@ -5786,6 +5817,14 @@ FRESULT f_setlabel (
 		}
 	}
 
+	if (res == FR_OK && (fs->fs_type == FS_FAT12 || fs->fs_type == FS_FAT16)) {
+		res = move_window(fs, fs->volbase);
+		if (res == FR_OK && fs->win[BS_BootSig] == 0x29) {
+			memcpy(fs->win + BS_VolLab, di ? dirvn : (const BYTE*)"NO NAME    ", 11);
+			fs->wflag = 1;
+			res = sync_fs(fs);
+		}
+	}
 	LEAVE_FF(fs, res);
 }
 

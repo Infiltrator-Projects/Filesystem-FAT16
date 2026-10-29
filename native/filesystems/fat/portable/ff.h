@@ -270,6 +270,10 @@ typedef struct {
 #if FF_FS_CRTIME
 	WORD	crdate;			/* Date of object createion */
 	WORD	crtime;			/* Time of object createion */
+#if FF_IFS_FULL_METADATA
+	WORD	adate;			/* Classic FAT last-access date */
+	BYTE	crtime10;		/* Creation fraction in 10 ms units */
+#endif
 #endif
 	BYTE	fattrib;		/* Object attribute */
 #if FF_USE_LFN
@@ -343,7 +347,10 @@ FRESULT f_unlink (const TCHAR* path);								/* Delete an existing file or direc
 FRESULT f_rename (const TCHAR* path_old, const TCHAR* path_new);	/* Rename/Move a file or directory */
 FRESULT f_stat (const TCHAR* path, FILINFO* fno);					/* Get file status */
 FRESULT f_chmod (const TCHAR* path, BYTE attr, BYTE mask);			/* Change attribute of a file/dir */
-FRESULT f_utime (const TCHAR* path, const FILINFO* fno);			/* Change timestamp of a file/dir */
+FRESULT f_utime (const TCHAR* path, const FILINFO* fno);
+#if FF_IFS_FULL_METADATA
+FRESULT f_ifs_utime (const TCHAR* path, const FILINFO* fno, BYTE mask);
+#endif			/* Change timestamp of a file/dir */
 FRESULT f_chdir (const TCHAR* path);								/* Change current directory */
 FRESULT f_chdrive (const TCHAR* path);								/* Change current drive */
 FRESULT f_getcwd (TCHAR* buff, UINT len);							/* Get current directory */

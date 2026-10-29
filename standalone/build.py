@@ -23,7 +23,8 @@ SOURCES = [MOD / f"fat{WIDTH}_module.c"] + [
 INCLUDES = [MOD, PORT, DEF, DEF / "host", ROOT / "native/include",
             ROOT / "src/infiltratr-common/include"]
 EXPORTS = ("infiltrator_filesystem_module_v1", "infiltrator_filesystem_module_v3",
-           "infiltrator_filesystem_module_v4", "infiltrator_filesystem_defrag_v1",
+           "infiltrator_filesystem_module_v4", "infiltrator_filesystem_module_v5",
+           "infiltrator_filesystem_defrag_v1",
            "infiltrator_filesystem_boot_v1")
 
 def run(args):
@@ -40,7 +41,7 @@ def inspect(module):
         if symbol not in exports:
             raise RuntimeError("Missing ABI export: " + symbol)
     meta = subprocess.check_output(["readelf", "-p", ".ifsmeta", str(module)], text=True)
-    for api in (1, 3, 4):
+    for api in (1, 3, 4, 5):
         if f"IFS-MODULE:fat{WIDTH}:{api}" not in meta:
             raise RuntimeError("Missing exact FAT format identity")
     if "(NEEDED)" in subprocess.check_output(["readelf", "-d", str(module)], text=True):

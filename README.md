@@ -19,7 +19,7 @@ The full source was copied from Infiltrator-Projects/Filesystems, pinned to comm
 
 ## Filesystem qualification scope
 
-FAT16 16-bit allocation entries, fixed-root FAT directory and cluster count between 4,085 and 65,524. Reject foreign formats, malformed geometry and ambiguous boundaries before changes. The independent `.so` exposes V1, V3 and V4 filesystem interfaces plus its defragmentation/recovery interface; supported operations, limitations and required test evidence are tracked in [Validation](docs/VALIDATION.md) and [API](docs/API.md). Destructive testing must use disposable images only.
+FAT16 16-bit allocation entries, fixed-root directories and the complete 4,085–65,524 data-cluster range. Foreign formats and malformed geometry are rejected before changes. V3 provides full file/directory read and write; V4 adds formatting, attributes, modification times and free space. V5 completes creation time (including the 10 ms fraction), access dates, volume labels/serial reads, OEM code-page selection and explicit flushing. The existing Boot and Defragmenter interfaces retain their layouts. See the [completion and test matrix](docs/FAT16_COMPLETION.md), [Validation](docs/VALIDATION.md) and [API](docs/API.md). Destructive testing uses disposable images only.
 
 ## Documentation
 

@@ -9,10 +9,45 @@ Filename: `FAT16.so` under `/System/Filesystems`. Architecture: x86-64 ELF share
 - `infiltrator_filesystem_module_v1`: format-specific read and fragment analysis.
 - `infiltrator_filesystem_module_v3`: portable writable filesystem and file/directory operations.
 - `infiltrator_filesystem_module_v4`: formatting, attributes, timestamps and free-space reporting.
+- `infiltrator_filesystem_module_v5`: complete creation/modification/access metadata, volume labels/serial reads, OEM code-page selection and flushing; contains a pointer to V4.
 - `infiltrator_filesystem_defrag_v1`: relocation, journal and crash recovery, invoked in a dedicated Defragmenter child-process host.
 - `infiltrator_filesystem_boot_v1`: generic read-only mount, streaming file contexts, directory enumeration and volume labels for Boot's UEFI bridge.
 
-The `.ifsmeta` identity must contain `IFS-MODULE:fat16:1`, `IFS-MODULE:fat16:3` and `IFS-MODULE:fat16:4`. A caller must check ABI versions, structure lengths, the actual detected FAT width and function pointers, not merely the filename. The defrag ABI host must supply all function pointers defined in `native/filesystems/fat/defrag/fat_defrag_abi.h`. The child-process lifetime must keep the module loaded for cleanup handlers.
+The `.ifsmeta` identity contains `IFS-MODULE:fat16:1`, `IFS-MODULE:fat16:3`, `IFS-MODULE:fat16:4` and `IFS-MODULE:fat16:5`. A caller must check ABI versions, structure lengths, the actual detected FAT width and function pointers, not merely the filename. The defrag ABI host must supply all function pointers defined in `native/filesystems/fat/defrag/fat_defrag_abi.h`. The child-process lifetime must keep the module loaded for cleanup handlers.
+
+## V5 metadata and volume operations
+
+The declarations are in `native/filesystems/fat/portable/fatfs_module.h`.
+V5 is additive: no V1/V3/V4, Boot or Defragmenter structure changes.
+Operations return zero on success and a negative value on failure, as V3/V4 do.
+
+`metadata(path, out)` returns size, attributes, UTF-8 long and short names, and
+packed FAT local dates/times. Creation fractions count 10 ms units (0–199)
+within the packed two-second creation interval. Access has date precision.
+`set_times(path, times, mask)` requires `structure_bytes == sizeof(*times)`
+and reserved fields zero. Mask bits 1/2/4 select creation/modification/access;
+unselected fields are preserved. Invalid dates, including 2100-02-29, times
+or fractions are rejected before writing. A zero creation date/time/fraction
+or zero access date explicitly clears that optional field. Modification dates
+must be valid and nonzero. Writes update modification and access dates from
+the caller's clock; successful nonempty V3 reads update the access date if
+the caller supplies a valid current date. Boot's separate read-only interface
+never performs this update. V4 modification-only updates preserve creation.
+
+`get_label(buffer, bytes, serial)` returns the UTF-8 root volume label and,
+if requested, the BPB volume serial. Use a 34-byte label buffer. `set_label`
+accepts up to eleven OEM bytes, uppercases the label, trims trailing spaces,
+and removes it for an empty string. Invalid characters or unrepresentable
+names fail. The authoritative root label and an existing extended BPB label
+are updated together; ordinary FAT writes are not failure-atomic.
+
+`set_codepage(cp)` is allowed only while unmounted. CP437 is the default;
+supported pages are 437, 720, 737, 771, 775, 850, 852, 855, 857, 860, 861,
+862, 863, 864, 865, 866, 869, 932, 936, 949 and 950. The volume does not
+record its OEM page; the caller selects it. Long-name API strings remain
+UTF-8. Each separately loaded image owns its selection. `flush()` reports the
+host's durable-flush result. Filesystem operations already close and sync
+their temporary handles before returning success.
 
 ## Constraints
 

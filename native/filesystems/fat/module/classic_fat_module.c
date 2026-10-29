@@ -105,7 +105,9 @@ static int classic_fat_probe(const IfsClassicFatIo *io, IfsClassicFatVolume *v)
 #if IFS_CLASSIC_FAT_BITS == 12
     if (first[2] != 0xffu) return -1;
 #else
-    if (le16(first + 2) < 0xfff8u) return -1;
+    /* FAT16 entry 1's high two bits are the clean-shutdown and I/O-error
+     * status flags. A dirty volume is still a readable FAT16 volume. */
+    if ((le16(first + 2) | 0xc000u) < 0xfff8u) return -1;
 #endif
     *v = result;
     return 0;

@@ -23,7 +23,7 @@ These process-interruption tests do not simulate physical power loss.
 
 1. Source copied: import hash, local source files and preserved notices, but NO functional qualification.
 2. Build: native compiler produces an ELF DYN `FAT16.so` with no unexpected dynamic dependencies.
-3. ABI: correct width metadata, V1/V3/V4 and Defragmenter entry points, no substitution by another format.
+3. ABI: correct width metadata, V1/V3/V4/V5, Boot and Defragmenter entry points, no substitution by another format.
 4. Fixture: current `tests/fat16_module_test.c` runs against the exact standalone shared object on an in-memory volume.
 5. Integration: Defragmenter's versioned child-worker maps, relocates and recovers disposable independently formatted FAT images, including interrupted-journal stages and independent post-verification.
 6. Packaging: inspect exact owned paths in the Debian archive; install the native `.run`, verify native package version, BUILD-INFO and module SHA-256, and ensure the other format remains unchanged.
@@ -36,6 +36,19 @@ The aggressive native installer compiles a temporary instrumented shared object 
 The training data does not cover every defragmentation or crash-recovery path, and successful optimisation flags do not establish a measured performance improvement.
 
 ## CI contract
+
+`tests/fat16_complete_test.py` checks V5 against independent raw directory/BPB
+oracles, dosfstools and mtools, plus exact cluster boundaries, 32 geometry
+combinations, OEM short names, root exhaustion and a sparse maximum-size file.
+The lifecycle script also independently checks formatting for sector sizes
+512, 1024, 2048 and 4096. Defragmenter's unchanged host tests include a maximal
+FAT16 volume with links through clusters FFF0 and FFF5 and preservation of
+creation fractions, dates and attributes during relocation.
+
+The release's Boot consumer job builds the pinned released Boot source and
+tests both portable and native module bytes with the production ELF loader,
+UEFI protocol adapter and a real Linux kernel/initramfs under OVMF. The
+negative case requires failure even when firmware has native FAT support.
 
 Run `make check`, `make release`, inspect the resulting package, invoke `.run --profile aggressive --system-package-mode` in a disposable Ubuntu runner, and independently verify installed ABI and package ownership. Publishing is permitted only after the successful release-job gate on the exact main commit. GitHub release source ZIP is automatic with the version tag and is not a third uploaded asset.
 

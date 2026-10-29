@@ -10,4 +10,14 @@ The portable `native/filesystems/fat/portable/` contains ChaN FatFs code with up
 
 ## Source duplication policy
 
+For v0.1.6, `portable/ffunicode.c` was replaced with the complete, unmodified
+`source/ffunicode.c` from ChaN's [FatFs R0.16 archive](https://elm-chan.org/fsw/ff/arc/ff16.zip).
+SHA-256: `3f1632c1f1e64b0b683b0d7e51341b9870728f398604869dd8211f1819509a8e`.
+The earlier adapted R0.13c file omitted DBCS tables. Upstream notices remain
+intact. Local `ff.c` changes implement standard cluster-count endpoints,
+full classic-FAT timestamps, BPB/root-label consistency, OEM-capital lookup,
+control-character rejection, and the existing zero-fill security patch.
+
+## Shared-source policy
+
 Both FAT12 and FAT16 repositories deliberately contain overlapping supporting source during migration. Each compiles and releases exactly its selected format. Any future pruning or Common linkage must retain reproducible native builds, accurate declarations, licensing, tests and existing loader ABI. The imported full Filesystems README is retained as `FILESYSTEMS-SOURCE-README.md` for historical context, NOT as the new package specification.

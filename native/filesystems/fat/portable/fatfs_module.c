@@ -22,6 +22,7 @@ static IfsFatfsIo device;
 static FATFS volume;
 static int selected;
 static int bound;
+static uint16_t short_codepage=437u;
 static int format_preview;
 static int preview_boot_seen;
 static uint8_t preview_boot[512];
@@ -127,7 +128,8 @@ static int attach(const IfsFatfsIo *io)
     if (bound || selected || !io) return -1;
     device = *io;
     bound = 1;
-    if (!sector_valid() || f_mount(&volume, "0:", 1) != FR_OK ||
+    if (!sector_valid() || f_setcp(short_codepage)!=FR_OK ||
+        f_mount(&volume, "0:", 1) != FR_OK ||
         volume.fs_type != REQUIRED_FS || volume.n_fatent<3u ||
         !mounted_bounds_valid() ||
 #if IFS_FATFS_ONLY == 12
@@ -166,6 +168,7 @@ static int create_file(const char *path)
         return -1;
     return f_close(&f) == FR_OK ? 0 : -1;
 }
+static int record_access(const char *path);
 static int file_read(const char *path, uint32_t offset, void *buffer, uint32_t n)
 {
     FIL f;
@@ -178,6 +181,7 @@ static int file_read(const char *path, uint32_t offset, void *buffer, uint32_t n
          f_lseek(&f, (FSIZE_t)offset) == FR_OK &&
          f_read(&f,buffer,n,&got)==FR_OK && got==n;
     if (f_close(&f)!=FR_OK) good=0;
+    if (good && n && record_access(path)!=0) good=0;
     return good?0:-1;
 }
 static int file_write(const char *path, uint32_t offset, const void *buffer, uint32_t n)
@@ -339,10 +343,7 @@ static int preview_matches_format(void)
 #if IFS_FATFS_ONLY == 12
     return clusters>0u && clusters<4085u;
 #else
-    /* FatFs classifies exactly 4085 clusters as FAT12, while Linux and
-     * EDK2 classify it as FAT16. Reject that ambiguous boundary BEFORE any
-     * format write instead of producing media our own driver cannot mount. */
-    return clusters>4085u && clusters<65525u;
+    return clusters>=4085u && clusters<65525u;
 #endif
 }
 static int format_volume(const IfsFatfsIo *io,uint32_t cluster_bytes)
@@ -353,7 +354,7 @@ static int format_volume(const IfsFatfsIo *io,uint32_t cluster_bytes)
     if (bound || selected || !io) return -1;
     device=*io;
     bound=1;
-    if (!sector_valid()) goto done;
+    if (!sector_valid() || f_setcp(short_codepage)!=FR_OK) goto done;
     if (cluster_bytes && (cluster_bytes<device.sector_bytes ||
         cluster_bytes>(uint64_t)device.sector_bytes*128u ||
         (cluster_bytes & (cluster_bytes-1u)))) goto done;
@@ -382,20 +383,39 @@ static int set_attributes(const char *path,uint8_t attributes,uint8_t mask)
            !(attributes & (uint8_t)~valid) &&
            f_chmod(path,attributes,mask)==FR_OK?0:-1;
 }
-static int set_modified_time(const char *path,uint16_t date,uint16_t time)
+static int valid_date(uint16_t date)
 {
-    FILINFO info;
     unsigned year=1980u+(date>>9),month=(date>>5)&15u,day=date&31u;
-    unsigned hour=time>>11,minute=(time>>5)&63u,second=time&31u;
     static const uint8_t days[]={0u,31u,28u,31u,30u,31u,30u,31u,31u,30u,31u,30u,31u};
     unsigned max_day;
-    if (!selected || !path || month<1u || month>12u || !day ||
-        hour>23u || minute>59u || second>29u) return -1;
+    if (month<1u || month>12u || !day) return 0;
     max_day=days[month];
     if (month==2u && (year%4u==0u && (year%100u!=0u || year%400u==0u))) ++max_day;
-    if (day>max_day) return -1;
+    return day<=max_day;
+}
+static int valid_time(uint16_t time)
+{
+    return (time>>11)<=23u && ((time>>5)&63u)<=59u && (time&31u)<=29u;
+}
+static int set_modified_time(const char *path,uint16_t date,uint16_t time)
+{
+    FILINFO info={0};
+    if (!selected || !path || !valid_date(date) || !valid_time(time)) return -1;
     info.fdate=date; info.ftime=time;
     return f_utime(path,&info)==FR_OK?0:-1;
+}
+static int record_access(const char *path)
+{
+    FILINFO info={0};
+    uint16_t today=(uint16_t)(get_fattime()>>16);
+    /* A host without an RTC may supply zero. Explicit metadata remains
+     * readable; a read must not invent a date in that case. Boot uses its
+     * separate read-only view and never calls this mutation path. */
+    if (!valid_date(today)) return 0;
+    if (f_stat(path,&info)!=FR_OK) return -1;
+    if (info.adate==today) return 0;
+    info.adate=today;
+    return f_ifs_utime(path,&info,IFS_FATFS_TIME_ACCESSED)==FR_OK?0:-1;
 }
 static int volume_space(uint64_t *total,uint64_t *free_bytes)
 {
@@ -427,3 +447,91 @@ static const IfsFatfsModuleV4 module_v4={
 };
 __attribute__((visibility("default")))
 const IfsFatfsModuleV4 *infiltrator_filesystem_module_v4(void) {return &module_v4;}
+
+static int full_metadata(const char *path,IfsFatfsMetadataV5 *out)
+{
+    FILINFO info={0};
+    IfsFatfsMetadataV5 result={0};
+    if (!selected || !path || !out || f_stat(path,&info)!=FR_OK) return -1;
+    result.structure_bytes=sizeof(result);
+    result.bytes=(uint32_t)info.fsize;
+    result.attributes=info.fattrib;
+    result.times=(IfsFatfsTimesV5){sizeof(IfsFatfsTimesV5),info.crdate,info.crtime,
+        info.fdate,info.ftime,info.adate,info.crtime10,0};
+    copy_name(result.name,info.fname);
+    const char *short_name=info.altname[0]?info.altname:info.fname;
+    unsigned i=0;
+    while (short_name[i] && i+1u<sizeof(result.short_name)) {
+        result.short_name[i]=short_name[i]; ++i;
+    }
+    if (short_name[i]) return -1;
+    result.short_name[i]=0;
+    *out=result;
+    return 0;
+}
+static int full_set_times(const char *path,const IfsFatfsTimesV5 *times,uint32_t mask)
+{
+    FILINFO info={0};
+    if (!selected || !path || !times || times->structure_bytes!=sizeof(*times) ||
+        times->reserved || !mask || (mask&~7u)) return -1;
+    if (mask&IFS_FATFS_TIME_CREATED) {
+        if (times->created_date ? (!valid_date(times->created_date) ||
+            !valid_time(times->created_time) || times->created_10ms>199u) :
+            (times->created_time || times->created_10ms)) return -1;
+        info.crdate=times->created_date; info.crtime=times->created_time;
+        info.crtime10=times->created_10ms;
+    }
+    if (mask&IFS_FATFS_TIME_MODIFIED) {
+        if (!valid_date(times->modified_date) || !valid_time(times->modified_time)) return -1;
+        info.fdate=times->modified_date; info.ftime=times->modified_time;
+    }
+    if (mask&IFS_FATFS_TIME_ACCESSED) {
+        if (times->accessed_date && !valid_date(times->accessed_date)) return -1;
+        info.adate=times->accessed_date;
+    }
+    return f_ifs_utime(path,&info,(BYTE)mask)==FR_OK?0:-1;
+}
+static int get_label(char *out,uint32_t bytes,uint32_t *serial)
+{
+    char label[34];
+    DWORD id=0;
+    if (!selected || !out || !bytes || f_getlabel("0:",label,&id)!=FR_OK) return -1;
+    unsigned i=0;
+    while (label[i]) {
+        if (i+1u>=bytes || i+1u>=sizeof(label)) return -1;
+        out[i]=label[i]; ++i;
+    }
+    out[i]=0;
+    if (serial) *serial=(uint32_t)id;
+    return 0;
+}
+static int set_label(const char *label)
+{
+    if (!selected || !label) return -1;
+    unsigned i=0;
+    while (label[i]) {
+        if (i>=33u || (unsigned char)label[i]<32u || label[i]==':' ||
+            label[i]=='/' || label[i]=='\\') return -1;
+        ++i;
+    }
+    return f_setlabel(label)==FR_OK?0:-1;
+}
+static int set_codepage(uint16_t codepage)
+{
+    if (bound || selected || !codepage || f_setcp(codepage)!=FR_OK) return -1;
+    short_codepage=codepage;
+    return 0;
+}
+static int flush_volume(void)
+{
+    return selected && device.flush && device.flush(device.user)==0?0:-1;
+}
+__attribute__((used,section(".ifsmeta")))
+static const char identity_v5[]="IFS-MODULE:" FS_ID ":5";
+static const IfsFatfsModuleV5 module_v5={
+    IFS_FATFS_MODULE_ABI_V5,sizeof(IfsFatfsModuleV5),FS_ID,
+    IFS_FATFS_CAP_FULL_METADATA | IFS_FATFS_CAP_LABEL | IFS_FATFS_CAP_CODEPAGE,
+    &module_v4,full_metadata,full_set_times,get_label,set_label,set_codepage,flush_volume
+};
+__attribute__((visibility("default")))
+const IfsFatfsModuleV5 *infiltrator_filesystem_module_v5(void) {return &module_v5;}

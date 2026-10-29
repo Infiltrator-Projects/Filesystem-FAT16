@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Disposable classic FAT images at the FAT12/FAT16 cluster boundary.
 
-FatFs and the Linux/UEFI drivers disagree at exactly 4085 clusters. The
-ambiguous middle fixture is for rejection, never for destructive testing.
+Microsoft FAT section 3.5 classifies 4084 clusters as FAT12 and 4085 as
+FAT16. Each fixture is disposable and exercises that exact boundary.
 """
 import struct
 import sys

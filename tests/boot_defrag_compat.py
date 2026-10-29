@@ -11,6 +11,7 @@ import os
 from pathlib import Path
 import shutil
 import subprocess
+import struct
 import tempfile
 
 
@@ -87,6 +88,41 @@ def main():
             image = make_image(command)
             operation(command, image, work / (command + ".journal"), command)
             execute(["python3", verifier, "fat16", image])
+
+        # Microsoft's maximum FAT16 geometry permits links FFF0..FFF5.
+        # Exercise the real consumer with such a chain, plus metadata which
+        # must survive cluster relocation byte-for-byte.
+        from fat16_complete_test import fixture as geometry_fixture, entries
+        image = work / "high-clusters.img"
+        geometry = geometry_fixture(image, 65524)
+        chain = [65519, 65520, 65525]
+        entry = bytearray(32)
+        entry[:11], entry[11], entry[13] = b'HIGH    BIN', 0x26, 199
+        struct.pack_into('<HHH', entry, 14, 0xbf7d, 0x285d, 0x0021)
+        struct.pack_into('<HH', entry, 22, 0x1883, 0xff9f)
+        struct.pack_into('<HI', entry, 26, chain[0], 1536)
+        with image.open('r+b') as file:
+            file.seek(geometry['root'])
+            file.write(entry)
+            for index, cluster in enumerate(chain):
+                for copy in range(2):
+                    file.seek((1 + copy * geometry['fat_sectors']) * 512 + cluster * 2)
+                    file.write(struct.pack('<H', chain[index+1] if index < 2 else 0xffff))
+                file.seek(geometry['data'] + (cluster - 2) * 512)
+                file.write(bytes([65 + index]) * 512)
+        operation("defrag", image, work / "high-clusters.journal", "high-clusters")
+        after = entries(image, geometry)[0]
+        assert after[:26] == entry[:26] and after[28:] == entry[28:]
+        cluster = struct.unpack_from('<H', after, 26)[0]
+        with image.open('rb') as file:
+            for index in range(3):
+                assert 2 <= cluster <= 65525
+                file.seek(geometry['data'] + (cluster - 2) * 512)
+                assert file.read(512) == bytes([65 + index]) * 512
+                file.seek(512 + cluster * 2)
+                cluster = struct.unpack('<H', file.read(2))[0]
+        assert cluster >= 0xfff8
+        execute(["fsck.fat", "-n", image])
 
         foreign = make_image("foreign", "fat12")
         before = digest(foreign)

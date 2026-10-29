@@ -85,7 +85,8 @@ def source_files():
             q.startswith("standalone/") or q.startswith("docs/") or
             q in ("README.md", "VERSION", "MIGRATION-PROVENANCE.md",
                   "src/infiltratr-common/LICENSE", f"tests/fat{WIDTH}_module_test.c",
-                  "tests/fatfs_v4_format_test.c")
+                  "tests/fatfs_v4_format_test.c", "tests/fat16_complete_test.py",
+                  "tests/check-fat16-lifecycle.sh", "tests/fatfs_v3_realimage_test.c")
         )
         if selected and (ROOT / p).is_file() and not (ROOT / p).is_symlink():
             chosen.append(p)

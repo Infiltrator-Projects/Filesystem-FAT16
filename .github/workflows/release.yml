@@ -30,6 +30,7 @@ jobs:
       - name: Preserve filesystem lifecycle and Defragmenter write/recovery compatibility
         run: |
           bash tests/check-fat16-lifecycle.sh build/FAT16.so
+          python3 tests/fat16_complete_test.py --module build/FAT16.so
           python3 tests/boot_defrag_compat.py --module build/FAT16.so \
             --defragmenter-source .qualification/Defragmenter --output build/defrag-compat
       - name: Build the DEB and native source installer
@@ -47,6 +48,7 @@ jobs:
           test "$(dpkg-query -W -f='${Version}' infiltrator-filesystem-fat16)" = "${version}+native1"
           python3 standalone/build.py --profile portable --output build/FAT16.so --check
           bash tests/check-fat16-lifecycle.sh /System/Filesystems/FAT16.so
+          python3 tests/fat16_complete_test.py --module /System/Filesystems/FAT16.so
           python3 tests/boot_defrag_compat.py --module /System/Filesystems/FAT16.so \
             --defragmenter-source .qualification/Defragmenter --output build/native-compat
           python3 - <<'PY'
@@ -66,10 +68,63 @@ jobs:
           path: dist/*
           if-no-files-found: error
           retention-days: 14
+  boot-consumer:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check out the released Boot consumer
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          repository: Infiltrator-Projects/Boot
+          ref: dbc6a710dbe88b78318c8b9afbf47bb64e8706b3
+          path: .qualification/Boot
+      - name: Install firmware integration prerequisites
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends build-essential binutils python3 gnu-efi qemu-system-x86 ovmf dosfstools mtools busybox-static cpio
+      - name: Build the actual released Boot EFI application
+        working-directory: .qualification/Boot
+        run: bash scripts/build-gnuefi.sh
+      - name: Qualify portable and native filesystem bytes with Boot
+        shell: bash
+        run: |
+          set -euo pipefail
+          root="$GITHUB_WORKSPACE"
+          boot="$root/.qualification/Boot"
+          make check
+          python3 standalone/build.py --profile aggressive --output build-native/FAT16.so --check
+          for profile in build build-native; do
+            bash "$boot/tests/run-so-tests.sh" "$root/$profile/FAT16.so" "$root"
+          done
+          IFS_SO_SANITIZE=1 bash "$boot/tests/run-so-tests.sh" "$root/build/FAT16.so" "$root"
+          kernel_dir="$root/build/boot-kernel"
+          mkdir -p "$kernel_dir"
+          kernel_package=$(apt-cache depends linux-image-generic | awk '/Depends: linux-image-[0-9]/ {sub("linux-image-", "linux-image-unsigned-", $2); print $2; exit}')
+          test -n "$kernel_package"
+          (cd "$kernel_dir" && apt-get download "$kernel_package")
+          dpkg-deb -x "$kernel_dir"/*.deb "$kernel_dir/root"
+          kernel=$(find "$kernel_dir/root/boot" -name 'vmlinuz-*' -print -quit)
+          test -s "$kernel"
+          for profile in build build-native; do
+            python3 "$boot/tests/test_so_boot.py" --boot "$boot/refind/refind_x64.efi" \
+              --module "$root/$profile/FAT16.so" --kernel "$kernel" \
+              --ovmf /usr/share/OVMF --qemu-data /usr/share/qemu --output "$root/build/boot-$profile"
+          done
+          python3 "$boot/tests/test_so_boot.py" --boot "$boot/refind/refind_x64.efi" \
+            --module "$root/build/FAT16.so" --kernel "$kernel" --reject-module \
+            --ovmf /usr/share/OVMF --qemu-data /usr/share/qemu --output "$root/build/boot-reject"
+      - name: Preserve firmware integration evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fat16-boot-consumer-${{ github.sha }}
+          path: |
+            build/boot-build/*.log
+            build/boot-build-native/*.log
+            build/boot-reject/*.log
   native-drivers:
     uses: ./.github/workflows/drivers.yml
   publish:
-    needs: [qualify, native-drivers]
+    needs: [qualify, boot-consumer, native-drivers]
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-24.04
     permissions:
