@@ -44,6 +44,9 @@ typedef struct {
     int (*directory_entry)(const char *, uint32_t, IfsFatfsEntry *);
 } IfsFatfsModuleV3;
 const IfsFatfsModuleV3 *infiltrator_filesystem_module_v3(void);
+/* Internal boot adapter mount: its BlockIo handle is already volume-relative.
+ * Do not auto-select an MBR partition through a whole-disk parent handle. */
+int ifs_fatfs_boot_attach(const IfsFatfsIo *);
 
 /* V4 extends V3 without changing its layout. Formatting is destructive and
  * operates only on the partition described by the caller's I/O callbacks.

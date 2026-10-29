@@ -1,6 +1,6 @@
 # Filesystem-FAT16
 
-**Final design:** [FAT16.so is the sole distributed filesystem driver](docs/ONE_MODULE_END_STATE.md). BOOT, the kernel and applications will consume the same module using generic adapters. Linux `.ko` and UEFI `.efi` code in this repository is transitional, not three permanent FAT16 products. This is a target, not a claim that universal loading is already implemented.
+**Shared driver:** [FAT16.so is the sole filesystem implementation for its consumers](docs/ONE_MODULE_END_STATE.md). Applications and BOOT can now use the same object through their respective interfaces; Boot's generic ELF/UEFI bridge is tested in OVMF with a real Linux kernel/initramfs. Kernel SO integration remains separate. Existing Linux `.ko` and UEFI `.efi` code remains transitional.
 
 Independent InfiltratorOS FAT16 filesystem repository. One repository is authoritative for exactly one installed shared-object module: `/System/Filesystems/FAT16.so`.
 
@@ -15,7 +15,7 @@ The full source was copied from Infiltrator-Projects/Filesystems, pinned to comm
 - This repository: fat16 interpretation, read/write/file APIs, formatting, allocation, fat16 relocation, journal/recovery, format-specific kernel and EFI source and tests.
 - Filesystems: discovery, selection and management; it must not silently overwrite or install a second copy of this module after package ownership transfers.
 - Defragmenter: the worker and UI; it dynamically loads the installed `FAT16.so` and calls `infiltrator_filesystem_defrag_v1` via the existing versioned host ABI.
-- Linux/UEFI transition: existing `fat16.ko` and `FAT16.efi` implementation and tests remain useful for compatibility and qualification. BOOT and the future kernel must instead consume the **same `FAT16.so`** through generic loaders when the universal interface passes runtime tests. This is not yet implemented.
+- Linux/UEFI transition: existing `fat16.ko` and `FAT16.efi` remain useful compatibility paths. Boot's generic loader uses the **same `FAT16.so`**, including its existing Defragmenter interface. Physical firmware and a kernel-side SO bridge require separate qualification.
 
 ## Filesystem qualification scope
 

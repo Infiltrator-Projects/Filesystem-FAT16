@@ -49,6 +49,9 @@ check_module() {
     "$elf_checker" -Ws "$file" |
         grep -F 'infiltrator_filesystem_defrag_v1' >/dev/null ||
         fatal "FAT16 defragmentation ABI missing"
+    "$elf_checker" -Ws "$file" |
+        grep -F 'infiltrator_filesystem_boot_v1' >/dev/null ||
+        fatal "FAT16 firmware-neutral boot ABI missing"
     # Check exact on-disk format before trusting a renamed .so.
     "$elf_checker" -p .ifsmeta "$file" 2>/dev/null |
         grep -F 'IFS-MODULE:fat16:1' >/dev/null ||
@@ -72,6 +75,8 @@ check_module() {
 safe_source_tree() {
     for dir in "$(dirname -- "$app_dir")" "$app_dir" "$self_dir" \
                "$app_dir/Sources" "$app_dir/Sources/fat16" \
+               "$source_dir/include" "$source_dir/include/infiltratr" \
+               "$source_dir/include/infiltratr/fs" \
                "$engine_dir" "$engine_dir/host" "$engine_dir/include" \
                "$engine_dir/include/infiltratr"; do
         [[ -d "$dir" && ! -L "$dir" ]] ||
@@ -117,7 +122,8 @@ case "$1" in
         for name in fat16_module.c fat16_module.h \
                     classic_fat_module.c classic_fat_module.h \
                     ff.c ff.h ffconf.h diskio.h ffunicode.c \
-                    fatfs_libc.c fatfs_module.c fatfs_module.h; do
+                    fatfs_libc.c fatfs_module.c fatfs_module.h fatfs_boot.c \
+                    include/infiltratr/fs/boot_module.h; do
             path="$source_dir/$name"
             [[ -f "$path" && ! -L "$path" ]] ||
                 fatal "missing or unsafe FAT16 source: $name"
@@ -136,15 +142,15 @@ case "$1" in
         temporary=$(mktemp "$destination/.FAT16.so.XXXXXXXX") ||
             fatal "cannot stage FAT16.so"
         trap 'rm -f -- "$temporary"' EXIT
-        "$compiler" -std=c11 -O2 -fPIC -fno-stack-protector \
+        "$compiler" -std=c11 -O2 -fPIC -mno-red-zone -fno-stack-protector \
             -fno-builtin -ffreestanding -fvisibility=hidden \
-            -nostdlib -shared -Wl,-z,defs -Wl,-z,relro -Wl,-z,now \
+            -nostdlib -shared -Wl,-Bsymbolic -Wl,-z,noexecstack -Wl,-z,defs -Wl,-z,relro -Wl,-z,now \
             -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -DIFS_FAT_DEFRAG_BITS=16 \
-            -DIFS_FATFS_ONLY=16 -I "$source_dir" -I "$engine_dir" \
+            -DIFS_FATFS_ONLY=16 -I "$source_dir" -I "$source_dir/include" -I "$engine_dir" \
             -I "$engine_dir/host" -I "$engine_dir/include" -o "$temporary" \
             "$source_dir/fat16_module.c" "$source_dir/ff.c" \
             "$source_dir/ffunicode.c" "$source_dir/fatfs_libc.c" \
-            "$source_dir/fatfs_module.c" "${engine_sources[@]}" ||
+            "$source_dir/fatfs_module.c" "$source_dir/fatfs_boot.c" "${engine_sources[@]}" ||
             fatal "FAT16 compilation failed; old module unchanged"
         check_module "$temporary"
         chmod 0644 "$temporary"

@@ -1,6 +1,6 @@
 # Filesystem-FAT16 roadmap
 
-**End-state requirement:** [one FAT16.so, one engine, universal consumers](ONE_MODULE_END_STATE.md). The `.ko` and `.efi` milestones below are transitional compatibility tasks only; replace them with BOOT's generic `.so` loader and the kernel's generic bridge once proven. Neither separate format-specific driver is a permanent distribution target.
+**End-state requirement:** [one FAT16.so, one engine, shared consumers](ONE_MODULE_END_STATE.md). Boot's generic SO loader is implemented and tested with a real Linux handoff in OVMF. Kernel-side SO integration, signed-module trust and physical firmware remain open. The `.ko`/`.efi` milestones below remain transitional compatibility tasks.
 
 ## Immediate standalone milestone
 

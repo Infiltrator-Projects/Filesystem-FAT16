@@ -1,6 +1,23 @@
 # Filesystem-FAT16 validation and release criteria
 
-**Completion standard:** [one FAT16.so shared across all consumers](ONE_MODULE_END_STATE.md), not merely independent tests of three binaries. Native read/write/format/defragmentation, real BOOT `.so` loading and kernel mount/root behavior must pass independently. Historical package tests below do not prove the universal loader is implemented.
+**Completion standard:** [one FAT16.so shared across consumers](ONE_MODULE_END_STATE.md). Boot's actual SO loading/Linux handoff and Defragmenter's unchanged write/recovery host are now exercised against identical module bytes. Kernel SO mount/root behavior and physical firmware remain separate acceptance gates.
+
+## Shared-module integration
+
+Boot's `tests/run-so-tests.sh` validates the matching generic ABI header,
+malformed ELF rejection and the production UEFI file adapter against independent
+FAT media. `tests/test_so_boot.py` boots the production Boot EFI and a real Linux
+EFI-stub kernel/initramfs through this same object in OVMF, including a rejected
+module case that cannot silently boot through firmware FAT.
+
+This repository's `tests/check-fat16-lifecycle.sh` retains V3 read/write and
+V4 format/metadata/free-space behavior with independent dosfstools checks at
+512-byte and 4-KiB sector sizes. `tests/boot_defrag_compat.py` builds the unchanged
+Defragmenter host/core and its authoritative Common target from the pinned
+consumer checkout. It checks identical module hashes, the unchanged ABI header,
+Defragment/Growth Defrag, wrong-format rejection, recovery at four journal
+stages, wrong-inode refusal and interruptions after real device-write calls.
+These process-interruption tests do not simulate physical power loss.
 
 ## Evidence separation
 

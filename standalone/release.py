@@ -80,6 +80,7 @@ def source_files():
         q = p.as_posix()
         selected = (
             q.startswith("native/filesystems/fat/") or
+            q == "native/include/infiltratr/fs/boot_module.h" or
             q.startswith("src/infiltratr-common/include/") or
             q.startswith("standalone/") or q.startswith("docs/") or
             q in ("README.md", "VERSION", "MIGRATION-PROVENANCE.md",

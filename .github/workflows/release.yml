@@ -17,9 +17,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install build and inspection prerequisites
-        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends build-essential binutils python3 dpkg-dev
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends build-essential binutils python3 dpkg-dev cmake dosfstools mtools
+      - name: Check out the unchanged Defragmenter consumer and its pinned Common
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          repository: Infiltrator-Projects/Defragmenter
+          ref: d54c91993f4945e7a348410d26567c50554ac356
+          submodules: recursive
+          path: .qualification/Defragmenter
       - name: Compile and exercise exactly one shared object
         run: make check
+      - name: Preserve filesystem lifecycle and Defragmenter write/recovery compatibility
+        run: |
+          bash tests/check-fat16-lifecycle.sh build/FAT16.so
+          python3 tests/boot_defrag_compat.py --module build/FAT16.so \
+            --defragmenter-source .qualification/Defragmenter --output build/defrag-compat
       - name: Build the DEB and native source installer
         run: make release
       - name: Validate release bytes and native installation
@@ -34,6 +46,9 @@ jobs:
           version=$(cat VERSION)
           test "$(dpkg-query -W -f='${Version}' infiltrator-filesystem-fat16)" = "${version}+native1"
           python3 standalone/build.py --profile portable --output build/FAT16.so --check
+          bash tests/check-fat16-lifecycle.sh /System/Filesystems/FAT16.so
+          python3 tests/boot_defrag_compat.py --module /System/Filesystems/FAT16.so \
+            --defragmenter-source .qualification/Defragmenter --output build/native-compat
           python3 - <<'PY'
           from pathlib import Path
           import hashlib

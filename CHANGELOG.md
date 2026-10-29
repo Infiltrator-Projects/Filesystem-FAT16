@@ -1,5 +1,13 @@
 # Filesystem FAT16 changelog
 
+## 0.1.5 — 2026-10-29
+
+- Add a freestanding boot ABI and fixed manifest to the same FAT16.so that retains V1/V3/V4 and Defragmenter's existing ABI. Boot supplies generic UEFI services; this module retains FAT interpretation.
+- Provide streaming read-only file contexts, directory enumeration and volume labels. Boot mounts reject automatic MBR partition selection through a whole-disk parent; application V3 mounting remains unchanged.
+- Qualify portable and native O3/LTO/trained-PGO modules with Boot's actual ELF loader and Linux EFI-stub handoff in OVMF, plus unchanged Defragmenter mutation and interrupted-journal/device-write recovery.
+- Keep freestanding intrinsics emitted through LTO and avoid requiring AVX/AMX extended register state before the kernel starts. Include the boot interface in source installer and legacy CMake/helper build inputs.
+- Physical firmware, Secure Boot signed-module trust and a kernel-side SO bridge remain separate qualification.
+
 ## 0.1.4 — 2026-10-29 (single-driver architecture documentation)
 
 - Define `FAT16.so` as the only final filesystem-specific distributed driver for BOOT, kernel and applications; one canonical FAT16 engine.

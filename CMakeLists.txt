@@ -472,19 +472,22 @@ if(UNIX)
     add_library(filesystems-fat16-module SHARED
         native/filesystems/fat/module/fat16_module.c
         native/filesystems/fat/portable/fatfs_module.c
+        native/filesystems/fat/portable/fatfs_boot.c
         native/filesystems/fat/portable/ff.c
         native/filesystems/fat/portable/ffunicode.c
         native/filesystems/fat/portable/fatfs_libc.c)
     target_include_directories(filesystems-fat16-module PUBLIC
         "${CMAKE_CURRENT_SOURCE_DIR}/native/filesystems/fat/module"
-        "${CMAKE_CURRENT_SOURCE_DIR}/native/filesystems/fat/portable")
+        "${CMAKE_CURRENT_SOURCE_DIR}/native/filesystems/fat/portable"
+        "${CMAKE_CURRENT_SOURCE_DIR}/native/include")
     target_compile_definitions(filesystems-fat16-module PRIVATE IFS_FATFS_ONLY=16)
     filesystems_fat_defrag(filesystems-fat16-module 16)
     set_target_properties(filesystems-fat16-module PROPERTIES
         PREFIX "" OUTPUT_NAME "FAT16")
     if(CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
         target_compile_options(filesystems-fat16-module PRIVATE
-            -ffreestanding -fno-builtin -fno-stack-protector -fvisibility=hidden)
+            -ffreestanding -fno-builtin -fno-stack-protector -fvisibility=hidden -mno-red-zone)
+        target_link_options(filesystems-fat16-module PRIVATE -Wl,-Bsymbolic -Wl,-z,noexecstack)
         # Production module is freestanding. Sanitizer CI deliberately links
         # compiler runtimes; -nostdlib/-z defs would prevent ASan/UBSan tests.
         if(CMAKE_C_FLAGS MATCHES "fsanitize")
@@ -510,8 +513,11 @@ if(UNIX)
         native/filesystems/fat/portable/ffunicode.c
         native/filesystems/fat/portable/fatfs_libc.c
         native/filesystems/fat/portable/fatfs_module.c
+        native/filesystems/fat/portable/fatfs_boot.c
         native/filesystems/fat/portable/fatfs_module.h
         DESTINATION "${FILESYSTEMS_APPLICATION_ROOT}/Sources/fat16")
+    install(FILES native/include/infiltratr/fs/boot_module.h
+        DESTINATION "${FILESYSTEMS_APPLICATION_ROOT}/Sources/fat16/include/infiltratr/fs")
     install(PROGRAMS packaging/linux/fat16-module-helper.sh
         DESTINATION "${FILESYSTEMS_APPLICATION_ROOT}/Helpers"
         RENAME fat16-module-helper)
