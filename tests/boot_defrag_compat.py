@@ -76,12 +76,14 @@ def main():
             execute(["python3", fixture, kind, image, "fragmented"])
             return image
 
-        def operation(command, image, journal, name, extra=None, expected=0):
+        def operation(command, image, journal, name, extra=None, expected=0,
+                      timeout=None):
             env = dict(environment, **(extra or {}))
             with (output / (name + ".log")).open("w") as log:
                 result = subprocess.run([str(worker), command, str(image), "--write",
                                          "--confirm", str(image), "--journal", str(journal)],
-                                        env=env, stdout=log, stderr=subprocess.STDOUT)
+                                        env=env, stdout=log, stderr=subprocess.STDOUT,
+                                        timeout=timeout)
             assert result.returncode == expected, (name, result.returncode)
 
         for command in ["defrag", "growth-defrag"]:
@@ -123,6 +125,42 @@ def main():
                 cluster = struct.unpack('<H', file.read(2))[0]
         assert cluster >= 0xfff8
         execute(["fsck.fat", "-n", image])
+
+        # FAT16 Test Media has ~200 MiB of live files. The old unified
+        # workspace path could silently journal the whole live set at once,
+        # despite the adaptive path's 64 MiB Stop-latency budget. Manufacture
+        # the same over-budget case on a disposable image and verify its files
+        # independently through mtools after real module-backed Defragment.
+        budget_image = work / "stop-budget.img"
+        execute(["truncate", "-s", "256M", budget_image])
+        execute(["mkfs.fat", "-F", "16", "-I", "-s", "64", budget_image])
+        original_files = {}
+        for name, mib, fill in (("FIRST.BIN", 60, 0x31),
+                                ("SECOND.BIN", 45, 0x72),
+                                ("THIRD.BIN", 70, 0xC3)):
+            payload = work / name
+            with payload.open("wb") as stream:
+                block = bytes([fill]) * (1024 * 1024)
+                for _ in range(mib):
+                    stream.write(block)
+            original_files[name] = payload
+        execute(["mcopy", "-i", budget_image, original_files["FIRST.BIN"], "::FIRST.BIN"])
+        execute(["mcopy", "-i", budget_image, original_files["SECOND.BIN"], "::SECOND.BIN"])
+        execute(["mdel", "-i", budget_image, "::FIRST.BIN"])
+        execute(["mcopy", "-i", budget_image, original_files["THIRD.BIN"], "::THIRD.BIN"])
+        operation("defrag", budget_image, work / "stop-budget.journal",
+                  "stop-budget", timeout=240)
+        budget_log = (output / "stop-budget.log").read_text()
+        assert "layout batching: Stop-safe transaction budget up to " in budget_log, (
+            "FAT16 writer did not report the enforced Stop-safe budget", budget_log[-6000:])
+        assert "unified workspace batch:" not in budget_log, (
+            "FAT16 over-budget relocation used the unrestricted unified path",
+            budget_log[-6000:])
+        for name in ("SECOND.BIN", "THIRD.BIN"):
+            extracted = work / ("verified-" + name)
+            execute(["mcopy", "-i", budget_image, "::" + name, extracted])
+            assert digest(extracted) == digest(original_files[name]), name
+        execute(["fsck.fat", "-n", budget_image])
 
         foreign = make_image("foreign", "fat12")
         before = digest(foreign)
