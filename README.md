@@ -28,7 +28,7 @@ FAT16 16-bit allocation entries, fixed-root directories and the complete 4,085â€
 ## Installer files
 
 - `/System/Filesystems/FAT16.so`
-- `/System/Resources/Documentation/Filesystem-FAT16/FAT16.pdf`
+- `/System/Resources/Documentation/Filesystem-FAT16.pdf`
 - `/System/Kernel/Filesystems/fat16.ko`
 
 The published Debian package installs these three regular files. A manual native RUN compiles the shared object and Linux adapter locally, generates the PDF, and replaces all three files. It uses the running kernel headers by default. Use `--kernel-build DIRECTORY` for a prepared kernel build with `Module.symvers`. The kernel module is stored for manual use.
