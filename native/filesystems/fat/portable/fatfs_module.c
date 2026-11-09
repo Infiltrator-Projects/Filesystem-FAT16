@@ -181,7 +181,9 @@ static int file_read(const char *path, uint32_t offset, void *buffer, uint32_t n
          f_lseek(&f, (FSIZE_t)offset) == FR_OK &&
          f_read(&f,buffer,n,&got)==FR_OK && got==n;
     if (f_close(&f)!=FR_OK) good=0;
-    if (good && n && record_access(path)!=0) good=0;
+    /* Metadata timestamps are best-effort: a successful read on read-only
+     * media must not be reported as failed because atime could not be stored. */
+    if (good && n) (void)record_access(path);
     return good?0:-1;
 }
 static int file_write(const char *path, uint32_t offset, const void *buffer, uint32_t n)
