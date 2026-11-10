@@ -42,4 +42,11 @@ typedef struct {
 
 /* Internal arithmetic and FAT chain inspection; not a separate ABI. */
 int ifs_classic_fat_probe(const IfsClassicFatIo *, IfsClassicFatVolume *);
+int ifs_classic_fat_root_file(const IfsClassicFatIo *, const IfsClassicFatVolume *,
+                              uint32_t, IfsClassicFatFile *);
+int ifs_classic_fat_read_file(const IfsClassicFatIo *, const IfsClassicFatVolume *,
+                              const IfsClassicFatFile *, uint64_t, void *, uint32_t);
+int ifs_classic_fat_root_file_fragments(const IfsClassicFatIo *,
+                                        const IfsClassicFatVolume *,
+                                        const IfsClassicFatFile *, uint32_t *);
 #endif
