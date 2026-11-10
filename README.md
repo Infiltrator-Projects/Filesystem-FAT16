@@ -45,3 +45,11 @@ and qualified implementations exist. One FAT16 engine may own one mounted
 volume at a time. Generic writes and formatting require exclusive host access.
 The format-specific entry points remain temporarily for existing native
 consumers pending their migration; no second FAT16 engine is introduced.
+
+## Common V2 host and volume contract
+
+`FAT16.so` also exports `infiltrator_filesystem_api_v2`. Its
+negotiated volume group supports real sync and format operations via the
+existing FatFs engine. Host geometry and access are validated by Common's
+V2 adaptation helpers. Missing handles, metadata, recovery and defrag groups
+are not advertised; the binary makes no unproven kernel-execution claim.
