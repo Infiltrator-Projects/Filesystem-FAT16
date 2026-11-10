@@ -140,7 +140,7 @@ static int fat_entry(const IfsClassicFatIo *io, const IfsClassicFatVolume *v,
 #endif
     return 0;
 }
-static int classic_fat_root_file(const IfsClassicFatIo *io, const IfsClassicFatVolume *v,
+int ifs_classic_fat_root_file(const IfsClassicFatIo *io, const IfsClassicFatVolume *v,
                            uint32_t nth, IfsClassicFatFile *file)
 {
     if (!v || !file) return -1;
@@ -181,7 +181,7 @@ static int classic_fat_root_file(const IfsClassicFatIo *io, const IfsClassicFatV
     }
     return 1;
 }
-static int validate_chain(const IfsClassicFatIo *io, const IfsClassicFatVolume *v,
+int ifs_classic_fat_root_file_fragments(const IfsClassicFatIo *io, const IfsClassicFatVolume *v,
                           const IfsClassicFatFile *f, uint32_t *fragments)
 {
     if (!v || !f || !fragments || (f->attributes & 0x10u))
@@ -221,12 +221,12 @@ static int validate_chain(const IfsClassicFatIo *io, const IfsClassicFatVolume *
     }
     return -1;
 }
-static int classic_fat_read_file(const IfsClassicFatIo *io, const IfsClassicFatVolume *v,
+int ifs_classic_fat_read_file(const IfsClassicFatIo *io, const IfsClassicFatVolume *v,
                            const IfsClassicFatFile *f, uint64_t position,
                            void *buffer, uint32_t length)
 {
     uint32_t fragments;
-    if (!buffer || validate_chain(io, v, f, &fragments) != 0 ||
+    if (!buffer || ifs_classic_fat_root_file_fragments(io, v, f, &fragments) != 0 ||
         position > f->size_bytes || length > f->size_bytes - position)
         return -1;
     if (length == 0) return 0;
