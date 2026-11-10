@@ -34,3 +34,14 @@ FAT16 16-bit allocation entries, fixed-root directories and the complete 4,085â€
 The published Debian package installs these three regular files. A manual native RUN compiles the shared object and Linux adapter locally, generates the PDF, and replaces all three files. It uses the running kernel headers by default. Use `--kernel-build DIRECTORY` for a prepared kernel build with `Module.symvers`. The kernel module is stored for manual use.
 
 InfiltratorOS calls `--system-package-mode` and decides which outputs need updating. Its worker builds a missing or older SO, repairs the PDF independently, and stores the matching released kernel module when available. Use `--build-only --output DIRECTORY` to build a Debian package.
+
+## Common filesystem ABI
+
+The distributable `FAT16.so` exports `infiltrator_filesystem_api_v1`, the
+format-neutral Common V1 table. It delegates probe, mount, file and directory
+operations, and format to this repository's existing FAT16 engine. The table
+does not advertise CHECK, RECOVER or DEFRAG until dedicated Common contracts
+and qualified implementations exist. One FAT16 engine may own one mounted
+volume at a time. Generic writes and formatting require exclusive host access.
+The format-specific entry points remain temporarily for existing native
+consumers pending their migration; no second FAT16 engine is introduced.

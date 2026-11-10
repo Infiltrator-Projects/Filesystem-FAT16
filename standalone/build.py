@@ -22,7 +22,7 @@ SOURCES = [MOD / f"fat{WIDTH}_module.c"] + [
     "fat_volume.c", "fat_defrag_module.c")]
 INCLUDES = [MOD, PORT, DEF, DEF / "host", ROOT / "native/include",
             ROOT / "src/infiltratr-common/include"]
-EXPORTS = ("infiltrator_filesystem_module_v1", "infiltrator_filesystem_module_v3",
+EXPORTS = ("infiltrator_filesystem_api_v1", "infiltrator_filesystem_module_v1", "infiltrator_filesystem_module_v3",
            "infiltrator_filesystem_module_v4", "infiltrator_filesystem_module_v5",
            "infiltrator_filesystem_defrag_v1",
            "infiltrator_filesystem_boot_v1")
@@ -44,6 +44,8 @@ def inspect(module):
     for api in (1, 3, 4, 5):
         if f"IFS-MODULE:fat{WIDTH}:{api}" not in meta:
             raise RuntimeError("Missing exact FAT format identity")
+    if f"IFS-MODULE:fat{WIDTH}:common1" not in meta:
+        raise RuntimeError("Missing Common ABI identity")
     if "(NEEDED)" in subprocess.check_output(["readelf", "-d", str(module)], text=True):
         raise RuntimeError("Unexpected runtime shared-library dependency")
     manifest = struct.pack("<8sIIII16s32s", b"IFSBOOT1", 72, 1, 62, 1,
@@ -129,6 +131,12 @@ def test(module):
          ROOT / "tests" / f"fat{WIDTH}_module_test.c",
          module, "-Wl,-rpath,$ORIGIN", "-o", exe])
     run([exe])
+    common_test = module.parent / "fat16-common-abi-test"
+    run([os.environ.get("CC", "cc"), "-std=c11", "-O2", "-Wall", "-Wextra",
+         "-Werror", "-I", ROOT / "src/infiltratr-common/include",
+         ROOT / "tests/common_v1_abi_test.c", "-ldl", "-o", common_test])
+    run([common_test, module])
+    common_test.unlink()
 
 def main():
     parser = argparse.ArgumentParser()
