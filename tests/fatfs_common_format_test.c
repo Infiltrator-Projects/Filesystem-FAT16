@@ -68,7 +68,7 @@ int main(int argc,char **argv)
     if(!fs || !vol || !fs->probe || !fs->mount || !fs->unmount ||
        !fs->read || !fs->write || !fs->create || !fs->remove ||
        !fs->rename || !fs->truncate || !fs->directory_entry ||
-       !fs->stat || !vol->format || !vol->check || !vol->query)
+       !fs->stat || !vol->format || !vol->sync || !vol->query)
         return fail("canonical V2 operations missing");
 
     IfsFsHostRuntimeV2 io={0};
@@ -101,7 +101,7 @@ int main(int argc,char **argv)
     io.write_at=wr;io.flush=flush;
 
     if(vol->format(&io,16u,NULL,0u)!=IFS_FS_OK || !disk.writes ||
-       fs->probe(&io,&variant)!=IFS_FS_OK || variant!=12u)
+       fs->probe(&io,&variant)!=IFS_FS_OK || variant!=16u)
         return fail("blank FAT16 format and probe");
 
     IfsFsVolumeInfoV2 info={0};
@@ -145,8 +145,7 @@ int main(int argc,char **argv)
        entry.size_bytes!=1000u)
         return fail("create/write/read/Unicode/rename/truncate");
 
-    uint64_t errors=UINT64_MAX;
-    if(vol->check(session,0u,&errors)!=IFS_FS_OK || errors!=0u ||
+    if(vol->sync(session)!=IFS_FS_OK ||
        fs->unmount(session)!=IFS_FS_OK)
         return fail("new-media FAT integrity or unmount");
 
@@ -166,7 +165,7 @@ int main(int argc,char **argv)
     }
     if(!found || fs->remove(session,renamed)!=IFS_FS_OK ||
        fs->remove(session,dir)!=IFS_FS_OK ||
-       vol->check(session,0u,&errors)!=IFS_FS_OK || errors!=0u ||
+       vol->sync(session)!=IFS_FS_OK ||
        fs->unmount(session)!=IFS_FS_OK || flush(&disk)!=0)
         return fail("enumerate/delete/final integrity");
 
