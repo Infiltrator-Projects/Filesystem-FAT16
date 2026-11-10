@@ -10,12 +10,6 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#define IFS_CLASSIC_FAT_ABI_VERSION 1u
-#define IFS_CLASSIC_FAT_CAP_PROBE UINT64_C(1)
-#define IFS_CLASSIC_FAT_CAP_ROOT_83 UINT64_C(2)
-#define IFS_CLASSIC_FAT_CAP_FILE_READ UINT64_C(4)
-#define IFS_CLASSIC_FAT_CAP_ROOT_FRAGMENT_COUNT UINT64_C(8)
-
 typedef int (*IfsClassicFatReadAt)(void *context, uint64_t offset, void *buffer,
                              uint32_t bytes);
 typedef struct {
@@ -46,25 +40,13 @@ typedef struct {
     uint8_t attributes;
 } IfsClassicFatFile;
 
-typedef struct {
-    uint32_t abi_version;
-    uint32_t structure_bytes;
-    const char *format_id;
-    const char *format_name;
-    uint64_t capabilities;
-    int (*probe)(const IfsClassicFatIo *, IfsClassicFatVolume *);
-    /* nth visible 8.3 root entry; 0 = success, 1 = end, -1 = invalid. */
-    int (*root_file)(const IfsClassicFatIo *, const IfsClassicFatVolume *,
-                     uint32_t nth, IfsClassicFatFile *);
-    /* Read file data. 0 = success, -1 = invalid/corrupt/out of range. */
-    int (*read_file)(const IfsClassicFatIo *, const IfsClassicFatVolume *,
-                     const IfsClassicFatFile *, uint64_t position,
-                     void *buffer, uint32_t length);
-    /* Check a root file's complete allocation chain, counting fragments. */
-    int (*root_file_fragments)(const IfsClassicFatIo *, const IfsClassicFatVolume *,
-                               const IfsClassicFatFile *, uint32_t *fragments);
-} IfsClassicFatModule;
-
-/* Exported discovery symbol. Not a Linux .ko, EFI image, or full defrag ABI. */
-const IfsClassicFatModule *infiltrator_filesystem_module_v1(void);
+/* Internal arithmetic and FAT chain inspection; not a separate ABI. */
+int ifs_classic_fat_probe(const IfsClassicFatIo *, IfsClassicFatVolume *);
+int ifs_classic_fat_root_file(const IfsClassicFatIo *, const IfsClassicFatVolume *,
+                              uint32_t, IfsClassicFatFile *);
+int ifs_classic_fat_read_file(const IfsClassicFatIo *, const IfsClassicFatVolume *,
+                              const IfsClassicFatFile *, uint64_t, void *, uint32_t);
+int ifs_classic_fat_root_file_fragments(const IfsClassicFatIo *,
+                                        const IfsClassicFatVolume *,
+                                        const IfsClassicFatFile *, uint32_t *);
 #endif

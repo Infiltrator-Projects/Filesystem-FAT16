@@ -22,7 +22,7 @@ SOURCES = [MOD / f"fat{WIDTH}_module.c"] + [
     "fat_volume.c", "fat_defrag_module.c")]
 INCLUDES = [MOD, PORT, DEF, DEF / "host", ROOT / "native/include",
             ROOT / "src/infiltratr-common/include"]
-EXPORTS = ("infiltrator_filesystem_api_v2", "infiltrator_filesystem_api_v1", "infiltrator_filesystem_module_v1", "infiltrator_filesystem_module_v3",
+EXPORTS = ("infiltrator_filesystem_api_v2", "infiltrator_filesystem_module_v3",
            "infiltrator_filesystem_module_v4", "infiltrator_filesystem_module_v5",
            "infiltrator_filesystem_defrag_v1",
            "infiltrator_filesystem_boot_v1")
@@ -41,13 +41,14 @@ def inspect(module):
         if symbol not in exports:
             raise RuntimeError("Missing ABI export: " + symbol)
     meta = subprocess.check_output(["readelf", "-p", ".ifsmeta", str(module)], text=True)
-    for api in (1, 3, 4, 5):
+    for api in (3, 4, 5):
         if f"IFS-MODULE:fat{WIDTH}:{api}" not in meta:
             raise RuntimeError("Missing exact FAT format identity")
     if f"IFS-MODULE:fat{WIDTH}:common2" not in meta:
         raise RuntimeError("Missing Common V2 identity")
-    if f"IFS-MODULE:fat{WIDTH}:common1" not in meta:
-        raise RuntimeError("Missing Common ABI identity")
+    for deprecated in ("infiltrator_filesystem_api_v1", "infiltrator_filesystem_module_v1"):
+        if deprecated in exports:
+            raise RuntimeError("Retired filesystem export found: " + deprecated)
     if "(NEEDED)" in subprocess.check_output(["readelf", "-d", str(module)], text=True):
         raise RuntimeError("Unexpected runtime shared-library dependency")
     manifest = struct.pack("<8sIIII16s32s", b"IFSBOOT1", 72, 1, 62, 1,
@@ -128,17 +129,28 @@ def build(profile, module):
 
 def test(module):
     exe = module.parent / f"fat{WIDTH}-module-test"
+    # Exercise the internal parser directly; no public V1 symbol is needed.
     run([os.environ.get("CC", "cc"), "-std=c11", "-O2",
          "-Wall", "-Wextra", "-Werror", "-I", MOD,
          ROOT / "tests" / f"fat{WIDTH}_module_test.c",
-         module, "-Wl,-rpath,$ORIGIN", "-o", exe])
+         MOD / f"fat{WIDTH}_module.c", "-o", exe])
     run([exe])
-    common_test = module.parent / "fat16-common-abi-test"
-    run([os.environ.get("CC", "cc"), "-std=c11", "-O2", "-Wall", "-Wextra",
-         "-Werror", "-I", ROOT / "src/infiltratr-common/include",
-         ROOT / "tests/common_v1_abi_test.c", "-ldl", "-o", common_test])
-    run([common_test, module])
-    common_test.unlink()
+    abi_test = module.parent / "fat16-common-v2-test"
+    run([os.environ.get("CC", "cc"), "-std=c11", "-O2", "-Wall",
+         "-Wextra", "-Werror", "-I", ROOT / "src/infiltratr-common/include",
+         ROOT / "tests/common_v2_abi_test.c", "-ldl", "-o", abi_test])
+    run([abi_test, module])
+    media_test = module.parent / "fat16-v2-media-test"
+    run([os.environ.get("CC", "cc"), "-std=c11", "-O2", "-Wall",
+         "-Wextra", "-Werror", "-I", ROOT / "src/infiltratr-common/include",
+         ROOT / "tests/fatfs_common_format_test.c", "-ldl", "-o", media_test])
+    with tempfile.TemporaryDirectory(prefix="fat16-v2-media-") as workspace:
+        image = Path(workspace) / "exclusive-disposable.img"
+        with image.open("wb") as out:
+            out.truncate(16 * 1024 * 1024)
+        run([media_test, module, image, "512"])
+    abi_test.unlink(missing_ok=True)
+    media_test.unlink(missing_ok=True)
 
 def main():
     parser = argparse.ArgumentParser()
@@ -207,8 +219,8 @@ def release_source_files():
             q.startswith("src/infiltratr-common/include/") or
             q.startswith("standalone/") or q.startswith("docs/") or
             q in ("README.md", "VERSION", "MIGRATION-PROVENANCE.md",
-                  "src/infiltratr-common/LICENSE", "tests/common_v1_abi_test.c", f"tests/fat{WIDTH}_module_test.c",
-                  "tests/fatfs_v4_format_test.c", "tests/fat16_complete_test.py",
+                  "src/infiltratr-common/LICENSE", "tests/common_v2_abi_test.c", f"tests/fat{WIDTH}_module_test.c",
+                  "tests/fatfs_v4_format_test.c", "tests/fatfs_common_format_test.c", "tests/fat16_complete_test.py",
                   "tests/check-fat16-lifecycle.sh", "tests/fatfs_v3_realimage_test.c")
         )
         if selected and (ROOT / p).is_file() and not (ROOT / p).is_symlink():

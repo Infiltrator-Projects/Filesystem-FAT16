@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: GPL-3.0-or-later */
 /* Independent in-memory FAT16 fixture. No host filesystem or block devices. */
-#include "fat16_module.h"
+#include "classic_fat_module.h"
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
@@ -76,58 +76,52 @@ static int failure(const char *msg)
 }
 int main(void)
 {
-    const IfsFat16Module *api = infiltrator_filesystem_module_v1();
-    IfsFat16Io io = {read_at, NULL, sizeof image};
-    IfsFat16Volume vol;
-    IfsFat16File file;
+    IfsClassicFatIo io = {read_at, NULL, sizeof image};
+    IfsClassicFatVolume vol;
+    IfsClassicFatFile file;
     uint32_t fragments;
     unsigned char data[3000];
 
-    if (!api || api->abi_version != 1 || api->structure_bytes != sizeof(*api) ||
-        strcmp(api->format_id, "fat16") != 0 ||
-        (api->capabilities & IFS_FAT16_CAP_FILE_READ) == 0 ||
-        (api->capabilities & IFS_FAT16_CAP_ROOT_FRAGMENT_COUNT) == 0)
-        return failure("bad module ABI or capabilities");
     fixture();
-    if (api->probe(&io, &vol) != 0 || vol.cluster_count < 4085 ||
+    if (ifs_classic_fat_probe(&io, &vol) != 0 || vol.cluster_count < 4085 ||
         vol.cluster_count >= 65525 || vol.cluster_bytes != 1024)
         return failure("valid FAT16 image not detected");
-    if (api->root_file(&io, &vol, 0, &file) != 0 ||
+    if (ifs_classic_fat_root_file(&io, &vol, 0, &file) != 0 ||
         strcmp(file.name, "HELLO.TXT") != 0 || file.size_bytes != 3000)
         return failure("root directory missing");
-    if (api->root_file(&io, &vol, 1, &file) != 1)
+    if (ifs_classic_fat_root_file(&io, &vol, 1, &file) != 1)
         return failure("extra root entry");
-    if (api->root_file(&io, &vol, 0, &file) != 0 ||
-        api->root_file_fragments(&io, &vol, &file, &fragments) != 0 ||
+    if (ifs_classic_fat_root_file(&io, &vol, 0, &file) != 0 ||
+        ifs_classic_fat_root_file_fragments(&io, &vol, &file, &fragments) != 0 ||
         fragments != 3u)
         return failure("fragment count wrong");
-    if (api->read_file(&io, &vol, &file, 0, data, sizeof data) != 0)
+    if (ifs_classic_fat_read_file(&io, &vol, &file, 0, data, sizeof data) != 0)
         return failure("read failed");
     for (unsigned i=0; i<3000; ++i)
         if (data[i] != (unsigned char)('A' + (int)(i/1024u)))
             return failure("noncontiguous chain was read incorrectly");
-    if (api->read_file(&io, &vol, &file, 2999u, data, 2u) == 0)
+    if (ifs_classic_fat_read_file(&io, &vol, &file, 2999u, data, 2u) == 0)
         return failure("out-of-bounds file read accepted");
     for (unsigned status=0;status<4u;status++) {
         fat(1,0x3fffu | (status<<14));
-        if (api->probe(&io,&vol)!=0)
+        if (ifs_classic_fat_probe(&io,&vol)!=0)
             return failure("clean/error status bits changed FAT16 identity");
     }
 
     fat(5, 0xffffu);
-    if (api->root_file_fragments(&io, &vol, &file, &fragments) == 0)
+    if (ifs_classic_fat_root_file_fragments(&io, &vol, &file, &fragments) == 0)
         return failure("short/corrupt chain accepted");
     fixture();
     image[13] = 8u; /* lower cluster count => FAT12, despite FAT16 text */
-    if (api->probe(&io, &vol) == 0)
+    if (ifs_classic_fat_probe(&io, &vol) == 0)
         return failure("FAT12 accepted as FAT16");
     fixture();
     image[510] = 0;
-    if (api->probe(&io, &vol) == 0)
+    if (ifs_classic_fat_probe(&io, &vol) == 0)
         return failure("broken signature accepted");
     fixture();
     io.device_bytes = 512;
-    if (api->probe(&io, &vol) == 0)
+    if (ifs_classic_fat_probe(&io, &vol) == 0)
         return failure("truncated image accepted");
     puts("FAT16-MODULE-READ-AND-FRAGMENT-PASS");
     return 0;
