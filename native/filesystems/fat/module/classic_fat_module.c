@@ -41,7 +41,7 @@ static int bounded_read(const IfsClassicFatIo *io, uint64_t offset,
     return io->read_at(io->context, offset, dst, n) == 0 ? 0 : -1;
 }
 
-static int classic_fat_probe(const IfsClassicFatIo *io, IfsClassicFatVolume *v)
+int ifs_classic_fat_probe(const IfsClassicFatIo *io, IfsClassicFatVolume *v)
 {
     uint8_t boot[512];
     if (!v || bounded_read(io, 0, boot, sizeof boot) != 0 ||
@@ -261,20 +261,4 @@ static int classic_fat_read_file(const IfsClassicFatIo *io, const IfsClassicFatV
         }
     }
     return 0;
-}
-/* Non-executed format identity, tied to the compiled variant. */
-__attribute__((used,section(".ifsmeta")))
-static const char ifs_module_format_identity[] =
-    "IFS-MODULE:" IFS_CLASSIC_FAT_ID ":1";
-static const IfsClassicFatModule module = {
-    IFS_CLASSIC_FAT_ABI_VERSION, sizeof(IfsClassicFatModule),
-    IFS_CLASSIC_FAT_ID, IFS_CLASSIC_FAT_NAME,
-    IFS_CLASSIC_FAT_CAP_PROBE | IFS_CLASSIC_FAT_CAP_ROOT_83 |
-    IFS_CLASSIC_FAT_CAP_FILE_READ | IFS_CLASSIC_FAT_CAP_ROOT_FRAGMENT_COUNT,
-    classic_fat_probe, classic_fat_root_file, classic_fat_read_file, validate_chain
-};
-__attribute__((visibility("default")))
-const IfsClassicFatModule *infiltrator_filesystem_module_v1(void)
-{
-    return &module;
 }
