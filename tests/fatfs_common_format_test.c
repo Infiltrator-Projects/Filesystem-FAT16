@@ -149,6 +149,22 @@ int main(int argc,char **argv)
        fs->unmount(session)!=IFS_FS_OK)
         return fail("new-media FAT integrity or unmount");
 
+    IfsFsHostRuntimeV2 read_only=io;
+    read_only.capabilities=IFS_FS_HOST_READ_ONLY;
+    read_only.write_at=NULL;
+    read_only.flush=NULL;
+    const unsigned writes=disk.writes;
+    uint32_t label_bytes=0;
+    char label[64];
+    if(fs->mount(&read_only,&session,&info)!=IFS_FS_OK ||
+       !vol->label || vol->label(session,label,sizeof label,&label_bytes)!=IFS_FS_OK ||
+       label_bytes!=strlen(label) ||
+       fs->read(session,renamed,0,readback,500u)!=IFS_FS_OK ||
+       fs->read(session,renamed,500,readback+500,500u)!=IFS_FS_OK ||
+       memcmp(payload,readback,1000u)!=0 || fs->unmount(session)!=IFS_FS_OK ||
+       disk.writes!=writes)
+        return fail("read-only label and repeated data reads must preserve media");
+
     info.structure_bytes=sizeof info;
     if(fs->mount(&io,&session,&info)!=IFS_FS_OK ||
        fs->read(session,renamed,0,readback,1000u)!=IFS_FS_OK ||

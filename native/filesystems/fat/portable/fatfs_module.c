@@ -171,7 +171,8 @@ static int create_file(const char *path)
     return f_close(&f) == FR_OK ? 0 : -1;
 }
 static int record_access(const char *path);
-static int file_read(const char *path, uint32_t offset, void *buffer, uint32_t n)
+static int read_file_data(const char *path, uint32_t offset, void *buffer,
+                          uint32_t n, int update_access)
 {
     FIL f;
     UINT got=0;
@@ -183,10 +184,14 @@ static int file_read(const char *path, uint32_t offset, void *buffer, uint32_t n
          f_lseek(&f, (FSIZE_t)offset) == FR_OK &&
          f_read(&f,buffer,n,&got)==FR_OK && got==n;
     if (f_close(&f)!=FR_OK) good=0;
-    /* Metadata timestamps are best-effort: a successful read on read-only
-     * media must not be reported as failed because atime could not be stored. */
-    if (good && n) (void)record_access(path);
+    /* Read-only sessions must leave the FatFs window clean. Attempting an
+     * atime write can leave a dirty cache when the host denies the write. */
+    if (good && n && update_access) (void)record_access(path);
     return good?0:-1;
+}
+static int file_read(const char *path, uint32_t offset, void *buffer, uint32_t n)
+{
+    return read_file_data(path,offset,buffer,n,1);
 }
 static int file_write(const char *path, uint32_t offset, const void *buffer, uint32_t n)
 {
@@ -785,8 +790,8 @@ static int common_file_read(void *context, const char *path, uint64_t offset,
     if (offset>UINT32_MAX || length>UINT32_MAX-offset)
         return IFS_FS_UNSUPPORTED; /* FAT12 on-media file offsets are 32-bit. */
     if ((rc=common_path(path,p))!=IFS_FS_OK) return rc;
-    return file_read(p,(uint32_t)offset,
-                                                     destination,length)==0 ?
+    return read_file_data(p,(uint32_t)offset,destination,length,
+                          common_writable())==0 ?
            IFS_FS_OK : IFS_FS_IO_ERROR;
 }
 static int common_file_write(void *context, const char *path, uint64_t offset,
@@ -874,6 +879,15 @@ static int v2_query_volume(void *mounted, IfsFsVolumeInfoV2 *info)
     info->free_bytes = free_bytes;
     return IFS_FS_OK;
 }
+static int v2_label(void *volume, char *label, uint32_t capacity, uint32_t *bytes)
+{
+    if (!common_session_valid(volume) || !label || !capacity || !bytes)
+        return IFS_FS_INVALID;
+    if (get_label(label,capacity,NULL)!=0) return IFS_FS_IO_ERROR;
+    *bytes=0u;
+    while (label[*bytes]) ++*bytes;
+    return IFS_FS_OK;
+}
 static int v2_sync(void *volume) {
     if (!common_session_valid(volume)) return IFS_FS_INVALID;
     if (!common_session.host.flush) return IFS_FS_OK;
@@ -885,8 +899,9 @@ static const char common_v2_identity[]="IFS-MODULE:fat16:common2";
 static const IfsFsVolumeOpsV2 common_volume={
     .header={IFS_FS_GROUP_ABI_V2,sizeof(IfsFsVolumeOpsV2),
              IFS_FS_GROUP_VOLUME,0u,
-             IFS_FS_VOLUME_QUERY|IFS_FS_VOLUME_SYNC|IFS_FS_VOLUME_FORMAT},
+             IFS_FS_VOLUME_QUERY|IFS_FS_VOLUME_LABEL_GET|IFS_FS_VOLUME_SYNC|IFS_FS_VOLUME_FORMAT},
     .query=v2_query_volume,
+    .label=v2_label,
     .sync=v2_sync,
     .format=common_format
 };
