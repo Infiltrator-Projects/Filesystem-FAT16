@@ -1,6 +1,6 @@
 # Filesystem-FAT16
 
-**Shared driver:** [FAT16.so is the sole filesystem implementation for its consumers](docs/ONE_MODULE_END_STATE.md). Applications and BOOT can now use the same object through their respective interfaces; Boot's generic ELF/UEFI bridge is tested in OVMF with a real Linux kernel/initramfs. Kernel SO integration remains separate. Existing Linux `.ko` and UEFI `.efi` code remains transitional.
+**Shared driver:** [FAT16.so is the sole filesystem implementation for its consumers](docs/ONE_MODULE_END_STATE.md). Applications and BOOT can now use the same object through Common V2; Boot's generic ELF/UEFI bridge is tested in OVMF with a real Linux kernel/initramfs. Kernel SO integration remains separate. Existing Linux `.ko` and UEFI `.efi` code remains transitional.
 
 Independent InfiltratorOS FAT16 filesystem repository. One repository is authoritative for exactly one installed shared-object module: `/System/Filesystems/FAT16.so`.
 
@@ -14,12 +14,12 @@ The full source was copied from Infiltrator-Projects/Filesystems, pinned to comm
 
 - This repository: fat16 interpretation, read/write/file APIs, formatting, allocation, fat16 relocation, journal/recovery, format-specific kernel and EFI source and tests.
 - Filesystems: discovery, selection and management; it must not silently overwrite or install a second copy of this module after package ownership transfers.
-- Defragmenter: the worker and UI; it dynamically loads the installed `FAT16.so` and calls `infiltrator_filesystem_defrag_v1` via the existing versioned host ABI.
+- Defragmenter: the worker and UI; it dynamically loads the installed `FAT16.so` and uses the dedicated relocation and recovery interface.
 - Linux/UEFI transition: existing `fat16.ko` and `FAT16.efi` remain useful compatibility paths. Boot's generic loader uses the **same `FAT16.so`**, including its existing Defragmenter interface. Physical firmware and a kernel-side SO bridge require separate qualification.
 
 ## Filesystem qualification scope
 
-FAT16 16-bit allocation entries, fixed-root directories and the complete 4,085–65,524 data-cluster range. Foreign formats and malformed geometry are rejected before changes. V3 provides full file/directory read and write; V4 adds formatting, attributes, modification times and free space. V5 completes creation time (including the 10 ms fraction), access dates, volume labels/serial reads, OEM code-page selection and explicit flushing. The existing Boot and Defragmenter interfaces retain their layouts. See the [completion and test matrix](docs/FAT16_COMPLETION.md), [Validation](docs/VALIDATION.md) and [API](docs/API.md). Destructive testing uses disposable images only.
+FAT16 16-bit allocation entries, fixed-root directories and the complete 4,085–65,524 data-cluster range. Foreign formats and malformed geometry are rejected before changes. V3 provides full file/directory read and write; V4 adds formatting, attributes, modification times and free space. V5 completes creation time (including the 10 ms fraction), access dates, volume labels/serial reads, OEM code-page selection and explicit flushing. BOOT reads through Common V2. Defragmenter continues to use the dedicated relocation and recovery interface. See the [completion and test matrix](docs/FAT16_COMPLETION.md), [Validation](docs/VALIDATION.md) and [API](docs/API.md). Destructive testing uses disposable images only.
 
 ## Documentation
 
@@ -35,21 +35,10 @@ The published Debian package installs these three regular files. A manual native
 
 InfiltratorOS calls `--system-package-mode` and decides which outputs need updating. Its worker builds a missing or older SO, repairs the PDF independently, and stores the matching released kernel module when available. Use `--build-only --output DIRECTORY` to build a Debian package.
 
-## Common filesystem ABI
+## Common V2 filesystem ABI
 
-The distributable `FAT16.so` exports `infiltrator_filesystem_api_v1`, the
-format-neutral Common V1 table. It delegates probe, mount, file and directory
-operations, and format to this repository's existing FAT16 engine. The table
-does not advertise CHECK, RECOVER or DEFRAG until dedicated Common contracts
-and qualified implementations exist. One FAT16 engine may own one mounted
-volume at a time. Generic writes and formatting require exclusive host access.
-The format-specific entry points remain temporarily for existing native
-consumers pending their migration; no second FAT16 engine is introduced.
-
-## Common V2 host and volume contract
-
-`FAT16.so` also exports `infiltrator_filesystem_api_v2`. Its
-negotiated volume group supports real sync and format operations via the
-existing FatFs engine. Host geometry and access are validated by Common's
-V2 adaptation helpers. Missing handles, metadata, recovery and defrag groups
-are not advertised; the binary makes no unproven kernel-execution claim.
+`FAT16.so` exposes `infiltrator_filesystem_api_v2` for applications and BOOT.
+The module supplies probe, mount, file and directory operations, volume
+labels, sync and formatting through the same FatFs engine. The firmware
+host is read-only. The dedicated relocation and recovery interface remains
+in service pending Common V2 qualification for those operations.

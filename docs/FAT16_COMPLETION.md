@@ -19,9 +19,9 @@ https://www.scs.stanford.edu/~zyedidia/docs/_other/fat.pdf.
 | File size up to 0xFFFFFFFF bytes | V3 | Sparse independent chain, last-byte read/write, overflow/EOF rejection |
 | Bad/free/reserved/EOC chain values | Shared FAT/Defragmenter engines | Allocation tests and maximal-volume high-cluster relocation |
 | Explicit flush and propagated I/O failures | V3/V5 | Callback failures, lifecycle and firmware I/O-failure tests |
-| Defragmentation, growth defrag and recovery | Existing defrag V1 | Unchanged production host, interrupted journal/device writes, wrong-inode recovery refusal |
-| Read-only boot from identical SO bytes | Existing boot V1 | Production ELF/UEFI tests, sanitizers and real Linux boot under OVMF |
-| FAT sector size independent of device block size | Existing boot V1 | All four FAT sector sizes with 512-byte and 4096-byte host blocks; byte-identical media after boot reads |
+| Defragmentation, growth defrag and recovery | Dedicated Defragmenter interface | Unchanged production host, interrupted journal/device writes, wrong-inode recovery refusal |
+| Read-only boot from identical SO bytes | Common V2 read-only host | Production ELF/UEFI tests, sanitizers and real Linux boot under OVMF |
+| FAT sector size independent of device block size | Common V2 read-only host | All four FAT sector sizes with 512-byte and 4096-byte host blocks; byte-identical media after boot reads |
 | Portable and native packages | Standalone release | Native measured PGO/LTO; module exports, imports, package contents and exact hash |
 
 Creation fractions are represented explicitly as 0–199 ten-millisecond units.

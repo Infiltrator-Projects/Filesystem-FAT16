@@ -37,11 +37,31 @@ static int fail(const char *message)
 static void *allocate_at(void *ctx,size_t n) {(void)ctx;return malloc(n);}
 static void release_at(void *ctx,void *p) {(void)ctx;free(p);}
 
+static int boot_read(const IfsFsCoreOpsV2 *core, IfsFsHostRuntimeV2 *host)
+{
+    const char expected[] = "boot geometry";
+    char data[sizeof(expected) - 1];
+    IfsFsVolumeInfoV2 info = {.structure_bytes = sizeof(info)};
+    void *session = NULL;
+    host->capabilities = IFS_FS_HOST_READ_ONLY;
+    host->write_at = NULL;
+    host->flush = NULL;
+    if (core->mount(host, &session, &info) != IFS_FS_OK || !session)
+        return fail("read-only mount for firmware geometry");
+    const int result = core->read(session, "/KERNEL.BIN", 0, data, sizeof(data));
+    if (core->unmount(session) != IFS_FS_OK ||
+        result != IFS_FS_OK || memcmp(data, expected, sizeof(data)) != 0)
+        return fail("read-only data for firmware geometry");
+    return 0;
+}
+
 int main(int argc,char **argv)
 {
-    if(argc!=4)return fail("usage: module regular-file-image sector-bytes");
+    const int firmware_read = argc == 5 && strcmp(argv[4], "--boot-read") == 0;
+    if(argc!=4 && !firmware_read)
+        return fail("usage: module regular-file-image sector-bytes [--boot-read]");
     Disk disk={0};
-    disk.fd=open(argv[2],O_RDWR|O_CLOEXEC|O_NOFOLLOW);
+    disk.fd=open(argv[2],(firmware_read ? O_RDONLY : O_RDWR)|O_CLOEXEC|O_NOFOLLOW);
     struct stat st={0};
     if(disk.fd<0 || fstat(disk.fd,&st)!=0 || !S_ISREG(st.st_mode) ||
        st.st_size<=0)return fail("only an existing regular-file image is permitted");
@@ -49,8 +69,8 @@ int main(int argc,char **argv)
     char *end=NULL;
     errno=0;
     unsigned long bps=strtoul(argv[3],&end,10);
-    if(errno || !end || *end || bps!=512u)
-        return fail("fixture needs 512-byte logical sectors");
+    if(errno || !end || *end || (bps!=512u && !(firmware_read && bps==4096u)))
+        return fail("invalid logical sector size for fixture");
 
     void *library=dlopen(argv[1],RTLD_NOW|RTLD_LOCAL);
     if(!library)return fail(dlerror());
@@ -85,6 +105,12 @@ int main(int argc,char **argv)
     io.flush=flush;
     io.allocate=allocate_at;
     io.release=release_at;
+    if (firmware_read) {
+        const int result = boot_read(fs, &io);
+        close(disk.fd);
+        dlclose(library);
+        return result;
+    }
     uint32_t variant=0;
 
     if(vol->format(&io,12u,NULL,0u)!=IFS_FS_UNSUPPORTED || disk.writes)

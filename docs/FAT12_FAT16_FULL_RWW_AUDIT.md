@@ -25,7 +25,7 @@ Linux `.ko`, and UEFI `.efi`. This development work is not release approval.
   engine into the individual shared object. The V3 ABI provides directory and
   file read/write, allocation through file growth, creation, deletion, rename
   and truncate, with device I/O and flushing supplied by the caller. The
-  imported source headers retain their notices. The legacy V1 API remains
+  imported source headers retain their notices. The original FAT reader remains
   available. V3 currently allows only one active volume per module and callers
   must serialize access and hold exclusive ownership of the device. V4 adds
   formatting with a write-free FAT-width preflight, attributes, modified-time
@@ -65,7 +65,7 @@ that they pass; consult the workflow results for the exact commit.** No physical
 firmware, disk or installed system is touched by these tests.
 
 Current FAT16 release qualification includes the unchanged Defragmenter
-consumer through `infiltrator_filesystem_defrag_v1`, journal/device-write
+consumer through the dedicated relocation and recovery interface, journal/device-write
 interruption recovery, metadata/geometry tests, package/native installer
 checks, Linux 6.12.107 runtime tests and actual Linux boot through the SO in
 OVMF. Consult CI for the exact release commit. Physical hardware and power

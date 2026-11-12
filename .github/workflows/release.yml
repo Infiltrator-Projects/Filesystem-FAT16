@@ -88,7 +88,7 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
           repository: Infiltrator-Projects/Boot
-          ref: dbc6a710dbe88b78318c8b9afbf47bb64e8706b3
+          ref: 93aed1b866f502ac61f6f23a20c524c7fad62812
           path: .qualification/Boot
       - name: Install firmware integration prerequisites
         run: sudo apt-get update && sudo apt-get install -y --no-install-recommends build-essential binutils python3 gnu-efi qemu-system-x86 ovmf dosfstools mtools busybox-static cpio
