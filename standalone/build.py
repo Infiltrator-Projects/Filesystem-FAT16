@@ -76,33 +76,9 @@ def compile_module(module, flags, training=False):
 
 
 
-def test_only_legacy_module(module):
-    """Build a disposable ABI fixture; never install or publish this DSO."""
-    target=module.parent / "FAT16-legacy-tests.so"
-    target.parent.mkdir(parents=True, exist_ok=True)
-    args=[os.environ.get("CC","cc"),"-std=c11","-O2","-fPIC","-mno-red-zone",
-          "-fno-stack-protector","-fno-builtin","-ffreestanding",
-          "-fvisibility=hidden","-D_GNU_SOURCE","-D_FILE_OFFSET_BITS=64",
-          "-DIFS_FATFS_ONLY=16","-DIFS_FAT_DEFRAG_BITS=16",
-          "-DIFS_FATFS_LEGACY_TEST_ABI=1"]
-    for directory in INCLUDES: args+=["-I",directory]
-    args+=["-nostdlib","-shared","-Wl,-Bsymbolic","-Wl,-z,defs",
-           "-Wl,-z,noexecstack","-o",target,*SOURCES]
-    run(args)
-    return target
-
 def train_profile(module, workspace):
-    """Read/fragment and format/write/metadata against disposable media only."""
+    """Exercise the actual Common V2 module on disposable media."""
     test(module)
-    exe = workspace / f"fat{WIDTH}-v4-training"
-    run([os.environ.get("CC", "cc"), "-std=c11", "-O2", "-Wall",
-         "-Wextra", "-Werror", "-I", PORT,
-         ROOT / "tests/fatfs_v4_format_test.c", "-ldl", "-o", exe])
-    image = workspace / "disposable-fat.img"
-    with image.open("wb") as file:
-        file.truncate((8 if WIDTH == 12 else 32) * 1024 * 1024)
-    run([exe, test_only_legacy_module(workspace / "FAT16.so"), image, "512", "4096"])
-
 
 def build(profile, module):
     module.parent.mkdir(parents=True, exist_ok=True)
@@ -169,11 +145,8 @@ def main():
     parser.add_argument("--profile", choices=("portable", "aggressive"), default="portable")
     parser.add_argument("--output", type=Path, default=ROOT / "build" / NAME)
     parser.add_argument("--check", action="store_true")
-    parser.add_argument("--test-legacy-only", action="store_true")
     args = parser.parse_args()
     module = args.output.resolve()
-    if args.test_legacy_only:
-        print("TEST-ONLY ABI FIXTURE",test_only_legacy_module(module));return
     flags = build(args.profile, module)
     if args.check:
         test(module)
@@ -234,8 +207,7 @@ def release_source_files():
             q.startswith("standalone/") or q.startswith("docs/") or
             q in ("README.md", "VERSION", "MIGRATION-PROVENANCE.md",
                   "src/infiltratr-common/LICENSE", "tests/common_v2_abi_test.c", f"tests/fat{WIDTH}_module_test.c",
-                  "tests/fatfs_v4_format_test.c", "tests/fatfs_common_format_test.c", "tests/fat16_complete_test.py",
-                  "tests/check-fat16-lifecycle.sh", "tests/fatfs_v3_realimage_test.c")
+                  "tests/fatfs_common_format_test.c")
         )
         if selected and (ROOT / p).is_file() and not (ROOT / p).is_symlink():
             chosen.append(p)

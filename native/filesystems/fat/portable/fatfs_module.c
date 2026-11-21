@@ -304,20 +304,6 @@ done:
     if(f_closedir(&d)!=FR_OK) return -1;
     return ok==2?0:ok==1?1:-1;
 }
-#ifdef IFS_FATFS_LEGACY_TEST_ABI
-__attribute__((used,section(".ifsmeta")))
-static const char identity[]="IFS-MODULE:" FS_ID ":3";
-static const IfsFatfsModuleV3 module={
-    IFS_FATFS_MODULE_ABI,sizeof(IfsFatfsModuleV3),FS_ID,
-    IFS_FATFS_CAP_READ | IFS_FATFS_CAP_WRITE_EXISTING |
-    IFS_FATFS_CAP_CREATE | IFS_FATFS_CAP_DELETE | IFS_FATFS_CAP_RENAME |
-    IFS_FATFS_CAP_DIRECTORY | IFS_FATFS_CAP_TRUNCATE,
-    attach,detach,create_file,file_read,file_write,file_truncate,
-    make_dir,remove_path,rename_path,stat_path,nth_dir_entry
-};
-__attribute__((visibility("default")))
-const IfsFatfsModuleV3 *infiltrator_filesystem_module_v3(void) {return &module;}
-#endif /* IFS_FATFS_LEGACY_TEST_ABI */
 
 static uint16_t boot16(unsigned offset)
 {
@@ -440,18 +426,6 @@ static int get_modified_time(const char *path,uint16_t *date,uint16_t *time)
     *time=info.ftime;
     return 0;
 }
-#ifdef IFS_FATFS_LEGACY_TEST_ABI
-__attribute__((used,section(".ifsmeta")))
-static const char identity_v4[]="IFS-MODULE:" FS_ID ":4";
-static const IfsFatfsModuleV4 module_v4={
-    IFS_FATFS_MODULE_ABI_V4,sizeof(IfsFatfsModuleV4),FS_ID,
-    IFS_FATFS_CAP_FORMAT | IFS_FATFS_CAP_ATTRIBUTES |
-    IFS_FATFS_CAP_MODIFIED_TIME | IFS_FATFS_CAP_SPACE,
-    &module,format_volume,set_attributes,set_modified_time,get_modified_time,volume_space
-};
-__attribute__((visibility("default")))
-const IfsFatfsModuleV4 *infiltrator_filesystem_module_v4(void) {return &module_v4;}
-#endif /* IFS_FATFS_LEGACY_TEST_ABI */
 
 static int full_metadata(const char *path,IfsFatfsMetadataV5 *out)
 {
@@ -531,17 +505,6 @@ static int flush_volume(void)
 {
     return selected && device.flush && device.flush(device.user)==0?0:-1;
 }
-#ifdef IFS_FATFS_LEGACY_TEST_ABI
-__attribute__((used,section(".ifsmeta")))
-static const char identity_v5[]="IFS-MODULE:" FS_ID ":5";
-static const IfsFatfsModuleV5 module_v5={
-    IFS_FATFS_MODULE_ABI_V5,sizeof(IfsFatfsModuleV5),FS_ID,
-    IFS_FATFS_CAP_FULL_METADATA | IFS_FATFS_CAP_LABEL | IFS_FATFS_CAP_CODEPAGE,
-    &module_v4,full_metadata,full_set_times,get_label,set_label,set_codepage,flush_volume
-};
-__attribute__((visibility("default")))
-const IfsFatfsModuleV5 *infiltrator_filesystem_module_v5(void) {return &module_v5;}
-#endif /* IFS_FATFS_LEGACY_TEST_ABI */
 
 /* Native Common V2 provider backed by the single authoritative FatFs engine. */
 /* Format probes also issue short byte reads, so every engine request must
