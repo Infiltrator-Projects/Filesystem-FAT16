@@ -16,14 +16,18 @@ truncate -s 1440K "$work/foreign.img"
 truncate -s 32M "$work/own.img"
 mkfs.fat -F 12 -I "$work/foreign.img"
 mkfs.fat -F 16 -I "$work/own.img"
+# V3/V4 are tested only from a separate disposable fixture, never the
+# production Common V2 shared object.
+python3 "$root/standalone/build.py" --test-legacy-only --output "$work/FAT16.so"
+test_module="$work/FAT16-legacy-tests.so"
 before=$(sha256sum "$work/foreign.img")
-"$work/v3" "$module" "$work/own.img" "$work/foreign.img"
+"$work/v3" "$test_module" "$work/own.img" "$work/foreign.img"
 fsck.fat -n "$work/own.img"
-"$work/v3" "$module" "$work/own.img" "$work/foreign.img" cleanup
+"$work/v3" "$test_module" "$work/own.img" "$work/foreign.img" cleanup
 test "$(sha256sum "$work/foreign.img")" = "$before"
 for sector in 512 1024 2048 4096; do
     truncate -s 32M "$work/format-$sector.img"
-    "$work/v4" "$module" "$work/format-$sector.img" "$sector" 4096
+    "$work/v4" "$test_module" "$work/format-$sector.img" "$sector" 4096
     fsck.fat -n "$work/format-$sector.img"
 done
 echo FAT16-BOOT-MODULE-V3-V4-LIFECYCLE-PASS

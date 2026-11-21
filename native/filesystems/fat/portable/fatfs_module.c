@@ -304,6 +304,7 @@ done:
     if(f_closedir(&d)!=FR_OK) return -1;
     return ok==2?0:ok==1?1:-1;
 }
+#ifdef IFS_FATFS_LEGACY_TEST_ABI
 __attribute__((used,section(".ifsmeta")))
 static const char identity[]="IFS-MODULE:" FS_ID ":3";
 static const IfsFatfsModuleV3 module={
@@ -316,6 +317,7 @@ static const IfsFatfsModuleV3 module={
 };
 __attribute__((visibility("default")))
 const IfsFatfsModuleV3 *infiltrator_filesystem_module_v3(void) {return &module;}
+#endif /* IFS_FATFS_LEGACY_TEST_ABI */
 
 static uint16_t boot16(unsigned offset)
 {
@@ -438,6 +440,7 @@ static int get_modified_time(const char *path,uint16_t *date,uint16_t *time)
     *time=info.ftime;
     return 0;
 }
+#ifdef IFS_FATFS_LEGACY_TEST_ABI
 __attribute__((used,section(".ifsmeta")))
 static const char identity_v4[]="IFS-MODULE:" FS_ID ":4";
 static const IfsFatfsModuleV4 module_v4={
@@ -448,6 +451,7 @@ static const IfsFatfsModuleV4 module_v4={
 };
 __attribute__((visibility("default")))
 const IfsFatfsModuleV4 *infiltrator_filesystem_module_v4(void) {return &module_v4;}
+#endif /* IFS_FATFS_LEGACY_TEST_ABI */
 
 static int full_metadata(const char *path,IfsFatfsMetadataV5 *out)
 {
@@ -527,6 +531,7 @@ static int flush_volume(void)
 {
     return selected && device.flush && device.flush(device.user)==0?0:-1;
 }
+#ifdef IFS_FATFS_LEGACY_TEST_ABI
 __attribute__((used,section(".ifsmeta")))
 static const char identity_v5[]="IFS-MODULE:" FS_ID ":5";
 static const IfsFatfsModuleV5 module_v5={
@@ -536,6 +541,7 @@ static const IfsFatfsModuleV5 module_v5={
 };
 __attribute__((visibility("default")))
 const IfsFatfsModuleV5 *infiltrator_filesystem_module_v5(void) {return &module_v5;}
+#endif /* IFS_FATFS_LEGACY_TEST_ABI */
 
 /* Native Common V2 provider backed by the single authoritative FatFs engine. */
 /* Format probes also issue short byte reads, so every engine request must

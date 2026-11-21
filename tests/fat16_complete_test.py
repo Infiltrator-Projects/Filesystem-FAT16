@@ -145,7 +145,14 @@ class Host:
 
 class Api:
     def __init__(self, module):
-        self.lib = C.CDLL(str(module))
+        # The released module exports only Common V2. Historical media and
+        # metadata fixtures exercise the unchanged engine in an isolated DSO.
+        self._legacy_dir = tempfile.TemporaryDirectory(prefix="fat16-old-api-fixture-")
+        fixture_target = Path(self._legacy_dir.name) / "FAT16.so"
+        root = Path(__file__).resolve().parents[1]
+        subprocess.run(["python3",str(root/"standalone/build.py"),
+                        "--test-legacy-only","--output",str(fixture_target)],check=True)
+        self.lib = C.CDLL(str(fixture_target.with_name("FAT16-legacy-tests.so")))
         self.lib.infiltrator_filesystem_module_v5.restype = C.POINTER(V5)
         a = self.lib.infiltrator_filesystem_module_v5().contents
         assert a.version == 5 and a.size == C.sizeof(V5) and a.format == b'fat16'
