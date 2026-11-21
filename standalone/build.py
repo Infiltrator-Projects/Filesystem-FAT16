@@ -101,7 +101,7 @@ def train_profile(module, workspace):
     image = workspace / "disposable-fat.img"
     with image.open("wb") as file:
         file.truncate((8 if WIDTH == 12 else 32) * 1024 * 1024)
-    run([exe, test_only_legacy_module(module), image, "512", "4096"])
+    run([exe, test_only_legacy_module(workspace / "FAT16.so"), image, "512", "4096"])
 
 
 def build(profile, module):
