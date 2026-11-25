@@ -1,5 +1,7 @@
 # FAT16 shared-module completion
 
+> **Historical reference only.** Preserved for source provenance and earlier qualification evidence, not the current FAT16 implementation or release contract. See [current provider README](../README.md) and [packaging](PACKAGING.md). Earlier source-layout references may no longer resolve.
+
 Version 0.1.6 completes the shared module's file, directory, metadata and
 volume operations while preserving the released Boot and Defragmenter ABIs.
 The on-disk reference is Microsoft's FAT specification, sections 3.5, 4 and 6:

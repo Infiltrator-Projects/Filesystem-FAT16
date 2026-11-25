@@ -1,5 +1,7 @@
 # Filesystem-FAT16 validation and release criteria
 
+Current qualification is governed by the [release workflow](../.github/workflows/release.yml). The native installer downloads its exact Git revision; historical BUILD-INFO and separate-driver evidence do not define the present package.
+
 **Completion standard:** [one FAT16.so shared across consumers](ONE_MODULE_END_STATE.md). Boot's actual SO loading/Linux handoff and Defragmenter's unchanged write/recovery host are now exercised against identical module bytes. Kernel SO mount/root behavior and physical firmware remain separate acceptance gates.
 
 ## Shared-module integration
@@ -26,7 +28,7 @@ These process-interruption tests do not simulate physical power loss.
 3. ABI: correct width metadata, Common V2 and the dedicated Defragmenter interface, no substitution by another format.
 4. Fixture: current `tests/fat16_module_test.c` runs against the exact standalone shared object on an in-memory volume.
 5. Integration: Defragmenter's versioned child-worker maps, relocates and recovers disposable independently formatted FAT images, including interrupted-journal stages and independent post-verification.
-6. Packaging: inspect exact owned paths in the Debian archive; install the native `.run`, verify native package version, BUILD-INFO and module SHA-256, and ensure the other format remains unchanged.
+6. Packaging: inspect exact owned paths in the Debian archive; install the native `.run`, verify native package version, source revision, build profile and module/PDF SHA-256, and ensure the other format remains unchanged.
 7. Hardware: physical removable media, supported distributions/kernels and actual UEFI firmware testing. CI and QEMU are not substitutes for hardware evidence.
 
 ## Native PGO qualification
