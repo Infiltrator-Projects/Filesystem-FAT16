@@ -6426,6 +6426,9 @@ FRESULT f_mkfs (
 			/* Main record (+0) */
 			memset(buf, 0, ss);
 			memcpy(buf + BS_JmpBoot, "\xEB\x76\x90" "EXFAT   ", 11);	/* Boot jump code (x86), OEM name */
+#if defined(IFS_FATFS_ONLY) && IFS_FATFS_ONLY == 16
+		if (fsty == FS_FAT16) memcpy(buf + 3, "IFSJFAT2", 8);
+#endif
 			st_64(buf + BPB_VolOfsEx, b_vol);						/* Volume offset in the physical drive [sector] */
 			st_64(buf + BPB_TotSecEx, sz_vol);						/* Volume size [sector] */
 			st_32(buf + BPB_FatOfsEx, (DWORD)(b_fat - b_vol));		/* FAT offset [sector] */
@@ -6493,6 +6496,9 @@ FRESULT f_mkfs (
 				}
 				sz_fat = (n + ss - 1) / ss;		/* FAT size [sector] */
 				sz_rsv = 1;						/* Number of reserved sectors */
+#if defined(IFS_FATFS_ONLY) && IFS_FATFS_ONLY == 16
+				if (fsty == FS_FAT16) sz_rsv = 64; /* Native redo journal */
+#endif
 				sz_dir = (DWORD)n_root * SZDIRE / ss;	/* Root directory size [sector] */
 			}
 			b_fat = b_vol + sz_rsv;						/* FAT base */
