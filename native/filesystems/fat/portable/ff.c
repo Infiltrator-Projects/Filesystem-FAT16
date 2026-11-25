@@ -6426,9 +6426,6 @@ FRESULT f_mkfs (
 			/* Main record (+0) */
 			memset(buf, 0, ss);
 			memcpy(buf + BS_JmpBoot, "\xEB\x76\x90" "EXFAT   ", 11);	/* Boot jump code (x86), OEM name */
-#if defined(IFS_FATFS_ONLY) && IFS_FATFS_ONLY == 16
-		if (fsty == FS_FAT16) memcpy(buf + 3, "IFSJFAT2", 8);
-#endif
 			st_64(buf + BPB_VolOfsEx, b_vol);						/* Volume offset in the physical drive [sector] */
 			st_64(buf + BPB_TotSecEx, sz_vol);						/* Volume size [sector] */
 			st_32(buf + BPB_FatOfsEx, (DWORD)(b_fat - b_vol));		/* FAT offset [sector] */
@@ -6554,6 +6551,9 @@ FRESULT f_mkfs (
 		/* Create FAT VBR */
 		memset(buf, 0, ss);
 		memcpy(buf + BS_JmpBoot, "\xEB\xFE\x90" "MSDOS5.0", 11);	/* Boot jump code (x86), OEM name */
+#if defined(IFS_FATFS_ONLY) && IFS_FATFS_ONLY == 16
+		if (fsty == FS_FAT16) memcpy(buf + 3, "IFSJFAT2", 8);
+#endif
 		st_16(buf + BPB_BytsPerSec, ss);				/* Sector size [byte] */
 		buf[BPB_SecPerClus] = (BYTE)pau;				/* Cluster size [sector] */
 		st_16(buf + BPB_RsvdSecCnt, (WORD)sz_rsv);		/* Size of reserved area */
