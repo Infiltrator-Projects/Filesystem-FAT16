@@ -61,26 +61,19 @@ BT /F2 22 Tf 43 784 Td (FAT16 - technical reference) Tj ET
 1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
 BT /F2 22 Tf 43 784 Td (FAT16 - technical reference) Tj ET
 0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (3. 16-bit links, status bits and root geometry) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (Each FAT entry is a little-endian word at byte 2*n. Free=0x0000; reserved=0x0001;) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (normal successor=0x0002..0xFFEF; reserved=0xFFF0..0xFFF6; bad=0xFFF7;) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (EOC=0xFFF8..0xFFFF. FAT[0] normally 0xFF00 | media; FAT[1] normally 0xFFFF. In) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (supported status conventions FAT[1] bit 15 is clean shutdown, bit 14 is no recorded) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (I/O error \(clear indicates adverse state\); these flags are not general transaction) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (commits. The FAT16 classification interval is 4085..65524 data clusters;) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (conservative formatting avoids cutover and marker-valued cluster IDs. Some) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (historical readers admit nonstandard high values; do not write such media without) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (an explicit qualified profile. Root directory is a fixed table; with 512 root) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (entries and 512 bytes/sector it occupies 32 sectors. An empty root slot is not a) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 566 Td (free data cluster. MBR type 0x04/0x06/0x0E does not override BPB-derived type.) Tj ET
-0.08 0.14 0.20 rg BT /F2 12 Tf 43 542 Td (Allocation entries and clean state) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 520 Td (FAT16 entry n occupies bytes 2*n and 2*n+1 in the selected FAT. Values 0, 0xFFF7,) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 506 Td (0xFFF8..0xFFFF and 0xFFF0..0xFFF6 identify free, bad, end and reserved) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 492 Td (respectively. Entry 0 embeds the media descriptor; entry 1 has status bits in) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 478 Td (supported profiles: bit 15 clean shutdown and bit 14 no hard I/O error, set meaning) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 464 Td (good. Preserve reserved bits and report disagreements among FAT copies. A 0xFFFF) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 450 Td (link is EOC, not cluster 65535. File size is a separate 32-bit directory value;) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 436 Td (compare chain coverage to required allocation, but do not interpret all slack as) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 422 Td (data.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (Each FAT entry is a little-endian word at byte 2*n. Free=0x0000;) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (reserved=0x0001; normal successor=0x0002..0xFFEF; reserved=0xFFF0..0xFFF6;) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (bad=0xFFF7; EOC=0xFFF8..0xFFFF. FAT[0] normally 0xFF00 | media; FAT[1] normally) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (0xFFFF. In supported status conventions FAT[1] bit 15 is clean shutdown, bit 14) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (is no recorded I/O error \(clear indicates adverse state\); these flags are not) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (general transaction commits. The FAT16 classification interval is 4085..65524) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (data clusters; conservative formatting avoids cutover and marker-valued cluster) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (IDs. Some historical readers admit nonstandard high values; do not write such) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (media without an explicit qualified profile. Root directory is a fixed table;) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (with 512 root entries and 512 bytes/sector it occupies 32 sectors. An empty) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 566 Td (root slot is not a free data cluster. MBR type 0x04/0x06/0x0E does not override) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 552 Td (BPB-derived type. Preserve reserved bits and report disagreements among FAT) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 538 Td (copies. A 0xFFFF link is EOC, not cluster 65535.) Tj ET
 0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 4) Tj ET
 
 %%Page
@@ -90,14 +83,14 @@ BT /F2 22 Tf 43 784 Td (FAT16 - technical reference) Tj ET
 0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (4. FAT12/FAT16 extended BPB and profiles) Tj ET
 0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (For DOS 4.x-style FAT12/16 EBPB: hex offset:size 0x24:1 drive, 0x25:1 reserved,) Tj ET
 0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (0x26:1 signature \(usually 0x29\), 0x27:4 volume ID, 0x2B:11 volume label, 0x36:8) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (type string; boot code follows. These fields are not present in all older disks.) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (DOS 2.0 introduced core BPB fields; DOS 3.0 introduced further geometry and DOS) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (3.31 established 32-bit sector-count/hidden-sector fields. Some older disks use) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (alternate boot placement or no valid BPB. Distinguish normative modern layout from) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (each historic profile. Do not interpret historical EA data at directory offset 0x14) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (as FAT32 high cluster bits. Root entries are fixed at format time; root occupies) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (ceil\(32*root_entries/bytes_per_sector\) logical sectors. Validate FAT copies before) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (reading/writing.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (type string; boot code follows. These fields are not present in all older) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (disks. DOS 2.0 introduced core BPB fields; DOS 3.0 introduced further geometry) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (and DOS 3.31 established 32-bit sector-count/hidden-sector fields. Some older) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (disks use alternate boot placement or no valid BPB. Distinguish normative) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (modern layout from each historic profile. Do not interpret historical EA data) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (at directory offset 0x14 as FAT32 high cluster bits. Root entries are fixed at) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (format time; the following section derives the root region size. Validate FAT) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (copies before reading/writing.) Tj ET
 0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 5) Tj ET
 
 %%Page
@@ -105,36 +98,36 @@ BT /F2 22 Tf 43 784 Td (FAT16 - technical reference) Tj ET
 1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
 BT /F2 22 Tf 43 784 Td (FAT16 - technical reference) Tj ET
 0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (5. Common BPB and region arithmetic) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (Hex byte offset:size \(modern DOS/EFI layout\): 0x00:3 jump; 0x03:8 OEM name; 0x0B:2) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (bytes/sector; 0x0D:1 sectors/cluster; 0x0E:2 reserved count; 0x10:1 FAT count;) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (0x11:2 root entries; 0x13:2 TotSec16; 0x15:1 media; 0x16:2 FATSz16; 0x18:2) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (sectors/track; 0x1A:2 heads; 0x1C:4 hidden sectors \(DOS 3.31 layout\); 0x20:4) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (TotSec32. Boot signature bytes 55 AA at 0x1FE. The Microsoft EFI profile specifies) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (logical sector sizes 512, 1024, 2048 or 4096 bytes and sectors/cluster 1, 2, 4, 8,) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (16, 32, 64 or 128. For broad compatibility its cluster size must not exceed 32 KiB;) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (larger or older nonstandard geometries need explicit profiles. FATSz16 and) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (RootEntCnt must be nonzero; FAT32-only BPB fields must not be read as valid) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (FAT12/16 metadata. Use checked arithmetic. root_sectors=ceil\(root_entries*32/B\);) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 566 Td (fat_sectors=FATSz16 if nonzero else FATSz32; total=TotSec16 if nonzero else) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 552 Td (TotSec32; first_data=reserved+FAT_count*fat_sectors+root_sectors;) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (Hex byte offset:size \(modern DOS/EFI layout\): 0x00:3 jump; 0x03:8 OEM name;) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (0x0B:2 bytes/sector; 0x0D:1 sectors/cluster; 0x0E:2 reserved count; 0x10:1 FAT) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (count; 0x11:2 root entries; 0x13:2 TotSec16; 0x15:1 media; 0x16:2 FATSz16;) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (0x18:2 sectors/track; 0x1A:2 heads; 0x1C:4 hidden sectors \(DOS 3.31 layout\);) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (0x20:4 TotSec32. Boot signature bytes 55 AA at 0x1FE. The Microsoft EFI profile) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (specifies logical sector sizes 512, 1024, 2048 or 4096 bytes and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (sectors/cluster 1, 2, 4, 8, 16, 32, 64 or 128. For broad compatibility its) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (cluster size must not exceed 32 KiB; larger or older nonstandard geometries) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (need explicit profiles. FATSz16 and RootEntCnt must be nonzero; FAT32-only BPB) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (fields must not be read as valid FAT12/16 metadata. Use checked arithmetic.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 566 Td (root_sectors=ceil\(root_entries*32/B\); fat_sectors=FATSz16; total=TotSec16 if) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 552 Td (nonzero else TotSec32; first_data=reserved+FAT_count*fat_sectors+root_sectors;) Tj ET
 0.08 0.14 0.20 rg BT /F3 10 Tf 43 538 Td (cluster_count=floor\(\(total-first_data\)/sectors_per_cluster\). Reject overflow,) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 524 Td (underflow, truncated media and FAT capacity below cluster_count+2 entries. Cluster) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 510 Td (n sector=first_data+\(n-2\)*sectors_per_cluster, relative to volume; add partition) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 496 Td (offset only in whole-device host translation. CHS translation is historical:) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 482 Td (LBA=\(\(cylinder*heads\)+head\)*sectors_per_track+sector-1. FAT type is based on count,) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 468 Td (not the textual label or partition ID. On GPT media the Microsoft basic data GUID) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 454 Td (is EBD0A0A2-B9E5-4433-87C0-68B6B72699C7; it is shared with other formats. Stay at) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 440 Td (least 16 clusters away from type cutovers when formatting for broad legacy) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 426 Td (compatibility.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 524 Td (underflow, truncated media and FAT capacity below cluster_count+2 entries.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 510 Td (Cluster n sector=first_data+\(n-2\)*sectors_per_cluster, relative to volume; add) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 496 Td (partition offset only in whole-device host translation. CHS translation is) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 482 Td (historical: LBA=\(\(cylinder*heads\)+head\)*sectors_per_track+sector-1. FAT type is) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 468 Td (based on count, not the textual label or partition ID. On GPT media the) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 454 Td (Microsoft basic data GUID is EBD0A0A2-B9E5-4433-87C0-68B6B72699C7; it is shared) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 440 Td (with other formats. Stay at least 16 clusters away from type cutovers when) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 426 Td (formatting for broad legacy compatibility.) Tj ET
 0.08 0.14 0.20 rg BT /F2 12 Tf 43 402 Td (Worked fixed-root volume) Tj ET
 0.08 0.14 0.20 rg BT /F3 10 Tf 43 380 Td (For a 64 MiB example with 512-byte sectors, 131072 sectors, four sectors per) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 366 Td (cluster, one reserved sector, two FATs of 128 sectors and 512 root entries: root) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 352 Td (occupies 32 sectors; data begins at 289. Data cluster count is) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 338 Td (floor\(\(131072-289\)/4\)=32695, a valid FAT16 count. FAT capacity is 128*512/2=32768) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 324 Td (entries, enough for 32697 required slots. Cluster 100 maps to sector 289+98*4=681.) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 310 Td (The final partial region is not an extra allocatable cluster. The fixed root has at) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 296 Td (most 512 physical slots; long names use multiple slots, so root exhaustion can) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 282 Td (occur despite free data space.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 366 Td (cluster, one reserved sector, two FATs of 128 sectors and 512 root entries:) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 352 Td (root occupies 32 sectors; data begins at 289. Data cluster count is) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 338 Td (floor\(\(131072-289\)/4\)=32695, a valid FAT16 count. FAT capacity is) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 324 Td (128*512/2=32768 entries, enough for 32697 required slots. Cluster 100 maps to) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 310 Td (sector 289+98*4=681. The final partial region is not an extra allocatable) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 296 Td (cluster. The fixed root has at most 512 physical slots; long names use multiple) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 282 Td (slots, so root exhaustion can occur despite free data space.) Tj ET
 0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 6) Tj ET
 
 %%Page
@@ -210,45 +203,46 @@ BT /F2 22 Tf 43 784 Td (FAT16 - technical reference) Tj ET
 1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
 BT /F2 22 Tf 43 784 Td (FAT16 - technical reference) Tj ET
 0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (9. Allocation, recovery and qualification) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (No general journal: mirrored FAT copies are not proof of atomicity. Build a) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (reference map from valid directory trees, follow bounded chains, compare expected) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (ceil\(file_size/cluster_size\) to actual allocation, distinguish zero-length files) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (and directories, detect cycles, cross-links, orphan clusters, bad markers and) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (inconsistent mirrors. Validate target identity and exact source bytes before) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (relocation, reserve new clusters, copy and verify data, publish new links/reference) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (and flush before freeing old allocation; interruption recovery must be explicitly) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (designed and tested. Never run recovery against a guessed target. Free-space scans) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (are linear; allocation hints, contiguous reservation, caching and multi-sector I/O) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (can reduce fragmentation and metadata reads. Slack is unused tail space inside) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 566 Td (allocated clusters, distinct from external fragmentation. Formatting must solve FAT) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 552 Td (capacity and root geometry together, not merely write a type string. Test exact) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 538 Td (boundary counts, sector straddles, odd/even links, malformed BPBs, directory) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 524 Td (capacity, LFN collisions and corruption, full disks, truncated media, I/O failures) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 510 Td (and interrupted relocation. Historical recovery and undelete \(0xE5\) cannot) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 496 Td (guarantee content remains intact.) Tj ET
-0.08 0.14 0.20 rg BT /F2 12 Tf 43 472 Td (Namespace and independent mutation design) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 450 Td (For ordinary file creation, validate the parent directory and name, reserve the) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 436 Td (required directory slots and data allocation, initialise content, then publish the) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 422 Td (directory reference. For growth, reserve additional clusters before publishing a) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 408 Td (longer chain and file length; for shrink, remove reachability before releasing the) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 394 Td (tail. Rename must preserve object metadata and avoid collisions; moving a directory) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 380 Td (additionally requires validating its parent relation. Deletion marks namespace) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 366 Td (entries unused and retires allocation only after references are removed. These are) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 352 Td (conservative engineering ordering rules, not a guarantee of native crash-atomic) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 338 Td (operations. Flush ordering, exclusive media ownership, torn-sector behaviour and) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 324 Td (independently checked recovery must be tested. Never infer a safe writer from a) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 310 Td (reader or from a successful format operation.) Tj ET
-0.08 0.14 0.20 rg BT /F2 12 Tf 43 286 Td (Forensic and relocation exercises) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 264 Td (Construct independent disposable images for empty, exact-cluster, partial-cluster,) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 250 Td (fragmented and maximum-name files. Record the original directory identity, logical) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 236 Td (size, allocated cluster list and file hash. Build a reverse ownership map and) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 222 Td (detect loops, cross-links, lost allocations, bad/reserved clusters, invalid name) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 208 Td (sets and inconsistent copies. For relocation reserve a destination, copy and) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 194 Td (compare data, publish the new mapping and release old storage only after) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 180 Td (durability. Simulate interruption after every phase and compare with native checker) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 166 Td (output. Distinguish bytes logically visible from allocation slack. Preserve native) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 152 Td (timestamps, name aliases, attributes and directory identity; do not repair a) Tj ET
-0.08 0.14 0.20 rg BT /F3 10 Tf 43 138 Td (conflicting allocation by assuming the first claimant is correct.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (No general journal: mirrored FAT copies are not proof of atomicity. The) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (forensic and relocation procedure below defines the reference map, ownership) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (checks and durable relocation order. Never run recovery against a guessed) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (target. Free-space scans are linear; allocation hints, contiguous reservation,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (caching and multi-sector I/O can reduce fragmentation and metadata reads. Slack) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (is unused tail space inside allocated clusters, distinct from external) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (fragmentation. Formatting must solve FAT capacity and root geometry together,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (not merely write a type string. Test exact boundary counts, sector straddles,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (odd/even links, malformed BPBs, directory capacity, LFN collisions and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (corruption, full disks, truncated media, I/O failures and interrupted) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 566 Td (relocation. Historical recovery and undelete \(0xE5\) cannot guarantee content) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 552 Td (remains intact.) Tj ET
+0.08 0.14 0.20 rg BT /F2 12 Tf 43 528 Td (Namespace and independent mutation design) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 506 Td (For ordinary file creation, validate the parent directory and name, reserve the) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 492 Td (required directory slots and data allocation, initialise content, then publish) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 478 Td (the directory reference. For growth, reserve additional clusters before) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 464 Td (publishing a longer chain and file length; for shrink, remove reachability) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 450 Td (before releasing the tail. Rename must preserve object metadata and avoid) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 436 Td (collisions; moving a directory additionally requires validating its parent) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 422 Td (relation. Deletion marks namespace entries unused and retires allocation only) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 408 Td (after references are removed. These are conservative engineering ordering) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 394 Td (rules, not a guarantee of native crash-atomic operations. Flush ordering,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 380 Td (exclusive media ownership, torn-sector behaviour and independently checked) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 366 Td (recovery must be tested. Never infer a safe writer from a reader or from a) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 352 Td (successful format operation.) Tj ET
+0.08 0.14 0.20 rg BT /F2 12 Tf 43 328 Td (Forensic and relocation exercises) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 306 Td (Construct independent disposable images for empty, exact-cluster,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 292 Td (partial-cluster, fragmented and maximum-name files. Record the original) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 278 Td (directory identity, logical size, allocated cluster list and file hash. Build a) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 264 Td (reverse ownership map from valid directory trees using bounded chain traversal.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 250 Td (Compare the required allocation ceil\(file_size/cluster_size\) against actual) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 236 Td (chain coverage; distinguish zero-length files and directories. Detect loops,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 222 Td (cross-links, lost allocations, bad/reserved clusters, invalid name sets and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 208 Td (inconsistent copies. For relocation validate target identity and exact source) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 194 Td (bytes, reserve destination clusters, copy and compare data, publish new links) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 180 Td (and directory references, flush, then release old storage only after) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 166 Td (durability. Simulate interruption after every phase and compare with native) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 152 Td (checker output. Distinguish bytes logically visible from allocation slack.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 138 Td (Preserve native timestamps, name aliases, attributes and directory identity; do) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 124 Td (not repair a conflicting allocation by assuming the first claimant is correct.) Tj ET
 0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 10) Tj ET
 
 %%Page
