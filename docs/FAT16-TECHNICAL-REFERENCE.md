@@ -1,8 +1,8 @@
 # FAT16 original-format technical reference
 
-This supplement expands the existing historical manual. It distinguishes normative media structures, historical compatibility profiles, and implementation qualification. It takes precedence over simplified descriptions in the manual where details differ; the cited original specifications remain authoritative. No additional implemented operation is claimed.
-
 ## FAT16 and FAT16B historical chronology
+
+This integrated reference describes native media structures, historical compatibility profiles and independent implementation requirements. The cited original specifications remain authoritative.
 
 The FAT family began with Microsoft's 8-bit table in 1977-78 and Tim Paterson's 12-bit QDOS in 1980. IBM PC DOS 3.0 and MS-DOS 3.0 (August 1984) introduced 16-bit allocation for the PC AT's larger hard disks. The original FAT16 still used a 16-bit total-sector field: at 512 bytes/sector, fewer than 65536 sectors, just under 32 MiB. MBR 0x04 identifies the historical small partition. Compaq MS-DOS 3.31 (November 1987) introduced the 32-bit total-sector field (FAT16B/BigFAT); DR DOS 3.31, PC DOS 4.0, MS-DOS 4.0 and OS/2 1.1 followed in 1988. MBR 0x06 is common for FAT16B; 0x0E denotes LBA FAT16, introduced with Windows 95-era access. These are not new FAT entry widths. When geometry is valid, a modern FAT16 engine can interpret the original or later BPB; no blanket pre-DOS compatibility is implied.
 
@@ -14,6 +14,10 @@ Some OEM DOS versions bypassed the 16-bit sector-count limit by grouping physica
 
 Each FAT entry is a little-endian word at byte 2*n. Free=0x0000; reserved=0x0001; normal successor=0x0002..0xFFEF; reserved=0xFFF0..0xFFF6; bad=0xFFF7; EOC=0xFFF8..0xFFFF. FAT[0] normally 0xFF00 | media; FAT[1] normally 0xFFFF. In supported status conventions FAT[1] bit 15 is clean shutdown, bit 14 is no recorded I/O error (clear indicates adverse state); these flags are not general transaction commits. The FAT16 classification interval is 4085..65524 data clusters; conservative formatting avoids cutover and marker-valued cluster IDs. Some historical readers admit nonstandard high values; do not write such media without an explicit qualified profile. Root directory is a fixed table; with 512 root entries and 512 bytes/sector it occupies 32 sectors. An empty root slot is not a free data cluster. MBR type 0x04/0x06/0x0E does not override BPB-derived type.
 
+### Allocation entries and clean state
+
+FAT16 entry n occupies bytes 2*n and 2*n+1 in the selected FAT. Values 0, 0xFFF7, 0xFFF8..0xFFFF and 0xFFF0..0xFFF6 identify free, bad, end and reserved respectively. Entry 0 embeds the media descriptor; entry 1 has status bits in supported profiles: bit 15 clean shutdown and bit 14 no hard I/O error, set meaning good. Preserve reserved bits and report disagreements among FAT copies. A 0xFFFF link is EOC, not cluster 65535. File size is a separate 32-bit directory value; compare chain coverage to required allocation, but do not interpret all slack as data.
+
 ## FAT12/FAT16 extended BPB and profiles
 
 For DOS 4.x-style FAT12/16 EBPB: hex offset:size 0x24:1 drive, 0x25:1 reserved, 0x26:1 signature (usually 0x29), 0x27:4 volume ID, 0x2B:11 volume label, 0x36:8 type string; boot code follows. These fields are not present in all older disks. DOS 2.0 introduced core BPB fields; DOS 3.0 introduced further geometry and DOS 3.31 established 32-bit sector-count/hidden-sector fields. Some older disks use alternate boot placement or no valid BPB. Distinguish normative modern layout from each historic profile. Do not interpret historical EA data at directory offset 0x14 as FAT32 high cluster bits. Root entries are fixed at format time; root occupies ceil(32*root_entries/bytes_per_sector) logical sectors. Validate FAT copies before reading/writing.
@@ -21,6 +25,10 @@ For DOS 4.x-style FAT12/16 EBPB: hex offset:size 0x24:1 drive, 0x25:1 reserved, 
 ## Common BPB and region arithmetic
 
 Hex byte offset:size (modern DOS/EFI layout): 0x00:3 jump; 0x03:8 OEM name; 0x0B:2 bytes/sector; 0x0D:1 sectors/cluster; 0x0E:2 reserved count; 0x10:1 FAT count; 0x11:2 root entries; 0x13:2 TotSec16; 0x15:1 media; 0x16:2 FATSz16; 0x18:2 sectors/track; 0x1A:2 heads; 0x1C:4 hidden sectors (DOS 3.31 layout); 0x20:4 TotSec32. Boot signature bytes 55 AA at 0x1FE. The Microsoft EFI profile specifies logical sector sizes 512, 1024, 2048 or 4096 bytes and sectors/cluster 1, 2, 4, 8, 16, 32, 64 or 128. For broad compatibility its cluster size must not exceed 32 KiB; larger or older nonstandard geometries need explicit profiles. FATSz16 and RootEntCnt must be nonzero; FAT32-only BPB fields must not be read as valid FAT12/16 metadata. Use checked arithmetic. root_sectors=ceil(root_entries*32/B); fat_sectors=FATSz16 if nonzero else FATSz32; total=TotSec16 if nonzero else TotSec32; first_data=reserved+FAT_count*fat_sectors+root_sectors; cluster_count=floor((total-first_data)/sectors_per_cluster). Reject overflow, underflow, truncated media and FAT capacity below cluster_count+2 entries. Cluster n sector=first_data+(n-2)*sectors_per_cluster, relative to volume; add partition offset only in whole-device host translation. CHS translation is historical: LBA=((cylinder*heads)+head)*sectors_per_track+sector-1. FAT type is based on count, not the textual label or partition ID. On GPT media the Microsoft basic data GUID is EBD0A0A2-B9E5-4433-87C0-68B6B72699C7; it is shared with other formats. Stay at least 16 clusters away from type cutovers when formatting for broad legacy compatibility.
+
+### Worked fixed-root volume
+
+For a 64 MiB example with 512-byte sectors, 131072 sectors, four sectors per cluster, one reserved sector, two FATs of 128 sectors and 512 root entries: root occupies 32 sectors; data begins at 289. Data cluster count is floor((131072-289)/4)=32695, a valid FAT16 count. FAT capacity is 128*512/2=32768 entries, enough for 32697 required slots. Cluster 100 maps to sector 289+98*4=681. The final partial region is not an extra allocatable cluster. The fixed root has at most 512 physical slots; long names use multiple slots, so root exhaustion can occur despite free data space.
 
 ## Directory record - exact 32-byte layout
 
@@ -38,23 +46,22 @@ Classic FAT has no native ACLs, resource forks, compression, encryption or gener
 
 No general journal: mirrored FAT copies are not proof of atomicity. Build a reference map from valid directory trees, follow bounded chains, compare expected ceil(file_size/cluster_size) to actual allocation, distinguish zero-length files and directories, detect cycles, cross-links, orphan clusters, bad markers and inconsistent mirrors. Validate target identity and exact source bytes before relocation, reserve new clusters, copy and verify data, publish new links/reference and flush before freeing old allocation; interruption recovery must be explicitly designed and tested. Never run recovery against a guessed target. Free-space scans are linear; allocation hints, contiguous reservation, caching and multi-sector I/O can reduce fragmentation and metadata reads. Slack is unused tail space inside allocated clusters, distinct from external fragmentation. Formatting must solve FAT capacity and root geometry together, not merely write a type string. Test exact boundary counts, sector straddles, odd/even links, malformed BPBs, directory capacity, LFN collisions and corruption, full disks, truncated media, I/O failures and interrupted relocation. Historical recovery and undelete (0xE5) cannot guarantee content remains intact.
 
-## Historical patents and sources
-
-Historical VFAT patents include US 5579517, 5745902, 5758352 and 6286013; OS/2 EA patent US 5367671 is a separate subject. The supplied historical account describes Microsoft's 2003 licensing announcement, PUBPAT re-examination, TomTom litigation (2009), Motorola litigation (2010) and German proceedings on EP0618540. These are historical events, not a claim about present patent rights or licensing obligations. See original patent records for legal scope. Historical reference: Wikipedia, File Allocation Table, user-supplied extract, https://en.wikipedia.org/wiki/File_Allocation_Table (CC BY-SA; historical facts paraphrased). Primary format authority: Microsoft FAT General Overview of On-Disk Format v1.03, 6 December 2000, https://www.pcjs.org/documents/papers/microsoft/MS_FAT_OVERVIEW_103-2000-12-06.pdf ; ECMA-107, 2nd edition, June 1995, https://ecma-international.org/publications-and-standards/standards/ecma-107/ . Historical nonstandard profiles are not normative for the Microsoft EFI format.
-
-
-## Worked fixed-root volume
-
-For a 64 MiB example with 512-byte sectors, 131072 sectors, four sectors per cluster, one reserved sector, two FATs of 128 sectors and 512 root entries: root occupies 32 sectors; data begins at 289. Data cluster count is floor((131072-289)/4)=32695, a valid FAT16 count. FAT capacity is 128*512/2=32768 entries, enough for 32697 required slots. Cluster 100 maps to sector 289+98*4=681. The final partial region is not an extra allocatable cluster. The fixed root has at most 512 physical slots; long names use multiple slots, so root exhaustion can occur despite free data space.
-
-## Allocation entries and clean state
-
-FAT16 entry n occupies bytes 2*n and 2*n+1 in the selected FAT. Values 0, 0xFFF7, 0xFFF8..0xFFFF and 0xFFF0..0xFFF6 identify free, bad, end and reserved respectively. Entry 0 embeds the media descriptor; entry 1 has status bits in supported profiles: bit 15 clean shutdown and bit 14 no hard I/O error, set meaning good. Preserve reserved bits and report disagreements among FAT copies. A 0xFFFF link is EOC, not cluster 65535. File size is a separate 32-bit directory value; compare chain coverage to required allocation, but do not interpret all slack as data.
-
-## Namespace and independent mutation design
+### Namespace and independent mutation design
 
 For ordinary file creation, validate the parent directory and name, reserve the required directory slots and data allocation, initialise content, then publish the directory reference. For growth, reserve additional clusters before publishing a longer chain and file length; for shrink, remove reachability before releasing the tail. Rename must preserve object metadata and avoid collisions; moving a directory additionally requires validating its parent relation. Deletion marks namespace entries unused and retires allocation only after references are removed. These are conservative engineering ordering rules, not a guarantee of native crash-atomic operations. Flush ordering, exclusive media ownership, torn-sector behaviour and independently checked recovery must be tested. Never infer a safe writer from a reader or from a successful format operation.
 
-## Forensic and relocation exercises
+### Forensic and relocation exercises
 
 Construct independent disposable images for empty, exact-cluster, partial-cluster, fragmented and maximum-name files. Record the original directory identity, logical size, allocated cluster list and file hash. Build a reverse ownership map and detect loops, cross-links, lost allocations, bad/reserved clusters, invalid name sets and inconsistent copies. For relocation reserve a destination, copy and compare data, publish the new mapping and release old storage only after durability. Simulate interruption after every phase and compare with native checker output. Distinguish bytes logically visible from allocation slack. Preserve native timestamps, name aliases, attributes and directory identity; do not repair a conflicting allocation by assuming the first claimant is correct.
+
+## Implementation and qualification boundary
+
+At historical source revision a7e9ace9877b: The archived Common V2 FAT16 provider used the format-selected FatFs engine, covering file/directory operations, label and serial access, sync and format. DOS attributes and creation/access/modification dates required correct code-page and time conversion. The bounded BOOT reader and dedicated relocation/recovery were separate qualification scopes.
+
+Common V2 is the sole independent provider interface: https://github.com/Infiltrator-Projects/Libraries/blob/main/docs/FILESYSTEM_COMMON_ABI_V2.md . Negotiate operation masks and media profiles. Use bounded partition-relative I/O, exclusive durable ownership and explicit flush for mutation. Format, namespace, relocation, recovery, hosted/freestanding, BOOT/kernel and package qualification are separate. Current capability and release status belongs to repository README and exact-source qualification records. Historical evidence is not a current support claim.
+
+Historical source reference: https://github.com/Infiltrator-Projects/Filesystem-FAT16/tree/a7e9ace9877b .
+
+## Historical patents and sources
+
+Historical VFAT patents include US 5579517, 5745902, 5758352 and 6286013; OS/2 EA patent US 5367671 is a separate subject. The supplied historical account describes Microsoft's 2003 licensing announcement, PUBPAT re-examination, TomTom litigation (2009), Motorola litigation (2010) and German proceedings on EP0618540. These are historical events, not a claim about present patent rights or licensing obligations. See original patent records for legal scope. Historical reference: Wikipedia, File Allocation Table, user-supplied extract, https://en.wikipedia.org/wiki/File_Allocation_Table (CC BY-SA; historical facts paraphrased). Primary format authority: Microsoft FAT General Overview of On-Disk Format v1.03, 6 December 2000, https://www.pcjs.org/documents/papers/microsoft/MS_FAT_OVERVIEW_103-2000-12-06.pdf ; ECMA-107, 2nd edition, June 1995, https://ecma-international.org/publications-and-standards/standards/ecma-107/ . Historical nonstandard profiles are not normative for the Microsoft EFI format.

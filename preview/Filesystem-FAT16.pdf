@@ -3,7 +3,7 @@
 << /Type /Catalog /Pages 2 0 R >>
 endobj
 2 0 obj
-<< /Type /Pages /Kids [6 0 R 8 0 R 10 0 R 12 0 R 14 0 R 16 0 R 18 0 R 20 0 R 22 0 R 24 0 R 26 0 R 28 0 R 30 0 R 32 0 R 34 0 R 36 0 R 38 0 R 40 0 R 42 0 R 44 0 R 46 0 R 48 0 R 50 0 R 52 0 R 54 0 R 56 0 R 58 0 R 60 0 R 62 0 R 64 0 R 66 0 R 68 0 R 70 0 R 72 0 R 74 0 R 76 0 R 78 0 R 80 0 R 82 0 R 84 0 R] /Count 40 >>
+<< /Type /Pages /Kids [6 0 R 8 0 R 10 0 R 12 0 R 14 0 R 16 0 R 18 0 R 20 0 R 22 0 R 24 0 R 26 0 R 28 0 R] /Count 12 >>
 endobj
 3 0 obj
 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
@@ -18,1250 +18,405 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 7 0 R >>
 endobj
 7 0 obj
-<< /Length 1352 >>
+<< /Length 1334 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (FAT16 - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 14 Tf 50 715 Td (FAT16 and FAT16B historical chronology) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(The FAT family began with Microsoft's 8-bit table in 1977-78 and Tim) Tj
-T* (Paterson's 12-bit QDOS in 1980. IBM PC DOS 3.0 and MS-DOS 3.0 \(August 1984\)) Tj
-T* (introduced 16-bit allocation for the PC AT's larger hard disks. The original) Tj
-T* (FAT16 still used a 16-bit total-sector field: at 512 bytes/sector, fewer) Tj
-T* (than 65536 sectors, just under 32 MiB. MBR 0x04 identifies the historical) Tj
-T* (small partition. Compaq MS-DOS 3.31 \(November 1987\) introduced the 32-bit) Tj
-T* (total-sector field \(FAT16B/BigFAT\); DR DOS 3.31, PC DOS 4.0, MS-DOS 4.0 and) Tj
-T* (OS/2 1.1 followed in 1988. MBR 0x06 is common for FAT16B; 0x0E denotes LBA) Tj
-T* (FAT16, introduced with Windows 95-era access. These are not new FAT entry) Tj
-T* (widths. When geometry is valid, a modern FAT16 engine can interpret the) Tj
-T* (original or later BPB; no blanket pre-DOS compatibility is implied.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 1 | Original format, not provider qualification) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (FAT16 - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 18 Tf 43 736 Td (Contents) Tj ET
+0.08 0.14 0.20 rg BT /F1 11 Tf 43 711 Td (1. FAT16 and FAT16B historical chronology) Tj ET
+0.08 0.14 0.20 rg BT /F1 11 Tf 43 695 Td (2. OEM sectoring, BPB evolution and volume limits) Tj ET
+0.08 0.14 0.20 rg BT /F1 11 Tf 43 679 Td (3. 16-bit links, status bits and root geometry) Tj ET
+0.08 0.14 0.20 rg BT /F1 11 Tf 43 663 Td (4. FAT12/FAT16 extended BPB and profiles) Tj ET
+0.08 0.14 0.20 rg BT /F1 11 Tf 43 647 Td (5. Common BPB and region arithmetic) Tj ET
+0.08 0.14 0.20 rg BT /F1 11 Tf 43 631 Td (6. Directory record - exact 32-byte layout) Tj ET
+0.08 0.14 0.20 rg BT /F1 11 Tf 43 615 Td (7. VFAT long filenames and aliases) Tj ET
+0.08 0.14 0.20 rg BT /F1 11 Tf 43 599 Td (8. Historical extensions, metadata and derivatives) Tj ET
+0.08 0.14 0.20 rg BT /F1 11 Tf 43 583 Td (9. Allocation, recovery and qualification) Tj ET
+0.08 0.14 0.20 rg BT /F1 11 Tf 43 567 Td (10. Implementation and qualification boundary) Tj ET
+0.08 0.14 0.20 rg BT /F1 11 Tf 43 551 Td (11. Historical patents and sources) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 1) Tj ET
 endstream
 endobj
 8 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 9 0 R >>
 endobj
 9 0 obj
-<< /Length 1668 >>
+<< /Length 2007 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (FAT16 - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 14 Tf 50 715 Td (OEM sectoring, BPB evolution and volume limits) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(Some OEM DOS versions bypassed the 16-bit sector-count limit by grouping) Tj
-T* (physical sectors into larger logical sectors \(sometimes 8192 bytes\), with) Tj
-T* (distinct partition identifiers: 0x08 Commodore, 0x11 Leading Edge, 0x14 AST,) Tj
-T* (0x24 NEC, 0x56 AT&T, 0xE5 Tandy, 0xF2 Sperry/Unisys. Interpret logical) Tj
-T* (geometry explicitly, never assume that the BPB sector size equals a physical) Tj
-T* (device sector. DOS 3.2's historical field at 0x1E differs from the DOS 3.31) Tj
-T* (32-bit field at 0x20. Historical extended/logical partitions introduced with) Tj
-T* (DOS 3.2/3.3 are partition-layer constructs, not FAT data structures. CHS) Tj
-T* (fields are advisory for LBA partitions. At 65524 data clusters and 32 KiB) Tj
-T* (per cluster, data area = 2,147,090,432 bytes; 64 KiB yields 4,294,180,864) Tj
-T* (bytes. The complete volume includes metadata. 64 KiB and larger clusters) Tj
-T* (have limited OS compatibility; early DOS and later Windows support differs.) Tj
-T* (The 32-bit file-length field is bounded at 4 GiB-1 but the volume may) Tj
-T* (constrain files further. Historical FAT16+ proposals and NT/EDR-DOS) Tj
-T* (large-cluster variants require separate qualification.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 2 | Original format, not provider qualification) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (FAT16 - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (1. FAT16 and FAT16B historical chronology) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (This integrated reference describes native media structures, historical) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (compatibility profiles and independent implementation requirements. The cited) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (original specifications remain authoritative.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 654 Td (The FAT family began with Microsoft's 8-bit table in 1977-78 and Tim Paterson's) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 640 Td (12-bit QDOS in 1980. IBM PC DOS 3.0 and MS-DOS 3.0 \(August 1984\) introduced 16-bit) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 626 Td (allocation for the PC AT's larger hard disks. The original FAT16 still used a) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 612 Td (16-bit total-sector field: at 512 bytes/sector, fewer than 65536 sectors, just) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 598 Td (under 32 MiB. MBR 0x04 identifies the historical small partition. Compaq MS-DOS) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 584 Td (3.31 \(November 1987\) introduced the 32-bit total-sector field \(FAT16B/BigFAT\); DR) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 570 Td (DOS 3.31, PC DOS 4.0, MS-DOS 4.0 and OS/2 1.1 followed in 1988. MBR 0x06 is common) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 556 Td (for FAT16B; 0x0E denotes LBA FAT16, introduced with Windows 95-era access. These) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 542 Td (are not new FAT entry widths. When geometry is valid, a modern FAT16 engine can) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 528 Td (interpret the original or later BPB; no blanket pre-DOS compatibility is implied.) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 2) Tj ET
 endstream
 endobj
 10 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 11 0 R >>
 endobj
 11 0 obj
-<< /Length 1427 >>
+<< /Length 2144 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (FAT16 - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 14 Tf 50 715 Td (16-bit links, status bits and root geometry) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(Each FAT entry is a little-endian word at byte 2*n. Free=0x0000;) Tj
-T* (reserved=0x0001; normal successor=0x0002..0xFFEF; reserved=0xFFF0..0xFFF6;) Tj
-T* (bad=0xFFF7; EOC=0xFFF8..0xFFFF. FAT[0] normally 0xFF00 | media; FAT[1]) Tj
-T* (normally 0xFFFF. In supported status conventions FAT[1] bit 15 is clean) Tj
-T* (shutdown, bit 14 is no recorded I/O error \(clear indicates adverse state\);) Tj
-T* (these flags are not general transaction commits. The FAT16 classification) Tj
-T* (interval is 4085..65524 data clusters; conservative formatting avoids) Tj
-T* (cutover and marker-valued cluster IDs. Some historical readers admit) Tj
-T* (nonstandard high values; do not write such media without an explicit) Tj
-T* (qualified profile. Root directory is a fixed table; with 512 root entries) Tj
-T* (and 512 bytes/sector it occupies 32 sectors. An empty root slot is not a) Tj
-T* (free data cluster. MBR type 0x04/0x06/0x0E does not override BPB-derived) Tj
-T* (type.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 3 | Original format, not provider qualification) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (FAT16 - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (2. OEM sectoring, BPB evolution and volume limits) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (Some OEM DOS versions bypassed the 16-bit sector-count limit by grouping physical) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (sectors into larger logical sectors \(sometimes 8192 bytes\), with distinct partition) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (identifiers: 0x08 Commodore, 0x11 Leading Edge, 0x14 AST, 0x24 NEC, 0x56 AT&T, 0xE5) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (Tandy, 0xF2 Sperry/Unisys. Interpret logical geometry explicitly, never assume that) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (the BPB sector size equals a physical device sector. DOS 3.2's historical field at) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (0x1E differs from the DOS 3.31 32-bit field at 0x20. Historical extended/logical) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (partitions introduced with DOS 3.2/3.3 are partition-layer constructs, not FAT data) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (structures. CHS fields are advisory for LBA partitions. At 65524 data clusters and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (32 KiB per cluster, data area = 2,147,090,432 bytes; 64 KiB yields 4,294,180,864) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (bytes. The complete volume includes metadata. 64 KiB and larger clusters have) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 566 Td (limited OS compatibility; early DOS and later Windows support differs. The 32-bit) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 552 Td (file-length field is bounded at 4 GiB-1 but the volume may constrain files further.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 538 Td (Historical FAT16+ proposals and NT/EDR-DOS large-cluster variants require separate) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 524 Td (qualification.) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 3) Tj ET
 endstream
 endobj
 12 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 13 0 R >>
 endobj
 13 0 obj
-<< /Length 1290 >>
+<< /Length 2811 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (FAT16 - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 14 Tf 50 715 Td (FAT12/FAT16 extended BPB and profiles) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(For DOS 4.x-style FAT12/16 EBPB: hex offset:size 0x24:1 drive, 0x25:1) Tj
-T* (reserved, 0x26:1 signature \(usually 0x29\), 0x27:4 volume ID, 0x2B:11 volume) Tj
-T* (label, 0x36:8 type string; boot code follows. These fields are not present) Tj
-T* (in all older disks. DOS 2.0 introduced core BPB fields; DOS 3.0 introduced) Tj
-T* (further geometry and DOS 3.31 established 32-bit sector-count/hidden-sector) Tj
-T* (fields. Some older disks use alternate boot placement or no valid BPB.) Tj
-T* (Distinguish normative modern layout from each historic profile. Do not) Tj
-T* (interpret historical EA data at directory offset 0x14 as FAT32 high cluster) Tj
-T* (bits. Root entries are fixed at format time; root occupies) Tj
-T* (ceil\(32*root_entries/bytes_per_sector\) logical sectors. Validate FAT copies) Tj
-T* (before reading/writing.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 4 | Original format, not provider qualification) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (FAT16 - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (3. 16-bit links, status bits and root geometry) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (Each FAT entry is a little-endian word at byte 2*n. Free=0x0000; reserved=0x0001;) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (normal successor=0x0002..0xFFEF; reserved=0xFFF0..0xFFF6; bad=0xFFF7;) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (EOC=0xFFF8..0xFFFF. FAT[0] normally 0xFF00 | media; FAT[1] normally 0xFFFF. In) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (supported status conventions FAT[1] bit 15 is clean shutdown, bit 14 is no recorded) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (I/O error \(clear indicates adverse state\); these flags are not general transaction) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (commits. The FAT16 classification interval is 4085..65524 data clusters;) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (conservative formatting avoids cutover and marker-valued cluster IDs. Some) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (historical readers admit nonstandard high values; do not write such media without) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (an explicit qualified profile. Root directory is a fixed table; with 512 root) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (entries and 512 bytes/sector it occupies 32 sectors. An empty root slot is not a) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 566 Td (free data cluster. MBR type 0x04/0x06/0x0E does not override BPB-derived type.) Tj ET
+0.08 0.14 0.20 rg BT /F2 12 Tf 43 542 Td (Allocation entries and clean state) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 520 Td (FAT16 entry n occupies bytes 2*n and 2*n+1 in the selected FAT. Values 0, 0xFFF7,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 506 Td (0xFFF8..0xFFFF and 0xFFF0..0xFFF6 identify free, bad, end and reserved) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 492 Td (respectively. Entry 0 embeds the media descriptor; entry 1 has status bits in) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 478 Td (supported profiles: bit 15 clean shutdown and bit 14 no hard I/O error, set meaning) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 464 Td (good. Preserve reserved bits and report disagreements among FAT copies. A 0xFFFF) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 450 Td (link is EOC, not cluster 65535. File size is a separate 32-bit directory value;) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 436 Td (compare chain coverage to required allocation, but do not interpret all slack as) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 422 Td (data.) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 4) Tj ET
 endstream
 endobj
 14 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 15 0 R >>
 endobj
 15 0 obj
-<< /Length 2239 >>
+<< /Length 1602 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (FAT16 - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 14 Tf 50 715 Td (Common BPB and region arithmetic) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(Hex byte offset:size \(modern DOS/EFI layout\): 0x00:3 jump; 0x03:8 OEM name;) Tj
-T* (0x0B:2 bytes/sector; 0x0D:1 sectors/cluster; 0x0E:2 reserved count; 0x10:1) Tj
-T* (FAT count; 0x11:2 root entries; 0x13:2 TotSec16; 0x15:1 media; 0x16:2) Tj
-T* (FATSz16; 0x18:2 sectors/track; 0x1A:2 heads; 0x1C:4 hidden sectors \(DOS 3.31) Tj
-T* (layout\); 0x20:4 TotSec32. Boot signature bytes 55 AA at 0x1FE. The Microsoft) Tj
-T* (EFI profile specifies logical sector sizes 512, 1024, 2048 or 4096 bytes and) Tj
-T* (sectors/cluster 1, 2, 4, 8, 16, 32, 64 or 128. For broad compatibility its) Tj
-T* (cluster size must not exceed 32 KiB; larger or older nonstandard geometries) Tj
-T* (need explicit profiles. FATSz16 and RootEntCnt must be nonzero; FAT32-only) Tj
-T* (BPB fields must not be read as valid FAT12/16 metadata. Use checked) Tj
-T* (arithmetic. root_sectors=ceil\(root_entries*32/B\); fat_sectors=FATSz16 if) Tj
-T* (nonzero else FATSz32; total=TotSec16 if nonzero else TotSec32;) Tj
-T* (first_data=reserved+FAT_count*fat_sectors+root_sectors;) Tj
-T* (cluster_count=floor\(\(total-first_data\)/sectors_per_cluster\). Reject) Tj
-T* (overflow, underflow, truncated media and FAT capacity below cluster_count+2) Tj
-T* (entries. Cluster n sector=first_data+\(n-2\)*sectors_per_cluster, relative to) Tj
-T* (volume; add partition offset only in whole-device host translation. CHS) Tj
-T* (translation is historical:) Tj
-T* (LBA=\(\(cylinder*heads\)+head\)*sectors_per_track+sector-1. FAT type is based on) Tj
-T* (count, not the textual label or partition ID. On GPT media the Microsoft) Tj
-T* (basic data GUID is EBD0A0A2-B9E5-4433-87C0-68B6B72699C7; it is shared with) Tj
-T* (other formats. Stay at least 16 clusters away from type cutovers when) Tj
-T* (formatting for broad legacy compatibility.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 5 | Original format, not provider qualification) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (FAT16 - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (4. FAT12/FAT16 extended BPB and profiles) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (For DOS 4.x-style FAT12/16 EBPB: hex offset:size 0x24:1 drive, 0x25:1 reserved,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (0x26:1 signature \(usually 0x29\), 0x27:4 volume ID, 0x2B:11 volume label, 0x36:8) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (type string; boot code follows. These fields are not present in all older disks.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (DOS 2.0 introduced core BPB fields; DOS 3.0 introduced further geometry and DOS) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (3.31 established 32-bit sector-count/hidden-sector fields. Some older disks use) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (alternate boot placement or no valid BPB. Distinguish normative modern layout from) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (each historic profile. Do not interpret historical EA data at directory offset 0x14) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (as FAT32 high cluster bits. Root entries are fixed at format time; root occupies) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (ceil\(32*root_entries/bytes_per_sector\) logical sectors. Validate FAT copies before) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (reading/writing.) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 5) Tj ET
 endstream
 endobj
 16 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 17 0 R >>
 endobj
 17 0 obj
-<< /Length 1999 >>
+<< /Length 4044 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (FAT16 - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 14 Tf 50 715 Td (Directory record - exact 32-byte layout) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(Hex offset:size: 0x00:11 OEM short name \(8 base + 3 extension, spaces) Tj
-T* (padded\); 0x0B:1 attributes; 0x0C:1 NT case flags \(base lowercase bit3,) Tj
-T* (extension bit4\); 0x0D:1 create 10ms increment \(0..199\); 0x0E:2 create time;) Tj
-T* (0x10:2 create date; 0x12:2 last access date; 0x14:2 first-cluster high word) Tj
-T* (on FAT32, reserved or historical EA handle on FAT12/16; 0x16:2 modification) Tj
-T* (time; 0x18:2 modification date; 0x1A:2 first-cluster low word; 0x1C:4 file) Tj
-T* (size. Attributes: 0x01 read-only, 0x02 hidden, 0x04 system, 0x08 volume,) Tj
-T* (0x10 directory, 0x20 archive; 0x0F identifies LFN; upper bits reserved.) Tj
-T* (First byte 0x00 means end, 0xE5 deleted, 0x05 encodes initial OEM 0xE5.) Tj
-T* (Directory sizes are normally zero in their entries; derive chain length by) Tj
-T* (traversal. Microsoft specifies a maximum directory storage size of 2 MiB) Tj
-T* (\(65,536 records, not files\); the fixed FAT12/16 root has a separate) Tj
-T* (BPB-defined limit. Dot points to self; dot-dot uses zero for root parent.) Tj
-T* (Root volume labels are metadata, not ordinary files. Timestamp date bits) Tj
-T* (0..4 day, 5..8 month, 9..15 year minus 1980; time bits 0..4 seconds/2, 5..10) Tj
-T* (minute, 11..15 hour. Representable years 1980..2107; historic DOS API often) Tj
-T* (limited to 2099. Access date granularity one day; modification 2s; create) Tj
-T* (increments 10ms where supported. No stored timezone in classic FAT. Preserve) Tj
-T* (unknown/reserved fields as applicable to explicit profiles.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 6 | Original format, not provider qualification) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (FAT16 - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (5. Common BPB and region arithmetic) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (Hex byte offset:size \(modern DOS/EFI layout\): 0x00:3 jump; 0x03:8 OEM name; 0x0B:2) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (bytes/sector; 0x0D:1 sectors/cluster; 0x0E:2 reserved count; 0x10:1 FAT count;) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (0x11:2 root entries; 0x13:2 TotSec16; 0x15:1 media; 0x16:2 FATSz16; 0x18:2) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (sectors/track; 0x1A:2 heads; 0x1C:4 hidden sectors \(DOS 3.31 layout\); 0x20:4) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (TotSec32. Boot signature bytes 55 AA at 0x1FE. The Microsoft EFI profile specifies) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (logical sector sizes 512, 1024, 2048 or 4096 bytes and sectors/cluster 1, 2, 4, 8,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (16, 32, 64 or 128. For broad compatibility its cluster size must not exceed 32 KiB;) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (larger or older nonstandard geometries need explicit profiles. FATSz16 and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (RootEntCnt must be nonzero; FAT32-only BPB fields must not be read as valid) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (FAT12/16 metadata. Use checked arithmetic. root_sectors=ceil\(root_entries*32/B\);) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 566 Td (fat_sectors=FATSz16 if nonzero else FATSz32; total=TotSec16 if nonzero else) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 552 Td (TotSec32; first_data=reserved+FAT_count*fat_sectors+root_sectors;) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 538 Td (cluster_count=floor\(\(total-first_data\)/sectors_per_cluster\). Reject overflow,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 524 Td (underflow, truncated media and FAT capacity below cluster_count+2 entries. Cluster) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 510 Td (n sector=first_data+\(n-2\)*sectors_per_cluster, relative to volume; add partition) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 496 Td (offset only in whole-device host translation. CHS translation is historical:) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 482 Td (LBA=\(\(cylinder*heads\)+head\)*sectors_per_track+sector-1. FAT type is based on count,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 468 Td (not the textual label or partition ID. On GPT media the Microsoft basic data GUID) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 454 Td (is EBD0A0A2-B9E5-4433-87C0-68B6B72699C7; it is shared with other formats. Stay at) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 440 Td (least 16 clusters away from type cutovers when formatting for broad legacy) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 426 Td (compatibility.) Tj ET
+0.08 0.14 0.20 rg BT /F2 12 Tf 43 402 Td (Worked fixed-root volume) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 380 Td (For a 64 MiB example with 512-byte sectors, 131072 sectors, four sectors per) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 366 Td (cluster, one reserved sector, two FATs of 128 sectors and 512 root entries: root) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 352 Td (occupies 32 sectors; data begins at 289. Data cluster count is) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 338 Td (floor\(\(131072-289\)/4\)=32695, a valid FAT16 count. FAT capacity is 128*512/2=32768) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 324 Td (entries, enough for 32697 required slots. Cluster 100 maps to sector 289+98*4=681.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 310 Td (The final partial region is not an extra allocatable cluster. The fixed root has at) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 296 Td (most 512 physical slots; long names use multiple slots, so root exhaustion can) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 282 Td (occur despite free data space.) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 6) Tj ET
 endstream
 endobj
 18 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 19 0 R >>
 endobj
 19 0 obj
-<< /Length 1700 >>
+<< /Length 2639 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (FAT16 - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 14 Tf 50 715 Td (VFAT long filenames and aliases) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(VFAT is an optional directory extension to FAT12/16/32, not a separate) Tj
-T* (allocation format. Windows NT 3.5 and Windows 95 adopted long names. Each) Tj
-T* (LFN entry: 0x00:1 ordinal \(0x40 marks last logical fragment, physically) Tj
-T* (first\); 0x01:10 five UTF-16 units; 0x0B:1 attr=0x0F; 0x0C:1 type=0; 0x0D:1) Tj
-T* (short-name checksum; 0x0E:12 six units; 0x1A:2 zero first cluster; 0x1C:4) Tj
-T* (two units. At most 20 records and 255 code units, physical sequence descends) Tj
-T* (to 1 then short entry. Partial final fragment ends with 0x0000 then 0xFFFF) Tj
-T* (padding; full fragment need not include terminator. Checksum over all 11) Tj
-T* (padded short-name bytes: start s=0, for each b set s=\(\(s>>1\)|\(s<<7\)\)+b) Tj
-T* (modulo 256. Validate ordinal, checksum, terminator, padding and UTF-16; if) Tj
-T* (invalid, expose only valid short alias or fail according to corruption) Tj
-T* (policy, never fabricate a long name. Alias generation and collision handling) Tj
-T* (are implementation/OS-specific. Preserve associated LFN records through) Tj
-T* (rename/delete and detect orphaned entries. Historical UCS-2 terminology) Tj
-T* (differs from UTF-16 surrogate handling. Short-case bits do not encode) Tj
-T* (arbitrary mixed case.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 7 | Original format, not provider qualification) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (FAT16 - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (6. Directory record - exact 32-byte layout) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (Hex offset:size: 0x00:11 OEM short name \(8 base + 3 extension, spaces padded\);) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (0x0B:1 attributes; 0x0C:1 NT case flags \(base lowercase bit3, extension bit4\);) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (0x0D:1 create 10ms increment \(0..199\); 0x0E:2 create time; 0x10:2 create date;) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (0x12:2 last access date; 0x14:2 first-cluster high word on FAT32, reserved or) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (historical EA handle on FAT12/16; 0x16:2 modification time; 0x18:2 modification) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (date; 0x1A:2 first-cluster low word; 0x1C:4 file size. Attributes: 0x01 read-only,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (0x02 hidden, 0x04 system, 0x08 volume, 0x10 directory, 0x20 archive; 0x0F) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (identifies LFN; upper bits reserved. First byte 0x00 means end, 0xE5 deleted, 0x05) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (encodes initial OEM 0xE5. Directory sizes are normally zero in their entries;) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (derive chain length by traversal. Microsoft specifies a maximum directory storage) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 566 Td (size of 2 MiB \(65,536 records, not files\); the fixed FAT12/16 root has a separate) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 552 Td (BPB-defined limit. Dot points to self; dot-dot uses zero for root parent. Root) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 538 Td (volume labels are metadata, not ordinary files. Timestamp date bits 0..4 day, 5..8) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 524 Td (month, 9..15 year minus 1980; time bits 0..4 seconds/2, 5..10 minute, 11..15 hour.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 510 Td (Representable years 1980..2107; historic DOS API often limited to 2099. Access date) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 496 Td (granularity one day; modification 2s; create increments 10ms where supported. No) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 482 Td (stored timezone in classic FAT. Preserve unknown/reserved fields as applicable to) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 468 Td (explicit profiles.) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 7) Tj ET
 endstream
 endobj
 20 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 21 0 R >>
 endobj
 21 0 obj
-<< /Length 1791 >>
+<< /Length 2168 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (FAT16 - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 14 Tf 50 715 Td (Historical extensions, metadata and derivatives) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(Classic FAT has no native ACLs, resource forks, compression, encryption or) Tj
-T* (general transaction journal. DR-DOS, FlexOS and related multiuser DOS) Tj
-T* (products implemented security extensions; SuperStor, Stacker, DoubleSpace) Tj
-T* (and DriveSpace historically supplied volume compression; DR-DOS supplied) Tj
-T* (optional volume encryption. These are separate compatibility profiles, not) Tj
-T* (baseline capabilities. OS/2 FAT12/16 stores EAs in hidden EA DATA. SF) Tj
-T* (referenced by directory field 0x14; FAT32 uses that word for cluster high) Tj
-T* (bits, so FAT32.IFS uses separate EA. SF sidecar files and marks at 0x0C) Tj
-T* (instead. Macintosh PC Exchange used FINDER.DAT and RESOURCE.FRK; macOS uses) Tj
-T* (AppleDouble ._ files and .DS_Store; UMSDOS used --linux-.---. These are host) Tj
-T* (conventions, not native FAT streams. DELWATCH pending-delete and IBM) Tj
-T* (4680/4690 distribution attributes repurpose fields; avoid writing unknown) Tj
-T* (extensions. Human68K 18.3 names, TFAT and OEM variable root variants require) Tj
-T* (independent profiles. FATX \(Xbox 2001\) uses incompatible boot and 64-byte) Tj
-T* (directory records; Turbo FAT is a NetWare derivative. FAT+ draft \(2007\) is) Tj
-T* (not baseline FAT16/32. Do not claim support or silently reformat any of) Tj
-T* (these formats.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 8 | Original format, not provider qualification) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (FAT16 - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (7. VFAT long filenames and aliases) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (VFAT is an optional directory extension to FAT12/16/32, not a separate allocation) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (format. Windows NT 3.5 and Windows 95 adopted long names. Each LFN entry: 0x00:1) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (ordinal \(0x40 marks last logical fragment, physically first\); 0x01:10 five UTF-16) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (units; 0x0B:1 attr=0x0F; 0x0C:1 type=0; 0x0D:1 short-name checksum; 0x0E:12 six) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (units; 0x1A:2 zero first cluster; 0x1C:4 two units. At most 20 records and 255 code) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (units, physical sequence descends to 1 then short entry. Partial final fragment) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (ends with 0x0000 then 0xFFFF padding; full fragment need not include terminator.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (Checksum over all 11 padded short-name bytes: start s=0, for each b set) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (s=\(\(s>>1\)|\(s<<7\)\)+b modulo 256. Validate ordinal, checksum, terminator, padding and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (UTF-16; if invalid, expose only valid short alias or fail according to corruption) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 566 Td (policy, never fabricate a long name. Alias generation and collision handling are) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 552 Td (implementation/OS-specific. Preserve associated LFN records through rename/delete) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 538 Td (and detect orphaned entries. Historical UCS-2 terminology differs from UTF-16) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 524 Td (surrogate handling. Short-case bits do not encode arbitrary mixed case.) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 8) Tj ET
 endstream
 endobj
 22 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 23 0 R >>
 endobj
 23 0 obj
-<< /Length 1828 >>
+<< /Length 2300 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (FAT16 - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 14 Tf 50 715 Td (Allocation, recovery and qualification) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(No general journal: mirrored FAT copies are not proof of atomicity. Build a) Tj
-T* (reference map from valid directory trees, follow bounded chains, compare) Tj
-T* (expected ceil\(file_size/cluster_size\) to actual allocation, distinguish) Tj
-T* (zero-length files and directories, detect cycles, cross-links, orphan) Tj
-T* (clusters, bad markers and inconsistent mirrors. Validate target identity and) Tj
-T* (exact source bytes before relocation, reserve new clusters, copy and verify) Tj
-T* (data, publish new links/reference and flush before freeing old allocation;) Tj
-T* (interruption recovery must be explicitly designed and tested. Never run) Tj
-T* (recovery against a guessed target. Free-space scans are linear; allocation) Tj
-T* (hints, contiguous reservation, caching and multi-sector I/O can reduce) Tj
-T* (fragmentation and metadata reads. Slack is unused tail space inside) Tj
-T* (allocated clusters, distinct from external fragmentation. Formatting must) Tj
-T* (solve FAT capacity and root geometry together, not merely write a type) Tj
-T* (string. Test exact boundary counts, sector straddles, odd/even links,) Tj
-T* (malformed BPBs, directory capacity, LFN collisions and corruption, full) Tj
-T* (disks, truncated media, I/O failures and interrupted relocation. Historical) Tj
-T* (recovery and undelete \(0xE5\) cannot guarantee content remains intact.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 9 | Original format, not provider qualification) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (FAT16 - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (8. Historical extensions, metadata and derivatives) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (Classic FAT has no native ACLs, resource forks, compression, encryption or general) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (transaction journal. DR-DOS, FlexOS and related multiuser DOS products implemented) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (security extensions; SuperStor, Stacker, DoubleSpace and DriveSpace historically) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (supplied volume compression; DR-DOS supplied optional volume encryption. These are) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (separate compatibility profiles, not baseline capabilities. OS/2 FAT12/16 stores) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (EAs in hidden EA DATA. SF referenced by directory field 0x14; FAT32 uses that word) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (for cluster high bits, so FAT32.IFS uses separate EA. SF sidecar files and marks at) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (0x0C instead. Macintosh PC Exchange used FINDER.DAT and RESOURCE.FRK; macOS uses) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (AppleDouble ._ files and .DS_Store; UMSDOS used --linux-.---. These are host) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (conventions, not native FAT streams. DELWATCH pending-delete and IBM 4680/4690) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 566 Td (distribution attributes repurpose fields; avoid writing unknown extensions.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 552 Td (Human68K 18.3 names, TFAT and OEM variable root variants require independent) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 538 Td (profiles. FATX \(Xbox 2001\) uses incompatible boot and 64-byte directory records;) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 524 Td (Turbo FAT is a NetWare derivative. FAT+ draft \(2007\) is not baseline FAT16/32. Do) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 510 Td (not claim support or silently reformat any of these formats.) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 9) Tj ET
 endstream
 endobj
 24 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 25 0 R >>
 endobj
 25 0 obj
-<< /Length 1589 >>
+<< /Length 5235 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (FAT16 - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 14 Tf 50 715 Td (Historical patents and sources) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(Historical VFAT patents include US 5579517, 5745902, 5758352 and 6286013;) Tj
-T* (OS/2 EA patent US 5367671 is a separate subject. The supplied historical) Tj
-T* (account describes Microsoft's 2003 licensing announcement, PUBPAT) Tj
-T* (re-examination, TomTom litigation \(2009\), Motorola litigation \(2010\) and) Tj
-T* (German proceedings on EP0618540. These are historical events, not a claim) Tj
-T* (about present patent rights or licensing obligations. See original patent) Tj
-T* (records for legal scope. Historical reference: Wikipedia, File Allocation) Tj
-T* (Table, user-supplied extract,) Tj
-T* (https://en.wikipedia.org/wiki/File_Allocation_Table \(CC BY-SA; historical) Tj
-T* (facts paraphrased\). Primary format authority: Microsoft FAT General Overview) Tj
-T* (of On-Disk Format v1.03, 6 December 2000,) Tj
-T* (https://www.pcjs.org/documents/papers/microsoft/MS_FAT_OVERVIEW_103-2000-12-) Tj
-T* (06.pdf ; ECMA-107, 2nd edition, June 1995,) Tj
-T* (https://ecma-international.org/publications-and-standards/standards/ecma-107) Tj
-T* (/ . Historical nonstandard profiles are not normative for the Microsoft EFI) Tj
-T* (format.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 10 | Original format, not provider qualification) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (FAT16 - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (9. Allocation, recovery and qualification) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (No general journal: mirrored FAT copies are not proof of atomicity. Build a) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (reference map from valid directory trees, follow bounded chains, compare expected) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (ceil\(file_size/cluster_size\) to actual allocation, distinguish zero-length files) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (and directories, detect cycles, cross-links, orphan clusters, bad markers and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (inconsistent mirrors. Validate target identity and exact source bytes before) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (relocation, reserve new clusters, copy and verify data, publish new links/reference) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (and flush before freeing old allocation; interruption recovery must be explicitly) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (designed and tested. Never run recovery against a guessed target. Free-space scans) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (are linear; allocation hints, contiguous reservation, caching and multi-sector I/O) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (can reduce fragmentation and metadata reads. Slack is unused tail space inside) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 566 Td (allocated clusters, distinct from external fragmentation. Formatting must solve FAT) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 552 Td (capacity and root geometry together, not merely write a type string. Test exact) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 538 Td (boundary counts, sector straddles, odd/even links, malformed BPBs, directory) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 524 Td (capacity, LFN collisions and corruption, full disks, truncated media, I/O failures) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 510 Td (and interrupted relocation. Historical recovery and undelete \(0xE5\) cannot) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 496 Td (guarantee content remains intact.) Tj ET
+0.08 0.14 0.20 rg BT /F2 12 Tf 43 472 Td (Namespace and independent mutation design) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 450 Td (For ordinary file creation, validate the parent directory and name, reserve the) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 436 Td (required directory slots and data allocation, initialise content, then publish the) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 422 Td (directory reference. For growth, reserve additional clusters before publishing a) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 408 Td (longer chain and file length; for shrink, remove reachability before releasing the) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 394 Td (tail. Rename must preserve object metadata and avoid collisions; moving a directory) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 380 Td (additionally requires validating its parent relation. Deletion marks namespace) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 366 Td (entries unused and retires allocation only after references are removed. These are) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 352 Td (conservative engineering ordering rules, not a guarantee of native crash-atomic) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 338 Td (operations. Flush ordering, exclusive media ownership, torn-sector behaviour and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 324 Td (independently checked recovery must be tested. Never infer a safe writer from a) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 310 Td (reader or from a successful format operation.) Tj ET
+0.08 0.14 0.20 rg BT /F2 12 Tf 43 286 Td (Forensic and relocation exercises) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 264 Td (Construct independent disposable images for empty, exact-cluster, partial-cluster,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 250 Td (fragmented and maximum-name files. Record the original directory identity, logical) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 236 Td (size, allocated cluster list and file hash. Build a reverse ownership map and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 222 Td (detect loops, cross-links, lost allocations, bad/reserved clusters, invalid name) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 208 Td (sets and inconsistent copies. For relocation reserve a destination, copy and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 194 Td (compare data, publish the new mapping and release old storage only after) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 180 Td (durability. Simulate interruption after every phase and compare with native checker) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 166 Td (output. Distinguish bytes logically visible from allocation slack. Preserve native) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 152 Td (timestamps, name aliases, attributes and directory identity; do not repair a) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 138 Td (conflicting allocation by assuming the first claimant is correct.) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 10) Tj ET
 endstream
 endobj
 26 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 27 0 R >>
 endobj
 27 0 obj
-<< /Length 1085 >>
+<< /Length 2167 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (FAT16 - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 14 Tf 50 715 Td (Worked fixed-root volume) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(For a 64 MiB example with 512-byte sectors, 131072 sectors, four sectors per) Tj
-T* (cluster, one reserved sector, two FATs of 128 sectors and 512 root entries:) Tj
-T* (root occupies 32 sectors; data begins at 289. Data cluster count is) Tj
-T* (floor\(\(131072-289\)/4\)=32695, a valid FAT16 count. FAT capacity is) Tj
-T* (128*512/2=32768 entries, enough for 32697 required slots. Cluster 100 maps) Tj
-T* (to sector 289+98*4=681. The final partial region is not an extra allocatable) Tj
-T* (cluster. The fixed root has at most 512 physical slots; long names use) Tj
-T* (multiple slots, so root exhaustion can occur despite free data space.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 11 | Original format, not provider qualification) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (FAT16 - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (10. Implementation and qualification boundary) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (At historical source revision a7e9ace9877b: The archived Common V2 FAT16 provider) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (used the format-selected FatFs engine, covering file/directory operations, label) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (and serial access, sync and format. DOS attributes and creation/access/modification) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (dates required correct code-page and time conversion. The bounded BOOT reader and) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (dedicated relocation/recovery were separate qualification scopes.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 626 Td (Common V2 is the sole independent provider interface:) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 612 Td (https://github.com/Infiltrator-Projects/Libraries/blob/main/docs/FILESYSTEM_COMMON_) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 598 Td (ABI_V2.md . Negotiate operation masks and media profiles. Use bounded) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 584 Td (partition-relative I/O, exclusive durable ownership and explicit flush for) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 570 Td (mutation. Format, namespace, relocation, recovery, hosted/freestanding, BOOT/kernel) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 556 Td (and package qualification are separate. Current capability and release status) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 542 Td (belongs to repository README and exact-source qualification records. Historical) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 528 Td (evidence is not a current support claim.) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 504 Td (Historical source reference:) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 490 Td (https://github.com/Infiltrator-Projects/Filesystem-FAT16/tree/a7e9ace9877b .) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 11) Tj ET
 endstream
 endobj
 28 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 29 0 R >>
 endobj
 29 0 obj
-<< /Length 1074 >>
+<< /Length 2056 >>
 stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (FAT16 - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 14 Tf 50 715 Td (Allocation entries and clean state) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(FAT16 entry n occupies bytes 2*n and 2*n+1 in the selected FAT. Values 0,) Tj
-T* (0xFFF7, 0xFFF8..0xFFFF and 0xFFF0..0xFFF6 identify free, bad, end and) Tj
-T* (reserved respectively. Entry 0 embeds the media descriptor; entry 1 has) Tj
-T* (status bits in supported profiles: bit 15 clean shutdown and bit 14 no hard) Tj
-T* (I/O error, set meaning good. Preserve reserved bits and report disagreements) Tj
-T* (among FAT copies. A 0xFFFF link is EOC, not cluster 65535. File size is a) Tj
-T* (separate 32-bit directory value; compare chain coverage to required) Tj
-T* (allocation, but do not interpret all slack as data.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 12 | Original format, not provider qualification) Tj ET
-endstream
-endobj
-30 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 31 0 R >>
-endobj
-31 0 obj
-<< /Length 1410 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (FAT16 - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 14 Tf 50 715 Td (Namespace and independent mutation design) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(For ordinary file creation, validate the parent directory and name, reserve) Tj
-T* (the required directory slots and data allocation, initialise content, then) Tj
-T* (publish the directory reference. For growth, reserve additional clusters) Tj
-T* (before publishing a longer chain and file length; for shrink, remove) Tj
-T* (reachability before releasing the tail. Rename must preserve object metadata) Tj
-T* (and avoid collisions; moving a directory additionally requires validating) Tj
-T* (its parent relation. Deletion marks namespace entries unused and retires) Tj
-T* (allocation only after references are removed. These are conservative) Tj
-T* (engineering ordering rules, not a guarantee of native crash-atomic) Tj
-T* (operations. Flush ordering, exclusive media ownership, torn-sector behaviour) Tj
-T* (and independently checked recovery must be tested. Never infer a safe writer) Tj
-T* (from a reader or from a successful format operation.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 13 | Original format, not provider qualification) Tj ET
-endstream
-endobj
-32 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 33 0 R >>
-endobj
-33 0 obj
-<< /Length 1319 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (FAT16 - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 14 Tf 50 715 Td (Forensic and relocation exercises) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(Construct independent disposable images for empty, exact-cluster,) Tj
-T* (partial-cluster, fragmented and maximum-name files. Record the original) Tj
-T* (directory identity, logical size, allocated cluster list and file hash.) Tj
-T* (Build a reverse ownership map and detect loops, cross-links, lost) Tj
-T* (allocations, bad/reserved clusters, invalid name sets and inconsistent) Tj
-T* (copies. For relocation reserve a destination, copy and compare data, publish) Tj
-T* (the new mapping and release old storage only after durability. Simulate) Tj
-T* (interruption after every phase and compare with native checker output.) Tj
-T* (Distinguish bytes logically visible from allocation slack. Preserve native) Tj
-T* (timestamps, name aliases, attributes and directory identity; do not repair a) Tj
-T* (conflicting allocation by assuming the first claimant is correct.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 14 | Original format, not provider qualification) Tj ET
-endstream
-endobj
-34 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 35 0 R >>
-endobj
-35 0 obj
-<< /Length 682 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-1 1 1 rg BT /F2 11 Tf 50 807 Td (INFILTRATOR / FILESYSTEM ENGINEERING REFERENCE) Tj ET
-BT /F2 21 Tf 50 775 Td (FAT16 - technical reference) Tj ET
-0.05 0.13 0.22 rg BT /F2 14 Tf 50 715 Td (Historical reference appendix) Tj ET
-BT /F1 11 Tf 15 TL 50 685 Td
-(The previous illustrated manual follows unchanged in content. The preceding) Tj
-T* (integrated specification and exercises are the primary engineering) Tj
-T* (reference. Earlier provider and qualification statements are historical.) Tj
-ET
-0.05 0.13 0.22 rg BT /F1 9 Tf 50 42 Td (Engineering chapter 15 | Original format, not provider qualification) Tj ET
-endstream
-endobj
-36 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 37 0 R >>
-endobj
-37 0 obj
-<< /Length 2918 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-0.75 0.82 0.85 RG .7 w 50 49 m 545 49 l S
-BT /F2 9 Tf 0.62 0.88 0.91 rg 1 0 0 1 50 800.0 Tm (INFILTRATOR / FILESYSTEM HISTORICAL & DESIGN REFERENCE) Tj ET
-BT /F2 19 Tf 1 1 1 rg 1 0 0 1 50 770.0 Tm (FAT16 - the DOS hard disk era) Tj ET
-BT /F1 8 Tf 0.30 0.39 0.42 rg 1 0 0 1 50 34.0 Tm (Filesystem-FAT16 / technical reference / current-source revision) Tj ET
-BT /F1 8 Tf 0.30 0.39 0.42 rg 1 0 0 1 504 34.0 Tm (PAGE 01) Tj ET
-BT /F2 12 Tf 0.03 0.54 0.59 rg 1 0 0 1 50 695.0 Tm (ORIGINAL FORMAT / HISTORY / ENGINEERING DESIGN) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 649.0 Tm (FAT16 extended the cluster-index field to sixteen bits and became a central disk format for) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 632.0 Tm (DOS, Windows and a generation of removable storage.) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 603.0 Tm (This reference describes the original upstream disk format and its historical engineering) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 586.0 Tm (rationale. The separate InfiltratorOS adapter is not the original specification. Historical) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 569.0 Tm (facts, format rules and implementation limitations are separated; consult the named primary) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 552.0 Tm (sources for field-level normative requirements.) Tj ET
-BT /F2 12 Tf 0.02 0.44 0.50 rg 1 0 0 1 50 516.0 Tm (ON-DISK STRUCTURE / CONCEPTUAL MAP) Tj ET
-0.05 0.35 0.45 rg 50 434 238 68 re f
-BT /F2 12 Tf 1 1 1 rg 1 0 0 1 63 463.0 Tm (BOOT SECTOR) Tj ET
-BT /F1 9 Tf 0.86 0.96 0.97 rg 1 0 0 1 63 444.0 Tm (BPB and total-sector fields) Tj ET
-0.08 0.39 0.48 rg 299 434 238 68 re f
-BT /F2 12 Tf 1 1 1 rg 1 0 0 1 312 463.0 Tm (FAT COPIES) Tj ET
-BT /F1 9 Tf 0.86 0.96 0.97 rg 1 0 0 1 312 444.0 Tm (16-bit cluster link tables) Tj ET
-0.11 0.43 0.51 rg 50 354 238 68 re f
-BT /F2 12 Tf 1 1 1 rg 1 0 0 1 63 383.0 Tm (ROOT DIRECTORY) Tj ET
-BT /F1 9 Tf 0.86 0.96 0.97 rg 1 0 0 1 63 364.0 Tm (Fixed entry region) Tj ET
-0.14 0.47 0.54 rg 299 354 238 68 re f
-BT /F2 12 Tf 1 1 1 rg 1 0 0 1 312 383.0 Tm (DATA AREA) Tj ET
-BT /F1 9 Tf 0.86 0.96 0.97 rg 1 0 0 1 312 364.0 Tm (Cluster chains and subdirectories) Tj ET
-BT /F2 12 Tf 0.02 0.44 0.50 rg 1 0 0 1 50 313.0 Tm (CHAPTERS) Tj ET
-BT /F1 10.5 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 284.0 Tm (1. Historical chronology) Tj ET
-BT /F1 10.5 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 259.0 Tm (2. Original design and on-disk structures) Tj ET
-BT /F1 10.5 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 234.0 Tm (3. Allocation and directories) Tj ET
-BT /F1 10.5 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 209.0 Tm (4. Integrity, validation and recovery) Tj ET
-BT /F1 10.5 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 184.0 Tm (5. Design trade-offs and historical limitations) Tj ET
-BT /F1 10.5 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 159.0 Tm (6. InfiltratorOS interpretation) Tj ET
-endstream
-endobj
-38 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 39 0 R >>
-endobj
-39 0 obj
-<< /Length 1983 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-0.75 0.82 0.85 RG .7 w 50 49 m 545 49 l S
-BT /F2 9 Tf 0.62 0.88 0.91 rg 1 0 0 1 50 800.0 Tm (INFILTRATOR / FILESYSTEM HISTORICAL & DESIGN REFERENCE) Tj ET
-BT /F2 19 Tf 1 1 1 rg 1 0 0 1 50 770.0 Tm (FAT16 - the DOS hard disk era) Tj ET
-BT /F1 8 Tf 0.30 0.39 0.42 rg 1 0 0 1 50 34.0 Tm (Filesystem-FAT16 / technical reference / current-source revision) Tj ET
-BT /F1 8 Tf 0.30 0.39 0.42 rg 1 0 0 1 504 34.0 Tm (PAGE 02) Tj ET
-BT /F2 16 Tf 0.02 0.44 0.50 rg 1 0 0 1 50 713.0 Tm (HISTORICAL CHRONOLOGY) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 677.0 Tm (FAT16 grew from the original FAT12 architecture during the expansion from floppy-only) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 660.0 Tm (microcomputers to larger fixed disks. Its sixteen-bit entries were adopted by DOS-era hard) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 643.0 Tm (disk systems in the mid-1980s and remained common in DOS, Windows 3.x, Windows 9x and many) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 626.0 Tm (cameras and embedded devices. The format is best understood as an evolutionary extension of) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 609.0 Tm (the Microsoft FAT family rather than an entirely new on-disk model.) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 580.0 Tm (Later DOS and Windows releases expanded BPB fields and permitted larger partitions and) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 563.0 Tm (cluster sizes. VFAT extensions allowed long filenames while preserving short-name) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 546.0 Tm (compatibility. FAT32 ultimately removed the practical FAT16 cluster-count ceiling for) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 529.0 Tm (larger disks, but FAT16 retained utility for boot partitions, small cards and older systems) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 512.0 Tm (with simple firmware.) Tj ET
-endstream
-endobj
-40 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 41 0 R >>
-endobj
-41 0 obj
-<< /Length 1848 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-0.75 0.82 0.85 RG .7 w 50 49 m 545 49 l S
-BT /F2 9 Tf 0.62 0.88 0.91 rg 1 0 0 1 50 800.0 Tm (INFILTRATOR / FILESYSTEM HISTORICAL & DESIGN REFERENCE) Tj ET
-BT /F2 19 Tf 1 1 1 rg 1 0 0 1 50 770.0 Tm (FAT16 - the DOS hard disk era) Tj ET
-BT /F1 8 Tf 0.30 0.39 0.42 rg 1 0 0 1 50 34.0 Tm (Filesystem-FAT16 / technical reference / current-source revision) Tj ET
-BT /F1 8 Tf 0.30 0.39 0.42 rg 1 0 0 1 504 34.0 Tm (PAGE 03) Tj ET
-BT /F2 16 Tf 0.02 0.44 0.50 rg 1 0 0 1 50 713.0 Tm (ORIGINAL DESIGN AND ON-DISK STRUCTURES) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 677.0 Tm (The volume begins with a boot sector containing a BPB and sometimes an extended BPB.) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 660.0 Tm (Physical sector size, sectors per cluster, reserved-area length, FAT count, root directory) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 643.0 Tm (entry count, sectors per FAT and total sectors determine all region offsets. The system) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 626.0 Tm (area is followed by the FAT copies, a fixed root-entry region and the file-data area.) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 597.0 Tm (FAT16 entries occupy two bytes each, unlike FAT12's packed twelve-bit pairs. They represent) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 580.0 Tm (free space, successor clusters, bad clusters, reserved values and end-of-chain ranges.) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 563.0 Tm (Cluster zero and one have special meaning. The FAT16 format is selected by computed) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 546.0 Tm (data-cluster count, at least 4085 and below 65525, not by the string FAT16 in a boot) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 529.0 Tm (sector.) Tj ET
-endstream
-endobj
-42 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 43 0 R >>
-endobj
-43 0 obj
-<< /Length 1872 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-0.75 0.82 0.85 RG .7 w 50 49 m 545 49 l S
-BT /F2 9 Tf 0.62 0.88 0.91 rg 1 0 0 1 50 800.0 Tm (INFILTRATOR / FILESYSTEM HISTORICAL & DESIGN REFERENCE) Tj ET
-BT /F2 19 Tf 1 1 1 rg 1 0 0 1 50 770.0 Tm (FAT16 - the DOS hard disk era) Tj ET
-BT /F1 8 Tf 0.30 0.39 0.42 rg 1 0 0 1 50 34.0 Tm (Filesystem-FAT16 / technical reference / current-source revision) Tj ET
-BT /F1 8 Tf 0.30 0.39 0.42 rg 1 0 0 1 504 34.0 Tm (PAGE 04) Tj ET
-BT /F2 16 Tf 0.02 0.44 0.50 rg 1 0 0 1 50 713.0 Tm (ALLOCATION AND DIRECTORIES) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 677.0 Tm (Files use directory entries with a first-cluster reference and logical byte length. The) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 660.0 Tm (allocator links each cluster to a successor in a FAT, so sequential file access follows the) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 643.0 Tm (chain. One table can be copied to a second FAT, but the copies need not always be in sync) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 626.0 Tm (after partial writes or faults. Allocation is a graph traversal with consistency checks,) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 609.0 Tm (not a free-space bitmap scan.) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 580.0 Tm (The FAT16 root directory has a bounded number of fixed 32-byte entries. Subdirectories are) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 563.0 Tm (ordinary cluster chains and can grow if free clusters exist. Names were originally DOS 8.3,) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 546.0 Tm (with long names encoded through ordered and checksummed VFAT directory entries. Cluster) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 529.0 Tm (size affects addressable volume size as well as wasted tail space in small files.) Tj ET
-endstream
-endobj
-44 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 45 0 R >>
-endobj
-45 0 obj
-<< /Length 1970 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-0.75 0.82 0.85 RG .7 w 50 49 m 545 49 l S
-BT /F2 9 Tf 0.62 0.88 0.91 rg 1 0 0 1 50 800.0 Tm (INFILTRATOR / FILESYSTEM HISTORICAL & DESIGN REFERENCE) Tj ET
-BT /F2 19 Tf 1 1 1 rg 1 0 0 1 50 770.0 Tm (FAT16 - the DOS hard disk era) Tj ET
-BT /F1 8 Tf 0.30 0.39 0.42 rg 1 0 0 1 50 34.0 Tm (Filesystem-FAT16 / technical reference / current-source revision) Tj ET
-BT /F1 8 Tf 0.30 0.39 0.42 rg 1 0 0 1 504 34.0 Tm (PAGE 05) Tj ET
-BT /F2 16 Tf 0.02 0.44 0.50 rg 1 0 0 1 50 713.0 Tm (INTEGRITY, VALIDATION AND RECOVERY) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 677.0 Tm (FAT16 includes neither an original write-ahead journal nor end-to-end content checksums. A) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 660.0 Tm (metadata update may alter a directory record, one or more FAT sectors, and file data; a) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 643.0 Tm (power failure between writes can leave orphaned or multiply linked clusters. A safe checker) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 626.0 Tm (validates both FAT copies, directory trees, file lengths, the cluster graph and) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 609.0 Tm (out-of-range records before proposing repairs.) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 580.0 Tm (To discriminate FAT12, FAT16 and FAT32, first compute root-directory sectors, the first) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 563.0 Tm (data sector, total data sectors and cluster count using the published algorithm. Do not) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 546.0 Tm (rely on boot sector text labels. Write implementations must preserve unrelated packed BPB) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 529.0 Tm (and reserved data, and may not reinterpret another family member because a user selected) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 512.0 Tm (the wrong module.) Tj ET
-endstream
-endobj
-46 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 47 0 R >>
-endobj
-47 0 obj
-<< /Length 1928 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-0.75 0.82 0.85 RG .7 w 50 49 m 545 49 l S
-BT /F2 9 Tf 0.62 0.88 0.91 rg 1 0 0 1 50 800.0 Tm (INFILTRATOR / FILESYSTEM HISTORICAL & DESIGN REFERENCE) Tj ET
-BT /F2 19 Tf 1 1 1 rg 1 0 0 1 50 770.0 Tm (FAT16 - the DOS hard disk era) Tj ET
-BT /F1 8 Tf 0.30 0.39 0.42 rg 1 0 0 1 50 34.0 Tm (Filesystem-FAT16 / technical reference / current-source revision) Tj ET
-BT /F1 8 Tf 0.30 0.39 0.42 rg 1 0 0 1 504 34.0 Tm (PAGE 06) Tj ET
-BT /F2 16 Tf 0.02 0.44 0.50 rg 1 0 0 1 50 713.0 Tm (DESIGN TRADE-OFFS AND HISTORICAL LIMITATIONS) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 677.0 Tm (Sixteen-bit entries are straightforward and small, but the number of available data) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 660.0 Tm (clusters is bounded. Larger disk capacities require larger cluster sizes, increasing slack) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 643.0 Tm (for small files. The root-directory limit is an independent problem on FAT16. The central) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 626.0 Tm (allocation table can become a metadata hotspot and file fragmentation increases chain-walk) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 609.0 Tm (costs.) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 580.0 Tm (FAT16's widespread adoption stemmed from bootability, a simple interchange format and a) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 563.0 Tm (very large software installed base. It lacks Unix ownership and link semantics,) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 546.0 Tm (original-case Unicode name support without VFAT, native snapshots and crash-durable) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 529.0 Tm (transactions. Recovery success is strongly dependent on the consistency of multiple pieces) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 512.0 Tm (of metadata.) Tj ET
-endstream
-endobj
-48 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 49 0 R >>
-endobj
-49 0 obj
-<< /Length 1719 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-0.75 0.82 0.85 RG .7 w 50 49 m 545 49 l S
-BT /F2 9 Tf 0.62 0.88 0.91 rg 1 0 0 1 50 800.0 Tm (INFILTRATOR / FILESYSTEM HISTORICAL & DESIGN REFERENCE) Tj ET
-BT /F2 19 Tf 1 1 1 rg 1 0 0 1 50 770.0 Tm (FAT16 - the DOS hard disk era) Tj ET
-BT /F1 8 Tf 0.30 0.39 0.42 rg 1 0 0 1 50 34.0 Tm (Filesystem-FAT16 / technical reference / current-source revision) Tj ET
-BT /F1 8 Tf 0.30 0.39 0.42 rg 1 0 0 1 504 34.0 Tm (PAGE 07) Tj ET
-BT /F2 16 Tf 0.02 0.44 0.50 rg 1 0 0 1 50 713.0 Tm (INFILTRATOROS INTERPRETATION) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 677.0 Tm (Our FAT16.so and optional kernel compatibility adapter are separate implementations of the) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 660.0 Tm (FAT16 format, not replacements for its historical specification. FAT12 and FAT32 are) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 643.0 Tm (distinct on-media variants with different entry encodings and layout rules. The identical) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 626.0 Tm (high-level cluster-chain concept does not license reusing the wrong formatter or) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 609.0 Tm (interpreting geometry from a guessed disk size.) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 580.0 Tm (Defragmentation and recovery capability must be established by module-specific tests and) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 563.0 Tm (failure-injection evidence. A completed PDF build establishes documentation packaging only;) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 546.0 Tm (it is not evidence that physical-media writes or repair paths are safe.) Tj ET
-endstream
-endobj
-50 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 51 0 R >>
-endobj
-51 0 obj
-<< /Length 2004 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-0.75 0.82 0.85 RG .7 w 50 49 m 545 49 l S
-BT /F2 9 Tf 0.62 0.88 0.91 rg 1 0 0 1 50 800.0 Tm (INFILTRATOR / FILESYSTEM HISTORICAL & DESIGN REFERENCE) Tj ET
-BT /F2 19 Tf 1 1 1 rg 1 0 0 1 50 770.0 Tm (FAT16 - the DOS hard disk era) Tj ET
-BT /F1 8 Tf 0.30 0.39 0.42 rg 1 0 0 1 50 34.0 Tm (Filesystem-FAT16 / technical reference / current-source revision) Tj ET
-BT /F1 8 Tf 0.30 0.39 0.42 rg 1 0 0 1 504 34.0 Tm (PAGE 08) Tj ET
-BT /F2 16 Tf 0.02 0.44 0.50 rg 1 0 0 1 50 713.0 Tm (PRIMARY SOURCES & DOCUMENTATION) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 677.0 Tm (References are included to make the historical and technical account auditable. The source) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 660.0 Tm (documents, published format specifications and implementation references take precedence) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 643.0 Tm (over this explanatory guide where a detail differs.) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 614.0 Tm (1. Microsoft FAT Specification \(historical normative on-media structure\)) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 585.0 Tm (https://www.scs.stanford.edu/~zyedidia/docs/_other/fat.pdf) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 556.0 Tm (2. Linux kernel VFAT notes and compatibility options) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 527.0 Tm (https://docs.kernel.org/filesystems/vfat.html) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 498.0 Tm (Implementation boundary: one installed Common V2 .so; no separate per-format driver.) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 481.0 Tm (The source-download installer builds that provider. The original filesystem design is) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 464.0 Tm (documented above; claims about the adapter's qualification require its own source, tests) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 51 447.0 Tm (and release evidence.) Tj ET
-endstream
-endobj
-52 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 53 0 R >>
-endobj
-53 0 obj
-<< /Length 1919 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.04 0.52 0.60 rg 50 747 114 5 re f
-0.76 0.82 0.86 RG 0.7 w 50 50 m 545 50 l S
-BT /F2 9 Tf 0.65 0.89 0.92 rg 1 0 0 1 50 802.0 Tm (INFILTRATOR / PRIMARY FORMAT DESIGN APPENDIX) Tj ET
-BT /F2 17 Tf 1 1 1 rg 1 0 0 1 50 773.0 Tm (FAT16 / technical detail) Tj ET
-BT /F1 8 Tf 0.31 0.40 0.44 rg 1 0 0 1 50 34.0 Tm (FAT16 / original filesystem research) Tj ET
-BT /F1 8 Tf 0.31 0.40 0.44 rg 1 0 0 1 510 34.0 Tm (PAGE 09) Tj ET
-BT /F2 14 Tf 0.03 0.44 0.51 rg 1 0 0 1 50 704.0 Tm (ON-DISK FIELD AND STRUCTURE INVENTORY) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 666.0 Tm (Format-specific field names and meanings are summarised below; where applicable the) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 648.0 Tm (original specification defines exact endianness, offsets, checksums and format-revision) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 630.0 Tm (limits.) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 600.0 Tm (1. Boot/BPB: sector size, cluster size and total-volume sector count.) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 570.0 Tm (2. RootEntCnt: bounded root table independent of normal subdirectories.) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 540.0 Tm (3. FATSz16: size of each 16-bit cluster-chain table.) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 510.0 Tm (4. FAT[0] and FAT[1]: reserved entries and initial media state.) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 480.0 Tm (5. FAT[n]: 16-bit next cluster, free, bad or end-of-chain marker.) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 450.0 Tm (6. FirstDataSector: reserved + FAT sectors + root directory sectors.) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 420.0 Tm (7. Directory entry: high-level 32-byte DOS record and optional VFAT extensions.) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 390.0 Tm (8. Data cluster n: start of data region + \(n-2\) * cluster size.) Tj ET
-endstream
-endobj
-54 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 55 0 R >>
-endobj
-55 0 obj
-<< /Length 1741 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.04 0.52 0.60 rg 50 747 114 5 re f
-0.76 0.82 0.86 RG 0.7 w 50 50 m 545 50 l S
-BT /F2 9 Tf 0.65 0.89 0.92 rg 1 0 0 1 50 802.0 Tm (INFILTRATOR / PRIMARY FORMAT DESIGN APPENDIX) Tj ET
-BT /F2 17 Tf 1 1 1 rg 1 0 0 1 50 773.0 Tm (FAT16 / technical detail) Tj ET
-BT /F1 8 Tf 0.31 0.40 0.44 rg 1 0 0 1 50 34.0 Tm (FAT16 / original filesystem research) Tj ET
-BT /F1 8 Tf 0.31 0.40 0.44 rg 1 0 0 1 510 34.0 Tm (PAGE 10) Tj ET
-BT /F2 14 Tf 0.03 0.44 0.51 rg 1 0 0 1 50 704.0 Tm (HISTORICAL FORMAT DEVELOPMENT) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 666.0 Tm (Selected design milestones explain why this format acquired its present layout. Dates) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 648.0 Tm (refer to historical format or implementation changes, not InfiltratorOS releases.) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 618.0 Tm (1. Mid-1980s: FAT16 addresses the growth of DOS hard disks.) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 588.0 Tm (2. 1990s: extended BPB and larger clusters permit larger volumes.) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 558.0 Tm (3. Mid-1990s: VFAT long names extend directory conventions.) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 528.0 Tm (4. 1996 onward: FAT32 addresses FAT16's capacity and allocation-granularity limits.) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 498.0 Tm (Important historical distinction: newly introduced driver features are not necessarily) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 480.0 Tm (changes to the original on-disk format. Read the version or feature bits rather than) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 462.0 Tm (assuming current software support defines historic media.) Tj ET
-endstream
-endobj
-56 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 57 0 R >>
-endobj
-57 0 obj
-<< /Length 1901 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.04 0.52 0.60 rg 50 747 114 5 re f
-0.76 0.82 0.86 RG 0.7 w 50 50 m 545 50 l S
-BT /F2 9 Tf 0.65 0.89 0.92 rg 1 0 0 1 50 802.0 Tm (INFILTRATOR / PRIMARY FORMAT DESIGN APPENDIX) Tj ET
-BT /F2 17 Tf 1 1 1 rg 1 0 0 1 50 773.0 Tm (FAT16 / technical detail) Tj ET
-BT /F1 8 Tf 0.31 0.40 0.44 rg 1 0 0 1 50 34.0 Tm (FAT16 / original filesystem research) Tj ET
-BT /F1 8 Tf 0.31 0.40 0.44 rg 1 0 0 1 510 34.0 Tm (PAGE 11) Tj ET
-BT /F2 14 Tf 0.03 0.44 0.51 rg 1 0 0 1 50 704.0 Tm (FORMAT VALIDATION AND RECOVERY INVARIANTS) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 666.0 Tm (A writable implementation must establish all of these conditions before modifying any) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 648.0 Tm (original-format media. These checks describe the minimum class of invariants, not proof) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 630.0 Tm (of complete recovery qualification.) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 600.0 Tm (1. Check computed data cluster count is 4085 to 65524.) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 570.0 Tm (2. Do not mistake the fixed root directory for a cluster chain.) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 540.0 Tm (3. Treat the two FAT copies as potentially divergent after faults.) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 510.0 Tm (4. Validate every directory file-size and first-cluster reference.) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 480.0 Tm (5. Keep DOS short-name and VFAT directory records consistent.) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 450.0 Tm (Forensic principle: use a separate verified image, retain original structures, and) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 432.0 Tm (report conflicting evidence instead of inventing a new supposedly clean filesystem) Tj ET
-BT /F1 10 Tf 0.08 0.16 0.24 rg 1 0 0 1 57 414.0 Tm (state.) Tj ET
-endstream
-endobj
-58 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 59 0 R >>
-endobj
-59 0 obj
-<< /Length 2706 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-0.75 0.82 0.85 RG .7 w 50 49 m 545 49 l S
-BT /F2 9 Tf 0.62 0.88 0.91 rg 1 0 0 1 50 800 Tm (INFILTRATOR / ORIGINAL FILESYSTEM ENGINEERING APPENDIX) Tj ET
-BT /F2 19 Tf 1 1 1 rg 1 0 0 1 50 770 Tm (FAT16 / engineering detail) Tj ET
-BT /F1 8 Tf 0.3 0.39 0.42 rg 1 0 0 1 50 34 Tm (Original format research; consult primary references for normative fields) Tj ET
-BT /F1 8 Tf 0.3 0.39 0.42 rg 1 0 0 1 509 34 Tm (PAGE 12) Tj ET
-BT /F2 13.5 Tf 0.02 0.44 0.50 rg 1 0 0 1 50 710 Tm (DISK READ PATH / ENGINEERING NOTES) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 678 Tm (1. Parse the BIOS Parameter Block to derive reserved area, FAT sizes, root-directory) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 661.5 Tm (sectors, first data sector and the total addressable cluster population.) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 635 Tm (2. FAT16 has a fixed root-directory region whose size derives from RootEntCnt and bytes) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 618.5 Tm (per sector. This differs from FAT32's relocatable root cluster.) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 592 Tm (3. Classify the actual format by data-cluster count rather than by filesystem type text,) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 575.5 Tm (disk size alone, or the partition-type byte.) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 549 Tm (4. Each FAT16 link occupies a 16-bit little-endian slot. Interpret free entries, reserved) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 532.5 Tm (ranges, bad-cluster markers and end-of-chain markers separately.) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 506 Tm (5. Walk directories in 32-byte entries, handling volume labels, file attributes and VFAT) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 489.5 Tm (long-filename entry chains without confusing them with normal files.) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 463 Tm (6. Convert a valid data cluster number into an offset from the calculated first data) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 446.5 Tm (sector; cluster numbering begins at two.) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 420 Tm (7. Read each data chain in logical order, limit content by the file's length, and bound) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 403.5 Tm (traversals to avoid loops from corrupt allocation entries.) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 377 Tm (8. Recognise that sector size and cluster-size parameters vary. Assumptions about a fixed) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 360.5 Tm (512-byte sector or one-sector cluster should not be embedded in readers.) Tj ET
-endstream
-endobj
-60 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 61 0 R >>
-endobj
-61 0 obj
-<< /Length 2696 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-0.75 0.82 0.85 RG .7 w 50 49 m 545 49 l S
-BT /F2 9 Tf 0.62 0.88 0.91 rg 1 0 0 1 50 800 Tm (INFILTRATOR / ORIGINAL FILESYSTEM ENGINEERING APPENDIX) Tj ET
-BT /F2 19 Tf 1 1 1 rg 1 0 0 1 50 770 Tm (FAT16 / engineering detail) Tj ET
-BT /F1 8 Tf 0.3 0.39 0.42 rg 1 0 0 1 50 34 Tm (Original format research; consult primary references for normative fields) Tj ET
-BT /F1 8 Tf 0.3 0.39 0.42 rg 1 0 0 1 509 34 Tm (PAGE 13) Tj ET
-BT /F2 13.5 Tf 0.02 0.44 0.50 rg 1 0 0 1 50 710 Tm (VALIDATION, RECOVERY AND COMPATIBILITY) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 678 Tm (1. Verify that FAT capacity, cluster count and the boot-record geometry describe a) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 661.5 Tm (coherent volume before reading or writing clusters.) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 635 Tm (2. Treat the fixed root region as directory storage, not a chain in the data area.) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 618.5 Tm (Subdirectories use data clusters and may grow as needed.) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 592 Tm (3. When two FAT copies disagree, preserve both and use structural consistency evidence) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 575.5 Tm (rather than assuming either is definitively correct.) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 549 Tm (4. Reject chain loops, invalid cluster references, cross-links and clusters beyond the) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 532.5 Tm (actual data region. Account separately for clean end-of-chain markers.) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 506 Tm (5. Check long-name ordinal ordering and short-name checksums before associating Unicode) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 489.5 Tm (fragments with a directory entry.) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 463 Tm (6. Directory timestamps use DOS date/time encoding and limited precision; they are not) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 446.5 Tm (Unix timestamps and cannot encode every date/time combination.) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 420 Tm (7. An allocator must update FAT links, directory metadata and the free-space state) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 403.5 Tm (coherently or an interruption can produce orphan chains and cross-links.) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 377 Tm (8. Near FAT12/FAT16 boundaries, re-evaluate the computed cluster count after a proposed) Tj ET
-BT /F1 10 Tf 0.09 0.16 0.24 rg 1 0 0 1 55 360.5 Tm (reformat or resize; a cosmetic type label cannot make a structurally invalid volume safe.) Tj ET
-endstream
-endobj
-62 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 63 0 R >>
-endobj
-63 0 obj
-<< /Length 2869 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.04 0.54 0.60 rg 50 747 115 4 re f
-0.78 0.82 0.86 RG 0.6 w 50 50 m 545 50 l S
-BT /F2 9 Tf 0.62 0.86 0.90 rg 1 0 0 1 50 801 Tm (INFILTRATOR / IMPLEMENTATION REFERENCE) Tj ET
-BT /F2 19 Tf 1 1 1 rg 1 0 0 1 50 771 Tm (FAT16 / Common V2 provider) Tj ET
-BT /F1 8 Tf 0.34 0.40 0.44 rg 1 0 0 1 50 34 Tm (Implementation appendix / source revision a7e9ace9877b) Tj ET
-BT /F1 8 Tf 0.34 0.40 0.44 rg 1 0 0 1 505 34 Tm (PAGE 14) Tj ET
-BT /F2 13 Tf 0.02 0.45 0.50 rg 1 0 0 1 50 710 Tm (1. PURPOSE AND FORMAT SCOPE) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 686 Tm (Microsoft FAT16, with 16-bit allocation entries and fixed root directory.) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 671 Tm (This repository owns the format-specific implementation of FAT16.so for) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 656 Tm (InfiltratorOS.) Tj ET
-BT /F2 13 Tf 0.02 0.45 0.50 rg 1 0 0 1 50 626 Tm (2. ON-DISK ARCHITECTURE AND INVARIANTS) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 602 Tm (The FAT16 classification covers 4,085-65,524 data clusters. Validate BPB) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 587 Tm (geometry, FAT capacity, root-entry bounds, data-cluster links and) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 572 Tm (short/long-name directory records. The native engine supports DOS) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 557 Tm (attributes, creation/access/modification dates, volume labels and serial) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 542 Tm (reads; timestamp and code-page conversion must retain format semantics.) Tj ET
-BT /F2 13 Tf 0.02 0.45 0.50 rg 1 0 0 1 50 512 Tm (3. COMMON V2 IMPLEMENTATION AND CAPABILITIES) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 488 Tm (Common V2 supplies probe, mount, file and directory operations, volume) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 473 Tm (labels, sync and formatting through the selected FatFs engine. Native) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 458 Tm (namespace and capacity errors are preserved. BOOT uses a bounded read-only) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 443 Tm (host. The dedicated relocation and recovery interface remains separate) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 428 Tm (until equivalent Common V2 operations qualify. The canonical entry point) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 413 Tm (is infiltrator_filesystem_api_v2. Consumers must negotiate the actual) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 398 Tm (profile and operation masks and use bounded, partition-relative host I/O.) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 383 Tm (A source-level callback does not by itself establish that every format) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 368 Tm (variant or host profile is qualified.) Tj ET
-endstream
-endobj
-64 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 65 0 R >>
-endobj
-65 0 obj
-<< /Length 3771 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.04 0.54 0.60 rg 50 747 115 4 re f
-0.78 0.82 0.86 RG 0.6 w 50 50 m 545 50 l S
-BT /F2 9 Tf 0.62 0.86 0.90 rg 1 0 0 1 50 801 Tm (INFILTRATOR / IMPLEMENTATION REFERENCE) Tj ET
-BT /F2 19 Tf 1 1 1 rg 1 0 0 1 50 771 Tm (FAT16 / Common V2 provider) Tj ET
-BT /F1 8 Tf 0.34 0.40 0.44 rg 1 0 0 1 50 34 Tm (Implementation appendix / source revision a7e9ace9877b) Tj ET
-BT /F1 8 Tf 0.34 0.40 0.44 rg 1 0 0 1 505 34 Tm (PAGE 15) Tj ET
-BT /F2 13 Tf 0.02 0.45 0.50 rg 1 0 0 1 50 710 Tm (4. INTEGRITY, MUTATION, ALLOCATION AND RECOVERY) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 686 Tm (FAT16 has no general journal. Exclusive durable host ownership is) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 671 Tm (necessary for writes; verify allocation and references before relocation.) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 656 Tm (Native format and namespace qualification do not establish generic) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 641 Tm (kernel-side SO mounting or physical power-loss recovery. For destructive) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 626 Tm (operations, require the applicable exclusive writable host, durability) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 611 Tm (contract and format-specific validation. Never silently substitute a) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 596 Tm (kernel or FUSE driver or treat a rejected or unavailable operation as) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 581 Tm (success. Preserve original disk-format semantics; relocation and recovery) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 566 Tm (are separate from ordinary file I/O.) Tj ET
-BT /F2 13 Tf 0.02 0.45 0.50 rg 1 0 0 1 50 536 Tm (5. BUILD, INSTALLATION AND RELEASE) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 512 Tm (The target installation is /System/Filesystems/FAT16.so and) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 497 Tm (/System/Resources/Documentation/Filesystem-FAT16.pdf. The project release) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 482 Tm (policy is a portable amd64 DEB and a CPU-native source-first RUN, with) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 467 Tm (GitHub's automatic source archive; do not treat this policy statement as) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 452 Tm (verification of the current installer payload. The release workflow is the) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 437 Tm (authoritative executable build and package specification. Historical) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 422 Tm (adapters and test artifacts are not additional production filesystem) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 407 Tm (authorities.) Tj ET
-BT /F2 13 Tf 0.02 0.45 0.50 rg 1 0 0 1 50 377 Tm (6. QUALIFICATION AND LIMITATIONS) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 353 Tm (Recorded qualification workflow) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 338 Tm (\(https://github.com/Infiltrator-Projects/Filesystem-FAT16/actions/runs/455) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 323 Tm (19924680\) | Current workflows) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 308 Tm (\(https://github.com/Infiltrator-Projects/Filesystem-FAT16/actions?query=br) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 293 Tm (anch%3Amain\). A successful workflow establishes the tested scope only, not) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 278 Tm (complete original-format parity, physical-media crash safety, or) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 263 Tm (production BOOT/kernel integration. Use disposable images for destructive) Tj ET
-BT /F1 10.2 Tf 0.07 0.16 0.23 rg 1 0 0 1 50 248 Tm (qualification.) Tj ET
-endstream
-endobj
-66 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 67 0 R >>
-endobj
-67 0 obj
-<< /Length 1947 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-0.75 0.82 0.85 RG .7 w 50 49 m 545 49 l S
-BT /F2 9 Tf 0.62 0.88 0.91 rg 1 0 0 1 50 800 Tm (INFILTRATOR / ORIGINAL FORMAT SPECIFICATION SUPPLEMENT) Tj ET
-BT /F2 17 Tf 1 1 1 rg 1 0 0 1 50 770 Tm (FAT16 / field-level historical and technical reference) Tj ET
-BT /F1 8 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 34 Tm (Filesystem-FAT16 / original format, not a capability claim) Tj ET
-BT /F1 8 Tf 0.09 0.16 0.24 rg 1 0 0 1 504 34 Tm (PAGE 16) Tj ET
-BT /F2 12 Tf 0.03 0.54 0.59 rg 1 0 0 1 50 695 Tm (FAT16 and FAT16B historical chronology) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 660 Tm (The FAT family began with Microsoft's 8-bit table in 1977-78 and Tim Paterson's 12-bit QDOS in 1980.) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 644 Tm (IBM PC DOS 3.0 and MS-DOS 3.0 \(August 1984\) introduced 16-bit allocation for the PC AT's larger hard) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 628 Tm (disks. The original FAT16 still used a 16-bit total-sector field: at 512 bytes/sector, fewer than 65536) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 612 Tm (sectors, just under 32 MiB. MBR 0x04 identifies the historical small partition. Compaq MS-DOS 3.31) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 596 Tm (\(November 1987\) introduced the 32-bit total-sector field \(FAT16B/BigFAT\); DR DOS 3.31, PC DOS 4.0,) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 580 Tm (MS-DOS 4.0 and OS/2 1.1 followed in 1988. MBR 0x06 is common for FAT16B; 0x0E denotes LBA) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 564 Tm (FAT16, introduced with Windows 95-era access. These are not new FAT entry widths. When geometry is) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 548 Tm (valid, a modern FAT16 engine can interpret the original or later BPB; no blanket pre-DOS compatibility is) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 532 Tm (implied.) Tj ET
-endstream
-endobj
-68 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 69 0 R >>
-endobj
-69 0 obj
-<< /Length 2349 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-0.75 0.82 0.85 RG .7 w 50 49 m 545 49 l S
-BT /F2 9 Tf 0.62 0.88 0.91 rg 1 0 0 1 50 800 Tm (INFILTRATOR / ORIGINAL FORMAT SPECIFICATION SUPPLEMENT) Tj ET
-BT /F2 17 Tf 1 1 1 rg 1 0 0 1 50 770 Tm (FAT16 / field-level historical and technical reference) Tj ET
-BT /F1 8 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 34 Tm (Filesystem-FAT16 / original format, not a capability claim) Tj ET
-BT /F1 8 Tf 0.09 0.16 0.24 rg 1 0 0 1 504 34 Tm (PAGE 17) Tj ET
-BT /F2 12 Tf 0.03 0.54 0.59 rg 1 0 0 1 50 695 Tm (OEM sectoring, BPB evolution and volume limits) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 660 Tm (Some OEM DOS versions bypassed the 16-bit sector-count limit by grouping physical sectors into larger) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 644 Tm (logical sectors \(sometimes 8192 bytes\), with distinct partition identifiers: 0x08 Commodore, 0x11 Leading) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 628 Tm (Edge, 0x14 AST, 0x24 NEC, 0x56 AT&T, 0xE5 Tandy, 0xF2 Sperry/Unisys. Interpret logical geometry) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 612 Tm (explicitly, never assume that the BPB sector size equals a physical device sector. DOS 3.2's historical) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 596 Tm (field at 0x1E differs from the DOS 3.31 32-bit field at 0x20. Historical extended/logical partitions introduced) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 580 Tm (with DOS 3.2/3.3 are partition-layer constructs, not FAT data structures. CHS fields are advisory for LBA) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 564 Tm (partitions. At 65524 data clusters and 32 KiB per cluster, data area = 2,147,090,432 bytes; 64 KiB yields) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 548 Tm (4,294,180,864 bytes. The complete volume includes metadata. 64 KiB and larger clusters have limited OS) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 532 Tm (compatibility; early DOS and later Windows support differs. The 32-bit file-length field is bounded at 4) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 516 Tm (GiB-1 but the volume may constrain files further. Historical FAT16+ proposals and NT/EDR-DOS) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 500 Tm (large-cluster variants require separate qualification.) Tj ET
-endstream
-endobj
-70 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 71 0 R >>
-endobj
-71 0 obj
-<< /Length 2006 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-0.75 0.82 0.85 RG .7 w 50 49 m 545 49 l S
-BT /F2 9 Tf 0.62 0.88 0.91 rg 1 0 0 1 50 800 Tm (INFILTRATOR / ORIGINAL FORMAT SPECIFICATION SUPPLEMENT) Tj ET
-BT /F2 17 Tf 1 1 1 rg 1 0 0 1 50 770 Tm (FAT16 / field-level historical and technical reference) Tj ET
-BT /F1 8 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 34 Tm (Filesystem-FAT16 / original format, not a capability claim) Tj ET
-BT /F1 8 Tf 0.09 0.16 0.24 rg 1 0 0 1 504 34 Tm (PAGE 18) Tj ET
-BT /F2 12 Tf 0.03 0.54 0.59 rg 1 0 0 1 50 695 Tm (16-bit links, status bits and root geometry) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 660 Tm (Each FAT entry is a little-endian word at byte 2*n. Free=0x0000; reserved=0x0001; normal) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 644 Tm (successor=0x0002..0xFFEF; reserved=0xFFF0..0xFFF6; bad=0xFFF7; EOC=0xFFF8..0xFFFF. FAT[0]) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 628 Tm (normally 0xFF00 | media; FAT[1] normally 0xFFFF. In supported status conventions FAT[1] bit 15 is clean) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 612 Tm (shutdown, bit 14 is no recorded I/O error \(clear indicates adverse state\); these flags are not general) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 596 Tm (transaction commits. The FAT16 classification interval is 4085..65524 data clusters; conservative) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 580 Tm (formatting avoids cutover and marker-valued cluster IDs. Some historical readers admit nonstandard high) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 564 Tm (values; do not write such media without an explicit qualified profile. Root directory is a fixed table; with 512) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 548 Tm (root entries and 512 bytes/sector it occupies 32 sectors. An empty root slot is not a free data cluster. MBR) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 532 Tm (type 0x04/0x06/0x0E does not override BPB-derived type.) Tj ET
-endstream
-endobj
-72 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 73 0 R >>
-endobj
-73 0 obj
-<< /Length 1826 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-0.75 0.82 0.85 RG .7 w 50 49 m 545 49 l S
-BT /F2 9 Tf 0.62 0.88 0.91 rg 1 0 0 1 50 800 Tm (INFILTRATOR / ORIGINAL FORMAT SPECIFICATION SUPPLEMENT) Tj ET
-BT /F2 17 Tf 1 1 1 rg 1 0 0 1 50 770 Tm (FAT16 / field-level historical and technical reference) Tj ET
-BT /F1 8 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 34 Tm (Filesystem-FAT16 / original format, not a capability claim) Tj ET
-BT /F1 8 Tf 0.09 0.16 0.24 rg 1 0 0 1 504 34 Tm (PAGE 19) Tj ET
-BT /F2 12 Tf 0.03 0.54 0.59 rg 1 0 0 1 50 695 Tm (FAT12/FAT16 extended BPB and profiles) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 660 Tm (For DOS 4.x-style FAT12/16 EBPB: hex offset:size 0x24:1 drive, 0x25:1 reserved, 0x26:1 signature) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 644 Tm (\(usually 0x29\), 0x27:4 volume ID, 0x2B:11 volume label, 0x36:8 type string; boot code follows. These) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 628 Tm (fields are not present in all older disks. DOS 2.0 introduced core BPB fields; DOS 3.0 introduced further) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 612 Tm (geometry and DOS 3.31 established 32-bit sector-count/hidden-sector fields. Some older disks use) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 596 Tm (alternate boot placement or no valid BPB. Distinguish normative modern layout from each historic profile.) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 580 Tm (Do not interpret historical EA data at directory offset 0x14 as FAT32 high cluster bits. Root entries are) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 564 Tm (fixed at format time; root occupies ceil\(32*root_entries/bytes_per_sector\) logical sectors. Validate FAT) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 548 Tm (copies before reading/writing.) Tj ET
-endstream
-endobj
-74 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 75 0 R >>
-endobj
-75 0 obj
-<< /Length 3210 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-0.75 0.82 0.85 RG .7 w 50 49 m 545 49 l S
-BT /F2 9 Tf 0.62 0.88 0.91 rg 1 0 0 1 50 800 Tm (INFILTRATOR / ORIGINAL FORMAT SPECIFICATION SUPPLEMENT) Tj ET
-BT /F2 17 Tf 1 1 1 rg 1 0 0 1 50 770 Tm (FAT16 / field-level historical and technical reference) Tj ET
-BT /F1 8 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 34 Tm (Filesystem-FAT16 / original format, not a capability claim) Tj ET
-BT /F1 8 Tf 0.09 0.16 0.24 rg 1 0 0 1 504 34 Tm (PAGE 20) Tj ET
-BT /F2 12 Tf 0.03 0.54 0.59 rg 1 0 0 1 50 695 Tm (Common BPB and region arithmetic) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 660 Tm (Hex byte offset:size \(modern DOS/EFI layout\): 0x00:3 jump; 0x03:8 OEM name; 0x0B:2 bytes/sector;) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 644 Tm (0x0D:1 sectors/cluster; 0x0E:2 reserved count; 0x10:1 FAT count; 0x11:2 root entries; 0x13:2 TotSec16;) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 628 Tm (0x15:1 media; 0x16:2 FATSz16; 0x18:2 sectors/track; 0x1A:2 heads; 0x1C:4 hidden sectors \(DOS 3.31) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 612 Tm (layout\); 0x20:4 TotSec32. Boot signature bytes 55 AA at 0x1FE. The Microsoft EFI profile specifies logical) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 596 Tm (sector sizes 512, 1024, 2048 or 4096 bytes and sectors/cluster 1, 2, 4, 8, 16, 32, 64 or 128. For broad) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 580 Tm (compatibility its cluster size must not exceed 32 KiB; larger or older nonstandard geometries need explicit) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 564 Tm (profiles. FATSz16 and RootEntCnt must be nonzero; FAT32-only BPB fields must not be read as valid) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 548 Tm (FAT12/16 metadata. Use checked arithmetic. root_sectors=ceil\(root_entries*32/B\); fat_sectors=FATSz16) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 532 Tm (if nonzero else FATSz32; total=TotSec16 if nonzero else TotSec32;) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 516 Tm (first_data=reserved+FAT_count*fat_sectors+root_sectors;) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 500 Tm (cluster_count=floor\(\(total-first_data\)/sectors_per_cluster\). Reject overflow, underflow, truncated media) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 484 Tm (and FAT capacity below cluster_count+2 entries. Cluster n sector=first_data+\(n-2\)*sectors_per_cluster,) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 468 Tm (relative to volume; add partition offset only in whole-device host translation. CHS translation is historical:) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 452 Tm (LBA=\(\(cylinder*heads\)+head\)*sectors_per_track+sector-1. FAT type is based on count, not the textual) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 436 Tm (label or partition ID. On GPT media the Microsoft basic data GUID is) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 420 Tm (EBD0A0A2-B9E5-4433-87C0-68B6B72699C7; it is shared with other formats. Stay at least 16 clusters) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 404 Tm (away from type cutovers when formatting for broad legacy compatibility.) Tj ET
-endstream
-endobj
-76 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 77 0 R >>
-endobj
-77 0 obj
-<< /Length 2825 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-0.75 0.82 0.85 RG .7 w 50 49 m 545 49 l S
-BT /F2 9 Tf 0.62 0.88 0.91 rg 1 0 0 1 50 800 Tm (INFILTRATOR / ORIGINAL FORMAT SPECIFICATION SUPPLEMENT) Tj ET
-BT /F2 17 Tf 1 1 1 rg 1 0 0 1 50 770 Tm (FAT16 / field-level historical and technical reference) Tj ET
-BT /F1 8 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 34 Tm (Filesystem-FAT16 / original format, not a capability claim) Tj ET
-BT /F1 8 Tf 0.09 0.16 0.24 rg 1 0 0 1 504 34 Tm (PAGE 21) Tj ET
-BT /F2 12 Tf 0.03 0.54 0.59 rg 1 0 0 1 50 695 Tm (Directory record - exact 32-byte layout) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 660 Tm (Hex offset:size: 0x00:11 OEM short name \(8 base + 3 extension, spaces padded\); 0x0B:1 attributes;) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 644 Tm (0x0C:1 NT case flags \(base lowercase bit3, extension bit4\); 0x0D:1 create 10ms increment \(0..199\);) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 628 Tm (0x0E:2 create time; 0x10:2 create date; 0x12:2 last access date; 0x14:2 first-cluster high word on FAT32,) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 612 Tm (reserved or historical EA handle on FAT12/16; 0x16:2 modification time; 0x18:2 modification date; 0x1A:2) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 596 Tm (first-cluster low word; 0x1C:4 file size. Attributes: 0x01 read-only, 0x02 hidden, 0x04 system, 0x08) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 580 Tm (volume, 0x10 directory, 0x20 archive; 0x0F identifies LFN; upper bits reserved. First byte 0x00 means) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 564 Tm (end, 0xE5 deleted, 0x05 encodes initial OEM 0xE5. Directory sizes are normally zero in their entries;) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 548 Tm (derive chain length by traversal. Microsoft specifies a maximum directory storage size of 2 MiB \(65,536) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 532 Tm (records, not files\); the fixed FAT12/16 root has a separate BPB-defined limit. Dot points to self; dot-dot) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 516 Tm (uses zero for root parent. Root volume labels are metadata, not ordinary files. Timestamp date bits 0..4) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 500 Tm (day, 5..8 month, 9..15 year minus 1980; time bits 0..4 seconds/2, 5..10 minute, 11..15 hour.) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 484 Tm (Representable years 1980..2107; historic DOS API often limited to 2099. Access date granularity one day;) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 468 Tm (modification 2s; create increments 10ms where supported. No stored timezone in classic FAT. Preserve) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 452 Tm (unknown/reserved fields as applicable to explicit profiles.) Tj ET
-endstream
-endobj
-78 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 79 0 R >>
-endobj
-79 0 obj
-<< /Length 2373 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-0.75 0.82 0.85 RG .7 w 50 49 m 545 49 l S
-BT /F2 9 Tf 0.62 0.88 0.91 rg 1 0 0 1 50 800 Tm (INFILTRATOR / ORIGINAL FORMAT SPECIFICATION SUPPLEMENT) Tj ET
-BT /F2 17 Tf 1 1 1 rg 1 0 0 1 50 770 Tm (FAT16 / field-level historical and technical reference) Tj ET
-BT /F1 8 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 34 Tm (Filesystem-FAT16 / original format, not a capability claim) Tj ET
-BT /F1 8 Tf 0.09 0.16 0.24 rg 1 0 0 1 504 34 Tm (PAGE 22) Tj ET
-BT /F2 12 Tf 0.03 0.54 0.59 rg 1 0 0 1 50 695 Tm (VFAT long filenames and aliases) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 660 Tm (VFAT is an optional directory extension to FAT12/16/32, not a separate allocation format. Windows NT 3.5) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 644 Tm (and Windows 95 adopted long names. Each LFN entry: 0x00:1 ordinal \(0x40 marks last logical fragment,) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 628 Tm (physically first\); 0x01:10 five UTF-16 units; 0x0B:1 attr=0x0F; 0x0C:1 type=0; 0x0D:1 short-name) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 612 Tm (checksum; 0x0E:12 six units; 0x1A:2 zero first cluster; 0x1C:4 two units. At most 20 records and 255 code) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 596 Tm (units, physical sequence descends to 1 then short entry. Partial final fragment ends with 0x0000 then) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 580 Tm (0xFFFF padding; full fragment need not include terminator. Checksum over all 11 padded short-name) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 564 Tm (bytes: start s=0, for each b set s=\(\(s>>1\)|\(s<<7\)\)+b modulo 256. Validate ordinal, checksum, terminator,) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 548 Tm (padding and UTF-16; if invalid, expose only valid short alias or fail according to corruption policy, never) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 532 Tm (fabricate a long name. Alias generation and collision handling are implementation/OS-specific. Preserve) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 516 Tm (associated LFN records through rename/delete and detect orphaned entries. Historical UCS-2 terminology) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 500 Tm (differs from UTF-16 surrogate handling. Short-case bits do not encode arbitrary mixed case.) Tj ET
-endstream
-endobj
-80 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 81 0 R >>
-endobj
-81 0 obj
-<< /Length 2574 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-0.75 0.82 0.85 RG .7 w 50 49 m 545 49 l S
-BT /F2 9 Tf 0.62 0.88 0.91 rg 1 0 0 1 50 800 Tm (INFILTRATOR / ORIGINAL FORMAT SPECIFICATION SUPPLEMENT) Tj ET
-BT /F2 17 Tf 1 1 1 rg 1 0 0 1 50 770 Tm (FAT16 / field-level historical and technical reference) Tj ET
-BT /F1 8 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 34 Tm (Filesystem-FAT16 / original format, not a capability claim) Tj ET
-BT /F1 8 Tf 0.09 0.16 0.24 rg 1 0 0 1 504 34 Tm (PAGE 23) Tj ET
-BT /F2 12 Tf 0.03 0.54 0.59 rg 1 0 0 1 50 695 Tm (Historical extensions, metadata and derivatives) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 660 Tm (Classic FAT has no native ACLs, resource forks, compression, encryption or general transaction journal.) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 644 Tm (DR-DOS, FlexOS and related multiuser DOS products implemented security extensions; SuperStor,) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 628 Tm (Stacker, DoubleSpace and DriveSpace historically supplied volume compression; DR-DOS supplied) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 612 Tm (optional volume encryption. These are separate compatibility profiles, not baseline capabilities. OS/2) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 596 Tm (FAT12/16 stores EAs in hidden EA DATA. SF referenced by directory field 0x14; FAT32 uses that word) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 580 Tm (for cluster high bits, so FAT32.IFS uses separate EA. SF sidecar files and marks at 0x0C instead.) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 564 Tm (Macintosh PC Exchange used FINDER.DAT and RESOURCE.FRK; macOS uses AppleDouble ._ files) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 548 Tm (and .DS_Store; UMSDOS used --linux-.---. These are host conventions, not native FAT streams.) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 532 Tm (DELWATCH pending-delete and IBM 4680/4690 distribution attributes repurpose fields; avoid writing) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 516 Tm (unknown extensions. Human68K 18.3 names, TFAT and OEM variable root variants require independent) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 500 Tm (profiles. FATX \(Xbox 2001\) uses incompatible boot and 64-byte directory records; Turbo FAT is a) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 484 Tm (NetWare derivative. FAT+ draft \(2007\) is not baseline FAT16/32. Do not claim support or silently reformat) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 468 Tm (any of these formats.) Tj ET
-endstream
-endobj
-82 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 83 0 R >>
-endobj
-83 0 obj
-<< /Length 2552 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-0.75 0.82 0.85 RG .7 w 50 49 m 545 49 l S
-BT /F2 9 Tf 0.62 0.88 0.91 rg 1 0 0 1 50 800 Tm (INFILTRATOR / ORIGINAL FORMAT SPECIFICATION SUPPLEMENT) Tj ET
-BT /F2 17 Tf 1 1 1 rg 1 0 0 1 50 770 Tm (FAT16 / field-level historical and technical reference) Tj ET
-BT /F1 8 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 34 Tm (Filesystem-FAT16 / original format, not a capability claim) Tj ET
-BT /F1 8 Tf 0.09 0.16 0.24 rg 1 0 0 1 504 34 Tm (PAGE 24) Tj ET
-BT /F2 12 Tf 0.03 0.54 0.59 rg 1 0 0 1 50 695 Tm (Allocation, recovery and qualification) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 660 Tm (No general journal: mirrored FAT copies are not proof of atomicity. Build a reference map from valid) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 644 Tm (directory trees, follow bounded chains, compare expected ceil\(file_size/cluster_size\) to actual allocation,) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 628 Tm (distinguish zero-length files and directories, detect cycles, cross-links, orphan clusters, bad markers and) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 612 Tm (inconsistent mirrors. Validate target identity and exact source bytes before relocation, reserve new) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 596 Tm (clusters, copy and verify data, publish new links/reference and flush before freeing old allocation;) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 580 Tm (interruption recovery must be explicitly designed and tested. Never run recovery against a guessed target.) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 564 Tm (Free-space scans are linear; allocation hints, contiguous reservation, caching and multi-sector I/O can) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 548 Tm (reduce fragmentation and metadata reads. Slack is unused tail space inside allocated clusters, distinct) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 532 Tm (from external fragmentation. Formatting must solve FAT capacity and root geometry together, not merely) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 516 Tm (write a type string. Test exact boundary counts, sector straddles, odd/even links, malformed BPBs,) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 500 Tm (directory capacity, LFN collisions and corruption, full disks, truncated media, I/O failures and interrupted) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 484 Tm (relocation. Historical recovery and undelete \(0xE5\) cannot guarantee content remains intact.) Tj ET
-endstream
-endobj
-84 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 85 0 R >>
-endobj
-85 0 obj
-<< /Length 2318 >>
-stream
-0.05 0.13 0.22 rg 0 749 595 93 re f
-0.01 0.52 0.56 rg 50 747 116 5 re f
-0.75 0.82 0.85 RG .7 w 50 49 m 545 49 l S
-BT /F2 9 Tf 0.62 0.88 0.91 rg 1 0 0 1 50 800 Tm (INFILTRATOR / ORIGINAL FORMAT SPECIFICATION SUPPLEMENT) Tj ET
-BT /F2 17 Tf 1 1 1 rg 1 0 0 1 50 770 Tm (FAT16 / field-level historical and technical reference) Tj ET
-BT /F1 8 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 34 Tm (Filesystem-FAT16 / original format, not a capability claim) Tj ET
-BT /F1 8 Tf 0.09 0.16 0.24 rg 1 0 0 1 504 34 Tm (PAGE 25) Tj ET
-BT /F2 12 Tf 0.03 0.54 0.59 rg 1 0 0 1 50 695 Tm (Historical patents and sources) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 660 Tm (Historical VFAT patents include US 5579517, 5745902, 5758352 and 6286013; OS/2 EA patent US) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 644 Tm (5367671 is a separate subject. The supplied historical account describes Microsoft's 2003 licensing) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 628 Tm (announcement, PUBPAT re-examination, TomTom litigation \(2009\), Motorola litigation \(2010\) and) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 612 Tm (German proceedings on EP0618540. These are historical events, not a claim about present patent rights) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 596 Tm (or licensing obligations. See original patent records for legal scope. Historical reference: Wikipedia, File) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 580 Tm (Allocation Table, user-supplied extract, https://en.wikipedia.org/wiki/File_Allocation_Table \(CC BY-SA;) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 564 Tm (historical facts paraphrased\). Primary format authority: Microsoft FAT General Overview of On-Disk) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 548 Tm (Format v1.03, 6 December 2000,) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 532 Tm (https://www.pcjs.org/documents/papers/microsoft/MS_FAT_OVERVIEW_103-2000-12-06.pdf ;) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 516 Tm (ECMA-107, 2nd edition, June 1995,) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 500 Tm (https://ecma-international.org/publications-and-standards/standards/ecma-107/ . Historical nonstandard) Tj ET
-BT /F1 10.2 Tf 0.09 0.16 0.24 rg 1 0 0 1 50 484 Tm (profiles are not normative for the Microsoft EFI format.) Tj ET
+0.06 0.15 0.23 rg 0 768 595 74 re f
+1 1 1 rg BT /F2 10 Tf 43 811 Td (INFILTRATOR / FILESYSTEM ENGINEERING) Tj ET
+BT /F2 22 Tf 43 784 Td (FAT16 - technical reference) Tj ET
+0.08 0.14 0.20 rg BT /F2 15 Tf 43 736 Td (11. Historical patents and sources) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 706 Td (Historical VFAT patents include US 5579517, 5745902, 5758352 and 6286013; OS/2 EA) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 692 Td (patent US 5367671 is a separate subject. The supplied historical account describes) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 678 Td (Microsoft's 2003 licensing announcement, PUBPAT re-examination, TomTom litigation) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 664 Td (\(2009\), Motorola litigation \(2010\) and German proceedings on EP0618540. These are) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 650 Td (historical events, not a claim about present patent rights or licensing) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 636 Td (obligations. See original patent records for legal scope. Historical reference:) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 622 Td (Wikipedia, File Allocation Table, user-supplied extract,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 608 Td (https://en.wikipedia.org/wiki/File_Allocation_Table \(CC BY-SA; historical facts) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 594 Td (paraphrased\). Primary format authority: Microsoft FAT General Overview of On-Disk) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 580 Td (Format v1.03, 6 December 2000,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 566 Td (https://www.pcjs.org/documents/papers/microsoft/MS_FAT_OVERVIEW_103-2000-12-06.pdf) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 552 Td (; ECMA-107, 2nd edition, June 1995,) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 538 Td (https://ecma-international.org/publications-and-standards/standards/ecma-107/ .) Tj ET
+0.08 0.14 0.20 rg BT /F3 10 Tf 43 524 Td (Historical nonstandard profiles are not normative for the Microsoft EFI format.) Tj ET
+0.2 0.3 0.4 rg BT /F1 9 Tf 43 32 Td (Historical development and engineering reference | 12) Tj ET
 endstream
 endobj
 xref
-0 86
+0 30
 0000000000 65535 f 
 0000000009 00000 n 
 0000000058 00000 n 
-0000000388 00000 n 
-0000000458 00000 n 
-0000000533 00000 n 
-0000000601 00000 n 
-0000000747 00000 n 
-0000002150 00000 n 
-0000002296 00000 n 
-0000004015 00000 n 
-0000004163 00000 n 
-0000005642 00000 n 
-0000005790 00000 n 
-0000007132 00000 n 
-0000007280 00000 n 
-0000009571 00000 n 
-0000009719 00000 n 
-0000011770 00000 n 
-0000011918 00000 n 
-0000013670 00000 n 
-0000013818 00000 n 
-0000015661 00000 n 
-0000015809 00000 n 
-0000017689 00000 n 
-0000017837 00000 n 
-0000019478 00000 n 
-0000019626 00000 n 
-0000020763 00000 n 
-0000020911 00000 n 
-0000022037 00000 n 
-0000022185 00000 n 
-0000023647 00000 n 
-0000023795 00000 n 
-0000025166 00000 n 
-0000025314 00000 n 
-0000026047 00000 n 
-0000026195 00000 n 
-0000029165 00000 n 
-0000029313 00000 n 
-0000031348 00000 n 
-0000031496 00000 n 
-0000033396 00000 n 
-0000033544 00000 n 
-0000035468 00000 n 
-0000035616 00000 n 
-0000037638 00000 n 
-0000037786 00000 n 
-0000039766 00000 n 
-0000039914 00000 n 
-0000041685 00000 n 
-0000041833 00000 n 
-0000043889 00000 n 
-0000044037 00000 n 
-0000046008 00000 n 
-0000046156 00000 n 
-0000047949 00000 n 
-0000048097 00000 n 
-0000050050 00000 n 
-0000050198 00000 n 
-0000052956 00000 n 
-0000053104 00000 n 
-0000055852 00000 n 
-0000056000 00000 n 
-0000058921 00000 n 
-0000059069 00000 n 
-0000062892 00000 n 
-0000063040 00000 n 
-0000065039 00000 n 
-0000065187 00000 n 
-0000067588 00000 n 
-0000067736 00000 n 
-0000069794 00000 n 
-0000069942 00000 n 
-0000071820 00000 n 
-0000071968 00000 n 
-0000075230 00000 n 
-0000075378 00000 n 
-0000078255 00000 n 
-0000078403 00000 n 
-0000080828 00000 n 
-0000080976 00000 n 
-0000083602 00000 n 
-0000083750 00000 n 
-0000086354 00000 n 
-0000086502 00000 n 
+0000000192 00000 n 
+0000000262 00000 n 
+0000000337 00000 n 
+0000000405 00000 n 
+0000000551 00000 n 
+0000001936 00000 n 
+0000002082 00000 n 
+0000004140 00000 n 
+0000004288 00000 n 
+0000006484 00000 n 
+0000006632 00000 n 
+0000009495 00000 n 
+0000009643 00000 n 
+0000011297 00000 n 
+0000011445 00000 n 
+0000015541 00000 n 
+0000015689 00000 n 
+0000018380 00000 n 
+0000018528 00000 n 
+0000020748 00000 n 
+0000020896 00000 n 
+0000023248 00000 n 
+0000023396 00000 n 
+0000028683 00000 n 
+0000028831 00000 n 
+0000031050 00000 n 
+0000031198 00000 n 
 trailer
-<< /Size 86 /Root 1 0 R >>
+<< /Size 30 /Root 1 0 R >>
 startxref
-88872
+33306
 %%EOF
