@@ -30,7 +30,6 @@ The target installation is `/System/Filesystems/FAT16.so` and `/System/Resources
 - [Native design or source provenance](native/filesystems/fat/DESIGN.md)
 - [Migration and source history](MIGRATION-PROVENANCE.md)
 - [Original-format reference source](docs/FAT16.pdfstreams) and [PDF](docs/FAT16.pdf)
-- [Field-level original-format specification supplement](docs/FORMAT_SPECIFICATION.md)
 - [Project philosophy](docs/PHILOSOPHY.md)
 - [Common ABI](https://github.com/Infiltrator-Projects/Libraries)
 - [API](docs/API.md)
