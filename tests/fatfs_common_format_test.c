@@ -498,6 +498,32 @@ int main(int argc,char **argv)
             if(!read16(entry_bytes)){orphan=n;break;}
         }
         if(!orphan)return fail("no free allocation for orphan fixture");
+        /* Damage only the secondary FAT; the primary still owns every live
+         * chain. Repair must refuse a read-only lease, then reconstruct the
+         * secondary copy without touching the primary or the payload. */
+        if(fats<2u || !vol->repair)return fail("native mirror repair unavailable");
+        const off_t second=(off_t)(((uint64_t)reserved+fat_sectors)*512u+orphan*2u);
+        if(pwrite(disk.fd,mark,2u,second)!=2 || fsync(disk.fd)!=0)
+            return fail("inject secondary FAT damage");
+        IfsFsHostRuntimeV2 mirror_ro=io;
+        mirror_ro.capabilities=IFS_FS_HOST_READ_ONLY;
+        mirror_ro.write_at=NULL;mirror_ro.flush=NULL;
+        uint64_t repairs=UINT64_MAX;
+        unsigned unchanged=disk.writes;
+        if(fs->mount(&mirror_ro,&session,&info)!=IFS_FS_OK ||
+           vol->repair(session,0u,&repairs)!=IFS_FS_ACCESS || repairs ||
+           fs->unmount(session)!=IFS_FS_OK || disk.writes!=unchanged)
+            return fail("read-only mirror repair mutated media");
+        if(fs->mount(&io,&session,&info)!=IFS_FS_OK ||
+           vol->check(session,0u,&errors)!=IFS_FS_OK || !errors ||
+           vol->repair(session,0u,&repairs)!=IFS_FS_OK || repairs!=1u ||
+           vol->check(session,0u,&errors)!=IFS_FS_OK || errors ||
+           vol->repair(session,0u,&repairs)!=IFS_FS_OK || repairs ||
+           fs->unmount(session)!=IFS_FS_OK)
+            return fail("native mirror repair or idempotence");
+        uint8_t restored[2];
+        if(pread(disk.fd,restored,2u,second)!=2 || memcmp(restored,entry_bytes,2u))
+            return fail("secondary FAT not restored");
         for(uint32_t copy=0u;copy<fats;++copy)
             if(pwrite(disk.fd,mark,2u,(off_t)(((uint64_t)reserved+
                 (uint64_t)copy*fat_sectors)*512u+orphan*2u))!=2)
@@ -505,9 +531,12 @@ int main(int argc,char **argv)
         if(fsync(disk.fd)!=0)return fail("flush orphan fixture");
         info.structure_bytes=sizeof info;
         if(fs->mount(&io,&session,&info)!=IFS_FS_OK ||
-           vol->check(session,0u,&errors)!=IFS_FS_OK || !errors ||
-           fs->unmount(session)!=IFS_FS_OK)
+           vol->check(session,0u,&errors)!=IFS_FS_OK || !errors)
             return fail("native integrity check missed orphan");
+        unchanged=disk.writes;
+        if(vol->repair(session,0u,&repairs)!=IFS_FS_CORRUPT || repairs ||
+           disk.writes!=unchanged || fs->unmount(session)!=IFS_FS_OK)
+            return fail("repair accepted corrupt primary FAT");
         for(uint32_t copy=0u;copy<fats;++copy)
             if(pwrite(disk.fd,entry_bytes,2u,(off_t)(((uint64_t)reserved+
                 (uint64_t)copy*fat_sectors)*512u+orphan*2u))!=2)
